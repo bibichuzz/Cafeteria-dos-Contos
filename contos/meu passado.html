@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>O Que Deixei Para Trás</title>
+	<link rel="stylesheet" href="../css/style.css">
+	<link rel="icon" type="image/x-icon" href="../img/favicon.ico">
+
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Henny+Penny&family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+
+<!--        Menu Responsivo -->
+<script src="https://kit.fontawesome.com/3a591bff9c.js" crossorigin="anonymous"></script>
+<!-- Função Menu Responsivo - Teste -->
+<script>		function myFunction() {
+	document.getElementsByClassName("menu")[0].classList.toggle("responsive");}
+</script>
+
+</head>
+<body>
+	<header>
+		<nav id="nav">
+			<a href="../index.html"><img width="300px" src="../img/LogoPNG.png" alt="Logo Cafeteria dos Contos"></a>
+			<ul class="menu">
+				<!--                    Linha adicionada para o menu responsivo -->
+				<li class="icon"><a href="javascript:void(0);" onclick="myFunction()">&#9776;</a></li>
+				<li><a href="../index.html">Home</a></li>
+				<li class="conto-nav"><a href="../contos.html">Contos</a>
+					<ul class="dropdown">
+						<div>
+							<li><a href="../suspense.html">Suspense</a></li>
+							<li><a href="../terror.html">Terror</a></li>
+							<li><a href="../lgbt.html">LGBTQIA+</a></li>
+							<li><a href="../romance.html">Romance</a></li>
+						</div>
+						<div>
+							<li><a href="../fantasia.html">Fantasia</a></li>
+							<li><a href="../ficcao.html">Ficção</a></li>
+							<li><a href="../humor.html">Humor</a></li>
+							<li><a href="../drama.html">Drama</a></li>
+						</div>
+					</ul>
+				</li>
+				<li class="sobre-nav"><a href="../sobre.html">Sobre</a>
+					<ul class="dropdown">
+						<div>
+							<li><a href="../sobre.html">Quem somos</a></li>
+							<li><a href="../acessibilidade.html">Acessibilidade</a></li>
+							<li><a href="../contato.html">Contato</a></li>
+						</div>
+					</ul>
+				</li>
+				<li><a href="../newsletter.html">Newsletter</a></li>
+				<li><a href="../login.html">Login</a></li>
+			</ul>
+		</nav>
+	</header>
+
+	<main class="textos">
+		<ul class="breadcrumb">
+			<li class="bc-home"><a href="../contos.html">Contos</a></li>
+			<li class="bc-img-li"><img class="bc-img" src="../img/bc-seta.png" alt="breadcrumb"></li>
+			<li><a href="../suspense.html">Suspense</a></li>
+			<li class="bc-img-li"><img class="bc-img" src="../img/bc-seta.png" alt="breadcrumb"></li>
+			<li class="bc-ultimo">O Que Deixei Para Trás</li>
+
+		</ul>
+
+		<section class="textos">
+		<h1>O Que Deixei Para Trás</h1>
+		<h2>Bia Carvalho</h2>
+
+		<audio id="music" preload="true">
+			<source src="audios/nao-disponivel.m4a">
+		  </audio>
+		  <div id="audioplayer">
+			<button id="pButton" class="play"></button>
+			<div id="timeline">
+			  <div id="playhead"></div>
+			</div>
+		  </div>
+		  
+		  <script>
+			var music = document.getElementById('music'); // id for audio element
+		var duration = music.duration; // Duration of audio clip, calculated here for embedding purposes
+		var pButton = document.getElementById('pButton'); // play button
+		var playhead = document.getElementById('playhead'); // playhead
+		var timeline = document.getElementById('timeline'); // timeline
+		
+		// timeline width adjusted for playhead
+		var timelineWidth = timeline.offsetWidth - playhead.offsetWidth;
+		
+		// play button event listenter
+		pButton.addEventListener("click", play);
+		
+		// timeupdate event listener
+		music.addEventListener("timeupdate", timeUpdate, false);
+		
+		// makes timeline clickable
+		timeline.addEventListener("click", function(event) {
+			moveplayhead(event);
+			music.currentTime = duration * clickPercent(event);
+		}, false);
+		
+		// returns click as decimal (.77) of the total timelineWidth
+		function clickPercent(event) {
+			return (event.clientX - getPosition(timeline)) / timelineWidth;
+		}
+		
+		// makes playhead draggable
+		playhead.addEventListener('mousedown', mouseDown, false);
+		window.addEventListener('mouseup', mouseUp, false);
+		
+		// Boolean value so that audio position is updated only when the playhead is released
+		var onplayhead = false;
+		
+		// mouseDown EventListener
+		function mouseDown() {
+			onplayhead = true;
+			window.addEventListener('mousemove', moveplayhead, true);
+			music.removeEventListener('timeupdate', timeUpdate, false);
+		}
+		
+		// mouseUp EventListener
+		// getting input from all mouse clicks
+		function mouseUp(event) {
+			if (onplayhead == true) {
+				moveplayhead(event);
+				window.removeEventListener('mousemove', moveplayhead, true);
+				// change current time
+				music.currentTime = duration * clickPercent(event);
+				music.addEventListener('timeupdate', timeUpdate, false);
+			}
+			onplayhead = false;
+		}
+		// mousemove EventListener
+		// Moves playhead as user drags
+		function moveplayhead(event) {
+			var newMargLeft = event.clientX - getPosition(timeline);
+		
+			if (newMargLeft >= 0 && newMargLeft <= timelineWidth) {
+				playhead.style.marginLeft = newMargLeft + "px";
+			}
+			if (newMargLeft < 0) {
+				playhead.style.marginLeft = "0px";
+			}
+			if (newMargLeft > timelineWidth) {
+				playhead.style.marginLeft = timelineWidth + "px";
+			}
+		}
+		
+		// timeUpdate
+		// Synchronizes playhead position with current point in audio
+		function timeUpdate() {
+			var playPercent = timelineWidth * (music.currentTime / duration);
+			playhead.style.marginLeft = playPercent + "px";
+			if (music.currentTime == duration) {
+				pButton.className = "";
+				pButton.className = "play";
+			}
+		}
+		
+		//Play and Pause
+		function play() {
+			// start music
+			if (music.paused) {
+				music.play();
+				// remove play, add pause
+				pButton.className = "";
+				pButton.className = "pause";
+			} else { // pause music
+				music.pause();
+				// remove pause, add play
+				pButton.className = "";
+				pButton.className = "play";
+			}
+		}
+		
+		// Gets audio file duration
+		music.addEventListener("canplaythrough", function() {
+			duration = music.duration;
+		}, false);
+		
+		// getPosition
+		// Returns elements left position relative to top-left of viewport
+		function getPosition(el) {
+			return el.getBoundingClientRect().left;
+		}
+		</script>
+		  
+		  <p>Meu sonho sempre foi ser livre. Livre de escolhas, livre para ir para onde eu quiser, fazer o que eu quiser, ser quem eu quiser. Acho que, em grande parte, sempre fui muito irrealista, mas nunca parei de procurar por esse sonho. Desde criança, esse pequeno instinto nunca saiu de mim, uma chama acesa no meu coração que foi só crescendo quanto mais tempo eu passava dentro daquele orfanato. Tantas regras, tantas paredes, tantas impossibilidades. Nós éramos apenas peças de um xadrez que ninguém mais se importava e, quando saíssemos de lá, seríamos só mais um produto da sociedade, o padrão perfeito de cidadão. Provavelmente nenhum de nós chegaria a alcançar o sucesso.</p>
+		  <p>Eu nunca quis isso. E, por isso, eu criei um plano. Passei muito tempo pensando nele. Tipo, muito mesmo. Talvez possa se dizer que eu passei vários meses pensando em como escapar daquela prisão disfarçada de orfanato e, no fim, eu realmente consegui. Para uma criança de 14 anos, eu diria que meu plano teve um sucesso satisfatório. Nada como simular um incêndio e acabar realmente causando um, não é mesmo? Tenho que admitir, eu não era uma criança muito inteligente.</p>
+		  <p>Eu não esperava que aquilo fosse acontecer. A pequena vela que acendi debaixo da minha cama para causar fumaça deve ter acabado caindo e se espalhando pelos lençóis e colchões desarrumados do grande quarto, obrigando todos do prédio a evacuarem até que o fogo fosse apagado, o que facilitou a minha fuga ainda mais. Tenho quase certeza que também vi outras crianças correndo para longe daquele lugar decrépito, sem nem mesmo olhar para trás. Não julgo, eu também faria o mesmo.</p>
+		  <p>Mas algo quase me prendeu lá por mais um tempo. Alguém ainda esperava por mim. Alguém ainda precisava de mim. Aquela pequena menina de 7 anos, que agora depois de tanto tempo, seu nome já passou batido pela minha cabeça. Mas, até hoje, lembro do medo em seus olhos enquanto todos corriam para fora do edifício, desesperados por suas vidas. Ela segurava minha mão com força, como se quisesse me impedir de ir embora. Nós éramos apenas crianças, e ela dependia de mim. O que seria daquela pequenina sem a menina que lhe ajudava a trocar de roupa, a lidar com valentonas, a enfrentar seus problemas cara a cara? Eu ajudei muito aquela garotinha, mas era hora de deixá-la viver sozinha.</p>
+		  <p>Eu queria ter ido embora sem pensar duas vezes mas, quando eu olhava para trás, tudo o que eu via era sua cara de choro, completamente sozinha em meio à multidão. Eu a abandonei, eu sei, e sinto que é algo que nunca vou esquecer. Por outro lado, não me arrependo, e não mudaria nada do que eu fiz. Só sou quem eu sou agora porque eu segui meus instintos, e tudo mudaria para pior se eu tivesse me rendido à tentação de ficar. Nem todos tem um final feliz, e não há muita coisa que possamos fazer quanto a isso. O que nos resta é aceitar.</p>
+		  
+		</section>
+		
+		<section>
+			<p class="categoria">Categorias: <a href="../suspense.html">Suspense</a></p>
+		</section>
+
+		<section class="comentario">
+			<h2>Comentários</h2>
+			<form>
+				<textarea name="comentario" id="comentario-texto" placeholder="Faça um comentário..."></textarea>
+				<input type="image" id="seta-comentario" src="../img/seta-comentario.png">
+			</form>
+		</section>
+
+		<section>
+			<h3>Se você gosta de Suspense, pode gostar de...</h3>
+			<div class="contos-slider">
+				<div class="continho">
+					<a href="carta.html"><img src="capas/carta.png" alt="A CArta - Capa"></a>
+					<h4>A Carta</h4>
+				</div>
+				<div class="continho">
+					<a href="acidente.html"><img src="capas/acidente.png" alt="O Acidente - Capa"></a>
+					<h4>O Acidente</h4>
+				</div>
+				<div class="continho">
+					<a href="separacao.html"><img src="capas/separação.png" alt="A Separação - Capa"></a>
+					<h4>A Separação</h4>
+				</div>
+				<div class="continho">
+					<a href="eterna-presa.html"><img src="capas/eterna presa.png" alt="Eternamente Presa - Capa"></a>
+					<h4>Eternamente Presa</h4>
+				</div>
+				<div class="continho">
+					<a href="ser-estranho.html"><img src="capas/ser estranho.png" alt="Seres Estranhos - Capa"></a>
+					<h4>Seres Estranhos</h4>
+				</div>
+		</section>
+		<section>
+			<h3>Mais textos de Bia Carvalho</h3>
+			<div class="contos-slider">
+				<div class="continho">
+					<a href="flores.html"><img src="capas/primeira impressão - flores.png" alt="Primeira Impressão - Capa"></a>
+					<h4>Primeira Impressão</h4>
+				</div>
+				<div class="continho">
+					<a href="destinadas.html"><img src="capas/destinadas.png" alt="Destinadas - Capa"></a>
+					<h4>Destinadas</h4>
+				</div>
+				<div class="continho">
+					<a href="companhia.html"><img src="capas/sua companhia.png" alt="Sua Companhia - Capa"></a>
+					<h4>Sua Companhia</h4>
+				</div>
+				<div class="continho">
+					<a href="queria.html"><img src="capas/eu queria ser.png" alt="Eu Queria Ser - Capa"></a>
+					<h4>Eu Queria Ser</h4>
+				</div>
+				<div class="continho">
+					<a href="limonada.html"><img src="capas/limonada.png" alt="Limonada - Capa"></a>
+					<h4>Limonada</h4>
+				</div>
+		</section>
+		<section>
+			<h3>Parecidos com O Que Deixei Para Trás</h3>
+			<div class="contos-slider">
+				<div class="continho">
+					<a href="saudades.html"><img src="capas/saudades.png" alt="Saudades - Capa"></a>
+					<h4>Saudades</h4>
+				</div>
+				<div class="continho">
+					<a href="mãe.html"><img src="capas/mãe.png" alt="Mãe? - Capa"></a>
+					<h4>Mãe?</h4>
+				</div>
+				<div class="continho">
+					<a href="finalmente.html"><img src="capas/finalmente.png" alt="Finalmente - Capa"></a>
+					<h4>Finalmente</h4>
+				</div>
+				<div class="continho">
+					<a href="separacao.html"><img src="capas/separação.png" alt="A Separação - Capa"></a>
+					<h4>A Separação</h4>
+				</div>
+				<div class="continho">
+					<a href="não.html"><img src="capas/não.png" alt="Não - Capa"></a>
+					<h4>Não</h4>
+				</div>
+		</section>
+
+		<a href="#nav"><img id="seta" src="../img/Seta.png" alt="Seta para o topo da página"></a>
+	</main>
+
+	<footer>
+		<div id="rodape">
+			<p>Contato: bianca.fac@gmail.com</p>
+
+			<div id="redes-sociais">
+				<a href="https://www.instagram.com" target="_blank"><img src="../img/ig.png" alt="Instagram"></a>
+				<a href="https://twitter.com/home" target="_blank"><img src="../img/twt.png" alt="Twitter"></a>
+				<a href="https://www.tiktok.com/pt-BR/" target="_blank"><img src="../img/ttk.png" alt="TikTok"></a>
+			</div>
+		</div>
+	</footer>
+</body>
+</html>

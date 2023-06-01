@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Fogueira</title>
+	<link rel="stylesheet" href="../css/style.css">
+	<link rel="icon" type="image/x-icon" href="../img/favicon.ico">
+
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Henny+Penny&family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+
+<!--        Menu Responsivo -->
+<script src="https://kit.fontawesome.com/3a591bff9c.js" crossorigin="anonymous"></script>
+<!-- Função Menu Responsivo - Teste -->
+<script>		function myFunction() {
+	document.getElementsByClassName("menu")[0].classList.toggle("responsive");}
+</script>
+
+</head>
+<body>
+	<header>
+		<nav id="nav">
+			<a href="../index.html"><img width="300px" src="../img/LogoPNG.png" alt="Logo Cafeteria dos Contos"></a>
+			<ul class="menu">
+				<!--                    Linha adicionada para o menu responsivo -->
+				<li class="icon"><a href="javascript:void(0);" onclick="myFunction()">&#9776;</a></li>
+				<li><a href="../index.html">Home</a></li>
+				<li class="conto-nav"><a href="../contos.html">Contos</a>
+					<ul class="dropdown">
+						<div>
+							<li><a href="../suspense.html">Suspense</a></li>
+							<li><a href="../terror.html">Terror</a></li>
+							<li><a href="../lgbt.html">LGBTQIA+</a></li>
+							<li><a href="../romance.html">Romance</a></li>
+						</div>
+						<div>
+							<li><a href="../fantasia.html">Fantasia</a></li>
+							<li><a href="../ficcao.html">Ficção</a></li>
+							<li><a href="../humor.html">Humor</a></li>
+							<li><a href="../drama.html">Drama</a></li>
+						</div>
+					</ul>
+				</li>
+				<li class="sobre-nav"><a href="../sobre.html">Sobre</a>
+					<ul class="dropdown">
+						<div>
+							<li><a href="../sobre.html">Quem somos</a></li>
+							<li><a href="../acessibilidade.html">Acessibilidade</a></li>
+							<li><a href="../contato.html">Contato</a></li>
+						</div>
+					</ul>
+				</li>
+				<li><a href="../newsletter.html">Newsletter</a></li>
+				<li><a href="../login.html">Login</a></li>
+			</ul>
+		</nav>
+	</header>
+
+	<main class="textos">
+		<ul class="breadcrumb">
+			<li class="bc-home"><a href="../contos.html">Contos</a></li>
+			<li class="bc-img-li"><img class="bc-img" src="../img/bc-seta.png" alt="breadcrumb"></li>
+			<li><a href="../drama.html">Drama</a></li>
+			<li class="bc-img-li"><img class="bc-img" src="../img/bc-seta.png" alt="breadcrumb"></li>
+			<li class="bc-ultimo">Fogueira</li>
+
+		</ul>
+
+		<section class="textos">
+		<h1>Fogueira</h1>
+		<h2>Bia Carvalho</h2>
+
+		<audio id="music" preload="true">
+			<source src="audios/nao-disponivel.m4a">
+		  </audio>
+		  <div id="audioplayer">
+			<button id="pButton" class="play"></button>
+			<div id="timeline">
+			  <div id="playhead"></div>
+			</div>
+		  </div>
+		  
+		  <script>
+			var music = document.getElementById('music'); // id for audio element
+		var duration = music.duration; // Duration of audio clip, calculated here for embedding purposes
+		var pButton = document.getElementById('pButton'); // play button
+		var playhead = document.getElementById('playhead'); // playhead
+		var timeline = document.getElementById('timeline'); // timeline
+		
+		// timeline width adjusted for playhead
+		var timelineWidth = timeline.offsetWidth - playhead.offsetWidth;
+		
+		// play button event listenter
+		pButton.addEventListener("click", play);
+		
+		// timeupdate event listener
+		music.addEventListener("timeupdate", timeUpdate, false);
+		
+		// makes timeline clickable
+		timeline.addEventListener("click", function(event) {
+			moveplayhead(event);
+			music.currentTime = duration * clickPercent(event);
+		}, false);
+		
+		// returns click as decimal (.77) of the total timelineWidth
+		function clickPercent(event) {
+			return (event.clientX - getPosition(timeline)) / timelineWidth;
+		}
+		
+		// makes playhead draggable
+		playhead.addEventListener('mousedown', mouseDown, false);
+		window.addEventListener('mouseup', mouseUp, false);
+		
+		// Boolean value so that audio position is updated only when the playhead is released
+		var onplayhead = false;
+		
+		// mouseDown EventListener
+		function mouseDown() {
+			onplayhead = true;
+			window.addEventListener('mousemove', moveplayhead, true);
+			music.removeEventListener('timeupdate', timeUpdate, false);
+		}
+		
+		// mouseUp EventListener
+		// getting input from all mouse clicks
+		function mouseUp(event) {
+			if (onplayhead == true) {
+				moveplayhead(event);
+				window.removeEventListener('mousemove', moveplayhead, true);
+				// change current time
+				music.currentTime = duration * clickPercent(event);
+				music.addEventListener('timeupdate', timeUpdate, false);
+			}
+			onplayhead = false;
+		}
+		// mousemove EventListener
+		// Moves playhead as user drags
+		function moveplayhead(event) {
+			var newMargLeft = event.clientX - getPosition(timeline);
+		
+			if (newMargLeft >= 0 && newMargLeft <= timelineWidth) {
+				playhead.style.marginLeft = newMargLeft + "px";
+			}
+			if (newMargLeft < 0) {
+				playhead.style.marginLeft = "0px";
+			}
+			if (newMargLeft > timelineWidth) {
+				playhead.style.marginLeft = timelineWidth + "px";
+			}
+		}
+		
+		// timeUpdate
+		// Synchronizes playhead position with current point in audio
+		function timeUpdate() {
+			var playPercent = timelineWidth * (music.currentTime / duration);
+			playhead.style.marginLeft = playPercent + "px";
+			if (music.currentTime == duration) {
+				pButton.className = "";
+				pButton.className = "play";
+			}
+		}
+		
+		//Play and Pause
+		function play() {
+			// start music
+			if (music.paused) {
+				music.play();
+				// remove play, add pause
+				pButton.className = "";
+				pButton.className = "pause";
+			} else { // pause music
+				music.pause();
+				// remove pause, add play
+				pButton.className = "";
+				pButton.className = "play";
+			}
+		}
+		
+		// Gets audio file duration
+		music.addEventListener("canplaythrough", function() {
+			duration = music.duration;
+		}, false);
+		
+		// getPosition
+		// Returns elements left position relative to top-left of viewport
+		function getPosition(el) {
+			return el.getBoundingClientRect().left;
+		}
+		</script>
+		  
+		  <p>Enquanto a noite engolia a luz do dia e substituía o céu acinzentado por estrelas pontilhadas na escuridão, nosso acampamento dormia profundamente. As cabanas respiravam o cansaço da viagem, e a única coisa que se ouvia era a batida do vento nas folhas das árvores e a brasa queimando de nossa fogueira.</p>
+		  <p>— Parece tão simbólico — diz Alisha, chegando por trás e sentando ao meu lado. Sem sono, decidi observar as chamas da fogueira cintilarem, e penso que Alisha teve a mesma ideia.</p>
+		  <p>— A fogueira? — pergunto, olhando em seus olhos curiosos</p>
+		  <p>— A chama leva a vida, e mesmo assim parece estar cheia dela, não acha? — ela me encara de volta — Seria isso uma bênção ou uma maldição?</p>
+		  <p>Ficamos em silêncio por mais uns minutos, apreciando a sensação de tranquilidade que a noite trazia pela primeira vez depois de muito tempo. Alisha encosta sua cabeça em meu ombro, soltando uma voz preocupada:</p>
+		  <p>— Você acha mesmo que encontraremos o que estamos procurando?</p>
+		  <p>— Não sei — respondo, olhando para o horizonte. Um mundo tão vasto, uma floresta tão extensa. Não tenho a mínima ideia do que nos espera, mas espero encontrar uma solução.</p>
+		  <p>— Você... — ela hesita por um instante — Você já pensou no que fazer se a profecia não for verdadeira?</p>
+		  <p>Meu coração bate mais forte ao ouvir o questionamento de Alisha, percebendo que ela vem evitando fazer essa pergunta por um bom tempo. Ela sabe a resposta, e isso preocupa a nós duas. Todos confiam em mim, todos estão aqui por minha causa. Se eu falhar, tudo cairá em ruínas. É muita pressão para uma só pessoa, mas sinto que, se eu não aguentar, toda nossa aldeia desmoronará.</p>
+		  <p>— Não temos nenhuma outra opção. — respondo após longos segundos refletindo — É tudo ou nada. A única coisa que podemos fazer agora é acreditar. Acreditar e torcer pelo melhor.</p>
+		  <p>Alisha sente a tensão que se consolida em meu corpo, meu calcanhar batendo sequencialmente no chão. Ela aperta minhas mãos com força e beija levemente minha bochecha em uma tentativa de consolo. Ela está igualmente desesperada, com certeza, mas nunca deixaria transparecer. Ela quer me dar esperanças. E ela confia em mim, assim como todos que eu trouxe até aqui. Isso me dá motivação para continuar, por mais que o caminho parece nunca chegar ao fim.</p>
+		  
+
+		</section>
+		<section>
+			<p class="categoria">Categorias: <a href="../drama.html">Drama</a></p>
+		</section>
+
+		<section class="comentario">
+			<h2>Comentários</h2>
+			<form>
+				<textarea name="comentario" id="comentario-texto" placeholder="Faça um comentário..."></textarea>
+				<input type="image" id="seta-comentario" src="../img/seta-comentario.png">
+			</form>
+		</section>
+
+		<section>
+			<h3>Se você gosta de Drama, pode gostar de...</h3>
+			<div class="contos-slider">
+				<div class="continho">
+					<a href="reencontro.html"><img src="capas/reencontro.png" alt="O Reencontro - Capa"></a>
+					<h4>O Reencontro</h4>
+				</div>
+				<div class="continho">
+					<a href="traumas.html"><img src="capas/trauma.png" alt="Traumas - Capa"></a>
+					<h4>Traumas</h4>
+				</div>
+				<div class="continho">
+					<a href="Saudades"><img src="capas/saudades.png" alt="Saudades - Capa"></a>
+					<h4>Saudades</h4>
+				</div>
+				<div class="continho">
+					<a href="desculpas.html"><img src="capas/desculpas.png" alt="Desculpas - Capa"></a>
+					<h4>Desculpas</h4>
+				</div>
+				<div class="continho">
+					<a href="longe-vc.html"><img src="capas/longe de vc.png" alt="Longe de Você - Capa"></a>
+					<h4>Longe de Você</h4>
+				</div>
+		</section>
+		<section>
+			<h3>Mais textos de Bia Carvalho</h3>
+			<div class="contos-slider">
+				<div class="continho">
+					<a href="tempestade.html"><img src="capas/tempestade.png" alt="Tempestade - Capa"></a>
+					<h4>Tempestade</h4>
+				</div>
+				<div class="continho">
+					<a href="milagre.html"><img src="capas/milagre.png" alt="Milagre - Capa"></a>
+					<h4>Milagre</h4>
+				</div>
+				<div class="continho">
+					<a href="limonada.html"><img src="capas/limonada.png" alt="Limonada - Capa"></a>
+					<h4>Limonada</h4>
+				</div>
+				<div class="continho">
+					<a href="meu passado.html"><img src="capas/meu passado.png" alt="O Que Deixei Para Trás - Capa"></a>
+					<h4>O Que Deixei Para Trás</h4>
+				</div>
+				<div class="continho">
+					<a href="acidente.html"><img src="capas/acidente.png" alt="O Acidente - Capa"></a>
+					<h4>O Acidente</h4>
+				</div>
+		</section>
+		<section>
+			<h3>Parecidos com Fogueira</h3>
+			<div class="contos-slider">
+				<div class="continho">
+					<a href="finalmente.html"><img src="capas/finalmente.png" alt="Finalmente - Capa"></a>
+					<h4>Finalmente</h4>
+				</div>
+				<div class="continho">
+					<a href="a-sos.html"><img src="capas/a sós.png" alt="A Sós - Capa"></a>
+					<h4>A Sós</h4>
+				</div>
+				<div class="continho">
+					<a href="nobre-bruxa.html"><img src="capas/nobre bruxa.png" alt="A Nobre Bruxa - Capa"></a>
+					<h4>A Nobre Bruxa</h4>
+				</div>
+				<div class="continho">
+					<a href="companhia.html"><img src="capas/sua companhia.png" alt="Sua Companhia - Capa"></a>
+					<h4>Sua Companhia</h4>
+				</div>
+				<div class="continho">
+					<a href="estou-viva.html"><img src="capas/estou viva.png" alt="Estou Viva - Capa"></a>
+					<h4>Estou Viva</h4>
+				</div>
+		</section>
+
+		<a href="#nav"><img id="seta" src="../img/Seta.png" alt="Seta para o topo da página"></a>
+	</main>
+
+	<footer>
+		<div id="rodape">
+			<p>Contato: bianca.fac@gmail.com</p>
+
+			<div id="redes-sociais">
+				<a href="https://www.instagram.com" target="_blank"><img src="../img/ig.png" alt="Instagram"></a>
+				<a href="https://twitter.com/home" target="_blank"><img src="../img/twt.png" alt="Twitter"></a>
+				<a href="https://www.tiktok.com/pt-BR/" target="_blank"><img src="../img/ttk.png" alt="TikTok"></a>
+			</div>
+		</div>
+	</footer>
+</body>
+</html>

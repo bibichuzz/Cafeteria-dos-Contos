@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>O Depois</title>
+	<link rel="stylesheet" href="../css/style.css">
+	<link rel="icon" type="image/x-icon" href="../img/favicon.ico">
+
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Henny+Penny&family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+
+<!--        Menu Responsivo -->
+<script src="https://kit.fontawesome.com/3a591bff9c.js" crossorigin="anonymous"></script>
+<!-- Função Menu Responsivo - Teste -->
+<script>		function myFunction() {
+	document.getElementsByClassName("menu")[0].classList.toggle("responsive");}
+</script>
+
+</head>
+<body>
+	<header>
+		<nav id="nav">
+			<a href="../index.html"><img width="300px" src="../img/LogoPNG.png" alt="Logo Cafeteria dos Contos"></a>
+			<ul class="menu">
+				<!--                    Linha adicionada para o menu responsivo -->
+				<li class="icon"><a href="javascript:void(0);" onclick="myFunction()">&#9776;</a></li>
+				<li><a href="../index.html">Home</a></li>
+				<li class="conto-nav"><a href="../contos.html">Contos</a>
+					<ul class="dropdown">
+						<div>
+							<li><a href="../suspense.html">Suspense</a></li>
+							<li><a href="../terror.html">Terror</a></li>
+							<li><a href="../lgbt.html">LGBTQIA+</a></li>
+							<li><a href="../romance.html">Romance</a></li>
+						</div>
+						<div>
+							<li><a href="../fantasia.html">Fantasia</a></li>
+							<li><a href="../ficcao.html">Ficção</a></li>
+							<li><a href="../humor.html">Humor</a></li>
+							<li><a href="../drama.html">Drama</a></li>
+						</div>
+					</ul>
+				</li>
+				<li class="sobre-nav"><a href="../sobre.html">Sobre</a>
+					<ul class="dropdown">
+						<div>
+							<li><a href="../sobre.html">Quem somos</a></li>
+							<li><a href="../acessibilidade.html">Acessibilidade</a></li>
+							<li><a href="../contato.html">Contato</a></li>
+						</div>
+					</ul>
+				</li>
+				<li><a href="../newsletter.html">Newsletter</a></li>
+				<li><a href="../login.html">Login</a></li>
+			</ul>
+		</nav>
+	</header>
+
+	<main class="textos">
+		<ul class="breadcrumb">
+			<li class="bc-home"><a href="../contos.html">Contos</a></li>
+			<li class="bc-img-li"><img class="bc-img" src="../img/bc-seta.png" alt="breadcrumb"></li>
+			<li><a href="../drama.html">Drama</a></li>
+			<li class="bc-img-li"><img class="bc-img" src="../img/bc-seta.png" alt="breadcrumb"></li>
+			<li class="bc-ultimo">O Depois</li>
+
+		</ul>
+
+		<section class="textos">
+		<h1>O Depois</h1>
+		<h2>Bia Carvalho</h2>
+
+		<audio id="music" preload="true">
+			<source src="audios/nao-disponivel.m4a">
+		  </audio>
+		  <div id="audioplayer">
+			<button id="pButton" class="play"></button>
+			<div id="timeline">
+			  <div id="playhead"></div>
+			</div>
+		  </div>
+		  
+		  <script>
+			var music = document.getElementById('music'); // id for audio element
+		var duration = music.duration; // Duration of audio clip, calculated here for embedding purposes
+		var pButton = document.getElementById('pButton'); // play button
+		var playhead = document.getElementById('playhead'); // playhead
+		var timeline = document.getElementById('timeline'); // timeline
+		
+		// timeline width adjusted for playhead
+		var timelineWidth = timeline.offsetWidth - playhead.offsetWidth;
+		
+		// play button event listenter
+		pButton.addEventListener("click", play);
+		
+		// timeupdate event listener
+		music.addEventListener("timeupdate", timeUpdate, false);
+		
+		// makes timeline clickable
+		timeline.addEventListener("click", function(event) {
+			moveplayhead(event);
+			music.currentTime = duration * clickPercent(event);
+		}, false);
+		
+		// returns click as decimal (.77) of the total timelineWidth
+		function clickPercent(event) {
+			return (event.clientX - getPosition(timeline)) / timelineWidth;
+		}
+		
+		// makes playhead draggable
+		playhead.addEventListener('mousedown', mouseDown, false);
+		window.addEventListener('mouseup', mouseUp, false);
+		
+		// Boolean value so that audio position is updated only when the playhead is released
+		var onplayhead = false;
+		
+		// mouseDown EventListener
+		function mouseDown() {
+			onplayhead = true;
+			window.addEventListener('mousemove', moveplayhead, true);
+			music.removeEventListener('timeupdate', timeUpdate, false);
+		}
+		
+		// mouseUp EventListener
+		// getting input from all mouse clicks
+		function mouseUp(event) {
+			if (onplayhead == true) {
+				moveplayhead(event);
+				window.removeEventListener('mousemove', moveplayhead, true);
+				// change current time
+				music.currentTime = duration * clickPercent(event);
+				music.addEventListener('timeupdate', timeUpdate, false);
+			}
+			onplayhead = false;
+		}
+		// mousemove EventListener
+		// Moves playhead as user drags
+		function moveplayhead(event) {
+			var newMargLeft = event.clientX - getPosition(timeline);
+		
+			if (newMargLeft >= 0 && newMargLeft <= timelineWidth) {
+				playhead.style.marginLeft = newMargLeft + "px";
+			}
+			if (newMargLeft < 0) {
+				playhead.style.marginLeft = "0px";
+			}
+			if (newMargLeft > timelineWidth) {
+				playhead.style.marginLeft = timelineWidth + "px";
+			}
+		}
+		
+		// timeUpdate
+		// Synchronizes playhead position with current point in audio
+		function timeUpdate() {
+			var playPercent = timelineWidth * (music.currentTime / duration);
+			playhead.style.marginLeft = playPercent + "px";
+			if (music.currentTime == duration) {
+				pButton.className = "";
+				pButton.className = "play";
+			}
+		}
+		
+		//Play and Pause
+		function play() {
+			// start music
+			if (music.paused) {
+				music.play();
+				// remove play, add pause
+				pButton.className = "";
+				pButton.className = "pause";
+			} else { // pause music
+				music.pause();
+				// remove pause, add play
+				pButton.className = "";
+				pButton.className = "play";
+			}
+		}
+		
+		// Gets audio file duration
+		music.addEventListener("canplaythrough", function() {
+			duration = music.duration;
+		}, false);
+		
+		// getPosition
+		// Returns elements left position relative to top-left of viewport
+		function getPosition(el) {
+			return el.getBoundingClientRect().left;
+		}
+		</script>
+		  
+		  <p>O momento é tão tenso que todas as minhas emoções tomam conta de mim. A impulsividade domina minhas ações, fazendo-me arriscar tudo, arriscar minha vida, só para poder lhe dar um último abraço, um primeiro e último beijo. Na minha cabeça, pensei que ela me entenderia por completo, mas acho que estava enganada. Como sempre, fui uma jovem ingênua e inocente.</p>
+		  <p>Segurei minhas lágrimas para não chorar mais do que o necessário na frente de Monique, pulando pela janela do estúdio com descuido, completamente levada por meus pensamentos distantes. A chuva do lado de fora é fraca, mas quase o suficiente para me fazer escorregar das telhas pelas quais me equilibro para fugir o mais longe possível daquele lugar, desejando nunca ter conhecido Monique e ter passado por toda essa merda. Se eu não tivesse a conhecido, a dor de perdê-la não me derrubaria como agora.</p>
+		  <p>Minhas botas fazem barulho pelos toldos iluminados, encharcadas com a água salgada que cai do céu, deslizando por entre os prédios enquanto pulo de um lado a outro, torcendo para achar algum beco seguro para me infiltrar. Mas minha mente ainda está lá atrás, no momento em que eu beijei ela, no momento em que a deixei para trás. Poderia ter sido diferente, ou sempre estivemos destinadas a acabar assim? Seríamos sempre uma causa perdida, ou em outro universo poderíamos ainda estar juntas? Observar a lua enquanto reflito todas as minhas decisões de vida nunca pareceu um momento tão peculiar.</p>
+		  <p>Um passo em falso. A sola já molhada de minhas botas de cano alto escorregam do telhado de vidro no qual estou pisando, fazendo-me perder o equilíbrio por completo e cair para fora dos tetos das casas, em direção ao chão. O impacto do meu corpo no solo acerta em cheio, deixando-me sem tempo para reagir e tentar amenizar a queda, raspando meus joelhos, minhas pernas, meus braços, minhas mãos e minha cara na calçada áspera. Minha meia calça rasga quase por completo, pintada de vermelho com o sangue que escorre de meus arranhões. São machucados artificiais, mas o que mais dói é saber que eu fracassei. Que sou fraca demais, distante demais, sonhadora demais, esperançosa demais. Deveria ter sido mais racional, mas parece que eu nunca aprendo a lição. </p>
+		  <p>Desnorteada, me levanto lentamente, mancando para dentro do primeiro beco mal iluminado que encontro, cheirando a lixo velho e plantas mortas. Completamente acabada e cansada, mais mentalmente do que fisicamente, me apoio em uma das paredes de tijolo e desço lentamente até o chão, parando em uma poça de água e acabando de molhar toda a minha saia curta. As gotas de chuva caem menos dentre os prédios, mas ainda sinto elas pingando em meu cabelo e em meus machucados, me lembrando do sangue que sai dos raspões que acabei de adquirir.</p>
+		  <p>Meu mundo desabou novamente. Eu perdi tudo, de novo. Voltamos à estaca zero. Não é como se fosse a primeira vez, mas já estou exausta de recomeçar de novo, e de novo, e de novo. Perder mais uma pessoa, perder mais um amigo. De que adianta continuar se tudo parece sempre se repetir?</p>
+		  <p>Quando a adrenalina que corre em minhas veias começa a aos poucos se dispersar, meus sentimentos voltam a tomar conta de quem eu sou, rendendo-me ao choro intenso. Com a cara arrebentada de ter caído no chão, não tem mais como diferenciar o que é maquiagem, chuva, lágrimas, sangue. Tudo o que eu sei é que acabou. Amanhã é um novo dia e, por mais que muitas pessoas acreditem que essa dor eventualmente passa, minha cabeça nunca vai me deixar esquecer. Especialmente quando eu me olhar no espelho e ver minha mais nova tatuagem. Lealdade. Uma coisa que eu provavelmente nunca mais vou conseguir com alguém de novo, só com ela.</p>
+		  
+
+		</section>
+		<section>
+			<p class="categoria">Categorias: <a href="../drama.html">Drama</a></p>
+		</section>
+
+		<section class="comentario">
+			<h2>Comentários</h2>
+			<form>
+				<textarea name="comentario" id="comentario-texto" placeholder="Faça um comentário..."></textarea>
+				<input type="image" id="seta-comentario" src="../img/seta-comentario.png">
+			</form>
+		</section>
+
+		<section>
+			<h3>Se você gosta de Drama, pode gostar de...</h3>
+			<div class="contos-slider">
+				<div class="continho">
+					<a href="não.html"><img src="capas/não.png" alt="Não - Capa"></a>
+					<h4>Não</h4>
+				</div>
+				<div class="continho">
+					<a href="pedacos.html"><img src="capas/pedaços.png" alt="Pedaços - Capa"></a>
+					<h4>Pedaços</h4>
+				</div>
+				<div class="continho">
+					<a href="companhia.html"><img src="capas/sua companhia.png" alt="Sua Companinha - Capa"></a>
+					<h4>Sua Companhia</h4>
+				</div>
+				<div class="continho">
+					<a href="então-natal.html"><img src="capas/ent eh natal.png" alt="Então, é Natal - Capa"></a>
+					<h4>Então, é Natal</h4>
+				</div>
+				<div class="continho">
+					<a href="separacao.html"><img src="capas/separação.png" alt="A Separação - Capa"></a>
+					<h4>A Separação</h4>
+				</div>
+		</section>
+		<section>
+			<h3>Mais textos de Bia Carvalho</h3>
+			<div class="contos-slider">
+				<div class="continho">
+					<a href="destinadas.html"><img src="capas/destinadas.png" alt="Destinadas - Capa"></a>
+					<h4>Destinadas</h4>
+				</div>
+				<div class="continho">
+					<a href="milagre.html"><img src="capas/milagre.png" alt="Milagre - Capa"></a>
+					<h4>Milagre</h4>
+				</div>
+				<div class="continho">
+					<a href="desculpas.html"><img src="capas/desculpas.png" alt="Desculpas - Capa"></a>
+					<h4>Desculpas</h4>
+				</div>
+				<div class="continho">
+					<a href="telhado.html"><img src="capas/telhado.png" alt="Telhado de Natal - Capa"></a>
+					<h4>Telhado de Natal</h4>
+				</div>
+				<div class="continho">
+					<a href="estou-viva.html"><img src="capas/estou viva.png" alt="Estou Viva - Capa"></a>
+					<h4>Estou Viva</h4>
+				</div>
+		</section>
+		<section>
+			<h3>Parecidos com O Depois</h3>
+			<div class="contos-slider">
+				<div class="continho">
+					<a href="separacao.html"><img src="capas/separação.png" alt="A Separação - Capa"></a>
+					<h4>A Separação</h4>
+				</div>
+				<div class="continho">
+					<a href="reencontro.html"><img src="capas/reencontro.png" alt="O Reencontro - Capa"></a>
+					<h4>O Reencontro</h4>
+				</div>
+				<div class="continho">
+					<a href="carta.html"><img src="capas/carta.png" alt="A Carta - Capa"></a>
+					<h4>A Carta</h4>
+				</div>
+				<div class="continho">
+					<a href="eterna-presa.html"><img src="capas/eterna presa.png" alt="Eternamente Presa - Capa"></a>
+					<h4>Eternamente Presa</h4>
+				</div>
+				<div class="continho">
+					<a href="tatuagens.html"><img src="capas/tatuagem.png" alt="Tatuagens - Capa"></a>
+					<h4>Tatuagens</h4>
+				</div>
+		</section>
+
+		<a href="#nav"><img id="seta" src="../img/Seta.png" alt="Seta para o topo da página"></a>
+	</main>
+
+	<footer>
+		<div id="rodape">
+			<p>Contato: bianca.fac@gmail.com</p>
+
+			<div id="redes-sociais">
+				<a href="https://www.instagram.com" target="_blank"><img src="../img/ig.png" alt="Instagram"></a>
+				<a href="https://twitter.com/home" target="_blank"><img src="../img/twt.png" alt="Twitter"></a>
+				<a href="https://www.tiktok.com/pt-BR/" target="_blank"><img src="../img/ttk.png" alt="TikTok"></a>
+			</div>
+		</div>
+	</footer>
+</body>
+</html>

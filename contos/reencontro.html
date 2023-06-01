@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>O Reencontro</title>
+	<link rel="stylesheet" href="../css/style.css">
+	<link rel="icon" type="image/x-icon" href="../img/favicon.ico">
+
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Henny+Penny&family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+
+<!--        Menu Responsivo -->
+<script src="https://kit.fontawesome.com/3a591bff9c.js" crossorigin="anonymous"></script>
+<!-- Função Menu Responsivo - Teste -->
+<script>		function myFunction() {
+	document.getElementsByClassName("menu")[0].classList.toggle("responsive");}
+</script>
+
+</head>
+<body>
+	<header>
+		<nav id="nav">
+			<a href="../index.html"><img width="300px" src="../img/LogoPNG.png" alt="Logo Cafeteria dos Contos"></a>
+			<ul class="menu">
+				<!--                    Linha adicionada para o menu responsivo -->
+				<li class="icon"><a href="javascript:void(0);" onclick="myFunction()">&#9776;</a></li>
+				<li><a href="../index.html">Home</a></li>
+				<li class="conto-nav"><a href="../contos.html">Contos</a>
+					<ul class="dropdown">
+						<div>
+							<li><a href="../suspense.html">Suspense</a></li>
+							<li><a href="../terror.html">Terror</a></li>
+							<li><a href="../lgbt.html">LGBTQIA+</a></li>
+							<li><a href="../romance.html">Romance</a></li>
+						</div>
+						<div>
+							<li><a href="../fantasia.html">Fantasia</a></li>
+							<li><a href="../ficcao.html">Ficção</a></li>
+							<li><a href="../humor.html">Humor</a></li>
+							<li><a href="../drama.html">Drama</a></li>
+						</div>
+					</ul>
+				</li>
+				<li class="sobre-nav"><a href="../sobre.html">Sobre</a>
+					<ul class="dropdown">
+						<div>
+							<li><a href="../sobre.html">Quem somos</a></li>
+							<li><a href="../acessibilidade.html">Acessibilidade</a></li>
+							<li><a href="../contato.html">Contato</a></li>
+						</div>
+					</ul>
+				</li>
+				<li><a href="../newsletter.html">Newsletter</a></li>
+				<li><a href="../login.html">Login</a></li>
+			</ul>
+		</nav>
+	</header>
+
+	<main class="textos">
+		<ul class="breadcrumb">
+			<li class="bc-home"><a href="../contos.html">Contos</a></li>
+			<li class="bc-img-li"><img class="bc-img" src="../img/bc-seta.png" alt="breadcrumb"></li>
+			<li><a href="../drama.html">Drama</a></li>
+			<li class="bc-img-li"><img class="bc-img" src="../img/bc-seta.png" alt="breadcrumb"></li>
+			<li class="bc-ultimo">O Reencontro</li>
+
+		</ul>
+
+		<section class="textos">
+		<h1>O Reencontro</h1>
+		<h2>Bia Carvalho</h2>
+
+		<audio id="music" preload="true">
+			<source src="audios/nao-disponivel.m4a">
+		  </audio>
+		  <div id="audioplayer">
+			<button id="pButton" class="play"></button>
+			<div id="timeline">
+			  <div id="playhead"></div>
+			</div>
+		  </div>
+		  
+		  <script>
+			var music = document.getElementById('music'); // id for audio element
+		var duration = music.duration; // Duration of audio clip, calculated here for embedding purposes
+		var pButton = document.getElementById('pButton'); // play button
+		var playhead = document.getElementById('playhead'); // playhead
+		var timeline = document.getElementById('timeline'); // timeline
+		
+		// timeline width adjusted for playhead
+		var timelineWidth = timeline.offsetWidth - playhead.offsetWidth;
+		
+		// play button event listenter
+		pButton.addEventListener("click", play);
+		
+		// timeupdate event listener
+		music.addEventListener("timeupdate", timeUpdate, false);
+		
+		// makes timeline clickable
+		timeline.addEventListener("click", function(event) {
+			moveplayhead(event);
+			music.currentTime = duration * clickPercent(event);
+		}, false);
+		
+		// returns click as decimal (.77) of the total timelineWidth
+		function clickPercent(event) {
+			return (event.clientX - getPosition(timeline)) / timelineWidth;
+		}
+		
+		// makes playhead draggable
+		playhead.addEventListener('mousedown', mouseDown, false);
+		window.addEventListener('mouseup', mouseUp, false);
+		
+		// Boolean value so that audio position is updated only when the playhead is released
+		var onplayhead = false;
+		
+		// mouseDown EventListener
+		function mouseDown() {
+			onplayhead = true;
+			window.addEventListener('mousemove', moveplayhead, true);
+			music.removeEventListener('timeupdate', timeUpdate, false);
+		}
+		
+		// mouseUp EventListener
+		// getting input from all mouse clicks
+		function mouseUp(event) {
+			if (onplayhead == true) {
+				moveplayhead(event);
+				window.removeEventListener('mousemove', moveplayhead, true);
+				// change current time
+				music.currentTime = duration * clickPercent(event);
+				music.addEventListener('timeupdate', timeUpdate, false);
+			}
+			onplayhead = false;
+		}
+		// mousemove EventListener
+		// Moves playhead as user drags
+		function moveplayhead(event) {
+			var newMargLeft = event.clientX - getPosition(timeline);
+		
+			if (newMargLeft >= 0 && newMargLeft <= timelineWidth) {
+				playhead.style.marginLeft = newMargLeft + "px";
+			}
+			if (newMargLeft < 0) {
+				playhead.style.marginLeft = "0px";
+			}
+			if (newMargLeft > timelineWidth) {
+				playhead.style.marginLeft = timelineWidth + "px";
+			}
+		}
+		
+		// timeUpdate
+		// Synchronizes playhead position with current point in audio
+		function timeUpdate() {
+			var playPercent = timelineWidth * (music.currentTime / duration);
+			playhead.style.marginLeft = playPercent + "px";
+			if (music.currentTime == duration) {
+				pButton.className = "";
+				pButton.className = "play";
+			}
+		}
+		
+		//Play and Pause
+		function play() {
+			// start music
+			if (music.paused) {
+				music.play();
+				// remove play, add pause
+				pButton.className = "";
+				pButton.className = "pause";
+			} else { // pause music
+				music.pause();
+				// remove pause, add play
+				pButton.className = "";
+				pButton.className = "play";
+			}
+		}
+		
+		// Gets audio file duration
+		music.addEventListener("canplaythrough", function() {
+			duration = music.duration;
+		}, false);
+		
+		// getPosition
+		// Returns elements left position relative to top-left of viewport
+		function getPosition(el) {
+			return el.getBoundingClientRect().left;
+		}
+		</script>
+		  
+		  <p>— Bom dia, Senh-</p>
+		  <p>Passo pela entrada da Ordem como um furacão, ignorando qualquer pessoa que tente algum contato comigo neste momento pessoal de tensão. Agora, minha cabeça está em outro lugar, e felizmente meus pés acompanham meus pensamentos enquanto eu quase corro pelos corredores da base, indo apressadamente em direção às celas direcionadas a cultistas perigosos. Minha ansiedade é tanta que nem presto atenção nos meus arredores, e imagino que, a essa hora, a maior parte dos agentes da organização já deve ter escutado sobre a novidade, o que faz até com que se afastem de mim  rapidamente quando ando por perto, abrindo caminho para mim.</p>
+		  <p>Chegando no local designado, já consigo ver a líder de uma de minhas equipes esperando por mim na porta de uma cela específica, logo na entrada do grande conglomerado de cubículos, alguns trancados com mais segurança do que outros. Ao me aproximar, ajeito minha postura e tiro meu cabelo dos olhos, totalmente bagunçado depois de ter de pular da cama e dirigir que nem uma louca até a base diante de uma emergência tão… surpreendente. Tento parecer minimamente profissional nesta situação, mas meu corpo não responde às minhas intenções, impossibilitando-me de parar quieta.</p>
+		  <p>Sem mais uma palavra, a agente abre a porta da cela à minha frente, esperando que eu entre. Por alguns segundos, eu hesito. Minha mente finalmente pausa por alguns instantes e entende o que está prestes a acontecer. Será que isso é real? Será que realmente é ela? Será que eu finalmente encontrei quem eu tanto procurava? Tantas perguntas, tantas angústias, e só uma coisa responderia todas elas.</p>
+		  <p>Disfarço todas as emoções estampadas em meu rosto, falhando miseravelmente em não demonstrá-las. Todo o meu corpo responde a isso, como se ansiasse para que esse dia chegasse. Acho que a esperança realmente é a última que morre.</p>
+		  <p>Tirando a coragem do fundo da minha alma, adentro o quarto escuro, iluminado somente pela abertura da porta da cela que a líder da equipe segura com firmeza, aguardando por um sinal antes de agir. Quando entro no pequeno cômodo, um peso sobe à minha garganta, incapaz de emitir qualquer som diante de tanto nervosismo. Ao invés de falar, faço um sinal para a mulher com a cabeça e um olhar certeiro, fazendo-a soltar a maçaneta e se afastar do local, deixando apenas uma fresta ainda aberta para minha saída.</p>
+		  <p>É estranho entrar em uma dessas depois de tanto tempo sem interrogar ninguém. O ambiente apertado agrava ainda mais meu atual pânico, mas seu pequeno tamanho também me ajuda a ouvir e perceber melhor os meus arredores. Parece que nada faz barulho aqui dentro, nada se mexe, mas o silêncio é tanto que pode-se ouvir uma baixa respiração vinda da cama, tão quieta e estável que é praticamente imperceptível. Mas não para mim.</p>
+		  <p>Aproximo-me lentamente do colchão, esperando receber alguma movimentação em resposta, mas nada acontece. Nem um músculo se mexe. É como se a pessoa ali não tivesse mais forças nem mesmo para reagir, para viver, e isso me assusta mais do que deveria. Eu não havia criado nenhuma expectativa para este momento, mas acho que também não estava preparada para que isso acontecesse. </p>
+		  <p>Para lidar com toda essa situação, fico sentada ao lado do corpo imóvel por alguns minutos em completo silêncio, apenas ouvindo sua respiração e observando a silhueta familiar da mulher deitada, uma silhueta que eu conheço tão bem. Seus cabelos cacheados que não vejo a tanto tempo, agora completamente descuidados e cortados, sem cor, sem vida, nem parecem que são da mesma pessoa que conheci. Seu corpo, antes revigorado, está extremamente fino e fraco, mas ainda não posso dizer se ela está bem ou não, pois seu rosto está virado para o outro lado, coberto pelos cachos ainda tão volumosos. Nunca pensei que veria tudo isso de novo, mas cá estamos nós. Uma nostalgia invade à tona meus sentimentos, mas não me deixo ser levada por eles.</p>
+		  <p>Depois de um tempo calada, minha impaciência fala mais alto, e eu enfim digo alguma coisa para a cultista ao meu lado.</p>
+		  <p>— Lilia? É você mesma?</p>
+	  <p>Sem resposta.</p>
+	  <p>Engulo em seco a decepção que acabara de me atingir, um espanto de quem esperava receber mais do que o completo silêncio ao reencontrar minha namorada depois de tantos anos. O tempo pode ter passado, mas eu nunca me esqueci dela. Como poderia esquecer?</p>
+	  <p>Não vejo mais saídas além de continuar conversando com ela, por mais que ela não me responda ainda.</p>
+		  <p>— Sou eu, Monique. Sua namorada — digo com receio de ganhar uma resposta indesejada mas, não diferentemente de antes, continuo sendo ignorada. Nem sei se posso garantir que estou sendo escutada.</p>
+	  <p>— Eu… Não esperava ver você aqui. Que loucura, né? — dou uma risada sem graça — Mas que bom que você está… Viva. No final, é o que importa, não é?</p>
+	  <p>Nenhuma reação.</p>
+		  <p>Como pode eu ter procurado ela por todos esses anos, ter feito de tudo para encontrá-la, e agora que cheguei no momento mais esperado da minha vida, estou sendo tratada desse jeito?</p>
+		  <p>Mas ela não tem culpa. Eu sei que ela passou por muita coisa. Eu sei a verdade. Talvez ela só não saiba que eu estive à sua procura. Talvez ela só precise ser amada mais uma vez.</p>
+		  <p>— Eu sei que foi difícil descobrir a verdade, Lilia, eu sei — começo a falar, passando levemente os dedos por seu cabelo — Passei todos esses anos procurando por pistas, por respostas, por qualquer migalha que fosse, mas você não deixou nada. Eu fui até Santa Amélia por você e eu iria até o inferno te procurar se fosse necessário. Eu só quero saber se você está bem. Eu preciso saber.</p>
+		  <p>Sua respiração não muda de ritmo, nem por um segundo.</p>
+		  <p>Não gosto de admitir, mas algumas lágrimas escorreram por minhas bochechas neste momento, lágrimas de angústia. Eu me senti onipotente pela primeira vez em muito tempo. Eu me sentia tão confiante, tão importante como líder da Ordem. E, agora, estou aqui, nesta cela minúscula, sendo desestabilizada pela mulher da minha vida, que nem sequer me dirige a palavra. Talvez isso pudesse ser considerado uma humilhação.</p>
+		  <p>Eu só queria saber como ela está, por onde ela andou, onde ela esteve, o que eu posso fazer para ajudar. Afinal, eu ainda a amo, por mais que aparente que ela não me ame de volta.</p>
+		  <p>— Desculpe-me pelo o que aconteceu com a sua mãe. Eu fiquei sabendo de tudo, e eu sei que você a amava mais do que tudo nesse mundo…</p>
+		  <p>Ao fazer uma pausa para continuar a falar, percebo que sua respiração começa a ficar mais ofegante, sinalizando uma atenção. Ela está me escutando, ela está me respondendo.</p>
+		  <p>— Tenho certeza de que tudo isso foi demais para você. Tipo, descobrir a verdade sobre tudo, sobre sua família, sobre sua própria mãe… É muita coisa para guardar para si mesma.</p>
+		  <p>A cada palavra que eu falo, seu corpo se inquieta mais, começando a ajeitar seus braços na cama desconfortavelmente e espantando minha mão de seus cachos. Ainda assim, ela não me olha nos olhos, escondendo suas emoções por trás de seus longos cabelos. Eu sei que ela ainda está aqui, eu só preciso chamá-la.</p>
+		  <p>— Dina sempre foi uma querida e-</p>
+		  <p>De repente, um movimento brusco quase me arrebata para fora da cama, fazendo-me apoiar meus pés firmemente ao chão para evitar uma queda. Antes que eu possa sequer reagir a tudo isso, sinto uma mão em meu pescoço, segurando-o tão firme que é inacreditável pensar que é a mão de Lilia. Minha pele começa a queimar, o efeito de algum ritual tomando conta de mim, deixando-me minimamente tonta enquanto ela me segura pelo queixo, olhando para meu rosto com o olhar desesperado. Com uma voz embargada e extremamente baixa, ela finalmente me responde.</p>
+		  <p>— Você nunca mais vai falar o nome dela em voz alta, tá me entendendo?</p>
+		  <p>Quando olho para baixo, meu mundo desaba. Com as mãos tremendo, os dedos de Lilia seguram meu pescoço, completamente penetrados por uma substância preta que vai subindo pelo meu corpo. O lado direito de seu rosto também foi consumido pelo lodo, que segue pelos dois braços, contaminando sua pele profundamente. Em meio à tanta intervenção paranormal, diversos símbolos e frases também estão marcados em sua pele, sem dúvidas de serem feitos para conjurar rituais. Mas o que mais impressiona são seus olhos: veias pretas se destacam na parte branca, como se estivessem tentando arruinar cada pedaço de Lilia, sufocando-a em desespero. Sua expressão não mente: a pupila pequena e agitada, os olhos marejados, a olheira profunda, o lodo passando até mesmo para dentro de sua boca; ela está destruída. Ela não é mais a mesma.</p>
+		  <p>Por mais que a sensação do ritual esteja sendo extremamente desconfortável, somente olhar nos seus olhos novamente já me faz satisfeita. Eu não tenho medo dela, nunca teria. Eu conheço o amor da minha vida com a palma das minhas mãos.</p>
+		  <p>Após alguns segundos nos encarando, ela desvia o olhar para sua mão, percebendo o desastre que acabara de fazer, e tira ela rapidamente de meu pescoço, dando-me espaço para respirar. Ela olha para seus dedos com desprezo, completamente fora de si. Ela já perdeu o controle faz muito tempo, e isso fica visível quando ela olha para mim de novo, enquanto recupero meu fôlego. Seu olhar pede socorro.</p>
+		  <p>Nós nos entreolhamos por algum tempo, analisando uma a outra profundamente. O que 10 anos não mudam em uma pessoa? O que 10 anos não fazem com a mente de uma pessoa? Nenhuma de nós duas esperava se ver mas, ainda assim, parece que foi o destino.</p>
+		  <p>Lilia não diz mais nada, apenas entra em colapso: com um choro escandaloso, ela se joga em meus braços, debulhando-se em lágrimas sobre meus ombros. Eu lhe dou um abraço apertado, por mais que eu saiba que ela não irá mais retribuir. As emoções agora já estão mais leves e, por mais que tenhamos um longo caminho pela frente, podemos pensar que isso é um recomeço.</p>
+	  
+
+		</section>
+
+		<section>
+			<p class="categoria">Categorias: <a href="../drama.html">Drama</a></p>
+		</section>
+
+		<section class="comentario">
+			<h2>Comentários</h2>
+			<form>
+				<textarea name="comentario" id="comentario-texto" placeholder="Faça um comentário..."></textarea>
+				<input type="image" id="seta-comentario" src="../img/seta-comentario.png">
+			</form>
+		</section>
+
+		<section>
+			<h3>Se você gosta de Drama, pode gostar de...</h3>
+			<div class="contos-slider">
+				<div class="continho">
+					<a href="pedacos.html"><img src="capas/pedaços.png" alt="Pedaços - Capa"></a>
+					<h4>Pedaços</h4>
+				</div>
+				<div class="continho">
+					<a href="traumas.html"><img src="capas/trauma.png" alt="Traumas - Capa"></a>
+					<h4>Traumas</h4>
+				</div>
+				<div class="continho">
+					<a href="fogueira.html"><img src="capas/fogueira.png" alt="Fogueira - Capa"></a>
+					<h4>Fogueira</h4>
+				</div>
+				<div class="continho">
+					<a href="desculpas.html"><img src="capas/desculpas.png" alt="Desculpas - Capa"></a>
+					<h4>Desculpas</h4>
+				</div>
+				<div class="continho">
+					<a href="mensagem.html"><img src="capas/mensagem.png" alt="Mensagens - Capa"></a>
+					<h4>Mensagens</h4>
+				</div>
+		</section>
+		<section>
+			<h3>Mais textos de Bia Carvalho</h3>
+			<div class="contos-slider">
+				<div class="continho">
+					<a href="longe-vc.html"><img src="capas/longe de vc.png" alt="Longe de Você - Capa"></a>
+					<h4>Longe de Você</h4>
+				</div>
+				<div class="continho">
+					<a href="festa.html"><img src="capas/alcool.png" alt="Álcool - Capa"></a>
+					<h4>Álcool</h4>
+				</div>
+				<div class="continho">
+					<a href="ela.html"><img src="capas/ela.png" alt="Ela - Capa"></a>
+					<h4>Ela</h4>
+				</div>
+				<div class="continho">
+					<a href="de-manha.html"><img src="capas/de manhã.png" alt="De Manhã - Capa"></a>
+					<h4>De Manhã</h4>
+				</div>
+				<div class="continho">
+					<a href="crise.html"><img src="capas/crise.png" alt="Em Crise - Capa"></a>
+					<h4>Em Crise</h4>
+				</div>
+		</section>
+		<section>
+			<h3>Parecidos com o Reencontro</h3>
+			<div class="contos-slider">
+				<div class="continho">
+					<a href="separacao.html"><img src="capas/separação.png" alt="A Separação - Capa"></a>
+					<h4>A Separação</h4>
+				</div>
+				<div class="continho">
+					<a href="tatuagens.html"><img src="capas/tatuagem.png" alt="Tatuagens - Capa"></a>
+					<h4>Tatuagens</h4>
+				</div>
+				<div class="continho">
+					<a href="não.html"><img src="capas/não.png" alt="Não - Capa"></a>
+					<h4>Não</h4>
+				</div>
+				<div class="continho">
+					<a href="a-sos.html"><img src="capas/a sós.png" alt="A Sós - Capa"></a>
+					<h4>A Sós</h4>
+				</div>
+				<div class="continho">
+					<a href="estou-viva.html"><img src="capas/estou viva.png" alt="Estou Viva - Capa"></a>
+					<h4>Estou Viva</h4>
+				</div>
+		</section>
+
+		<a href="#nav"><img id="seta" src="../img/Seta.png" alt="Seta para o topo da página"></a>
+	</main>
+
+	<footer>
+		<div id="rodape">
+			<p>Contato: bianca.fac@gmail.com</p>
+
+			<div id="redes-sociais">
+				<a href="https://www.instagram.com" target="_blank"><img src="../img/ig.png" alt="Instagram"></a>
+				<a href="https://twitter.com/home" target="_blank"><img src="../img/twt.png" alt="Twitter"></a>
+				<a href="https://www.tiktok.com/pt-BR/" target="_blank"><img src="../img/ttk.png" alt="TikTok"></a>
+			</div>
+		</div>
+	</footer>
+</body>
+</html>

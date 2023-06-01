@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>A Separação</title>
+	<link rel="stylesheet" href="../css/style.css">
+	<link rel="icon" type="image/x-icon" href="../img/favicon.ico">
+
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Henny+Penny&family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+
+<!--        Menu Responsivo -->
+<script src="https://kit.fontawesome.com/3a591bff9c.js" crossorigin="anonymous"></script>
+<!-- Função Menu Responsivo - Teste -->
+<script>		function myFunction() {
+	document.getElementsByClassName("menu")[0].classList.toggle("responsive");}
+</script>
+
+</head>
+<body>
+	<header>
+		<nav id="nav">
+			<a href="../index.html"><img width="300px" src="../img/LogoPNG.png" alt="Logo Cafeteria dos Contos"></a>
+			<ul class="menu">
+				<!--                    Linha adicionada para o menu responsivo -->
+				<li class="icon"><a href="javascript:void(0);" onclick="myFunction()">&#9776;</a></li>
+				<li><a href="../index.html">Home</a></li>
+				<li class="conto-nav"><a href="../contos.html">Contos</a>
+					<ul class="dropdown">
+						<div>
+							<li><a href="../suspense.html">Suspense</a></li>
+							<li><a href="../terror.html">Terror</a></li>
+							<li><a href="../lgbt.html">LGBTQIA+</a></li>
+							<li><a href="../romance.html">Romance</a></li>
+						</div>
+						<div>
+							<li><a href="../fantasia.html">Fantasia</a></li>
+							<li><a href="../ficcao.html">Ficção</a></li>
+							<li><a href="../humor.html">Humor</a></li>
+							<li><a href="../drama.html">Drama</a></li>
+						</div>
+					</ul>
+				</li>
+				<li class="sobre-nav"><a href="../sobre.html">Sobre</a>
+					<ul class="dropdown">
+						<div>
+							<li><a href="../sobre.html">Quem somos</a></li>
+							<li><a href="../acessibilidade.html">Acessibilidade</a></li>
+							<li><a href="../contato.html">Contato</a></li>
+						</div>
+					</ul>
+				</li>
+				<li><a href="../newsletter.html">Newsletter</a></li>
+				<li><a href="../login.html">Login</a></li>
+			</ul>
+		</nav>
+	</header>
+
+	<main class="textos">
+		<ul class="breadcrumb">
+			<li class="bc-home"><a href="../contos.html">Contos</a></li>
+			<li class="bc-img-li"><img class="bc-img" src="../img/bc-seta.png" alt="breadcrumb"></li>
+			<li><a href="../lgbt.html">LGBTQIA+</a>/<a href="../drama.html">Drama</a></li>
+			<li class="bc-img-li"><img class="bc-img" src="../img/bc-seta.png" alt="breadcrumb"></li>
+			<li class="bc-ultimo">A Separação</li>
+
+		</ul>
+
+		<section class="textos">
+		<h1>A Separação</h1>
+		<h2>Bia Carvalho</h2>
+
+		<audio id="music" preload="true">
+			<source src="audios/nao-disponivel.m4a">
+		  </audio>
+		  <div id="audioplayer">
+			<button id="pButton" class="play"></button>
+			<div id="timeline">
+			  <div id="playhead"></div>
+			</div>
+		  </div>
+		  
+		  <script>
+			var music = document.getElementById('music'); // id for audio element
+		var duration = music.duration; // Duration of audio clip, calculated here for embedding purposes
+		var pButton = document.getElementById('pButton'); // play button
+		var playhead = document.getElementById('playhead'); // playhead
+		var timeline = document.getElementById('timeline'); // timeline
+		
+		// timeline width adjusted for playhead
+		var timelineWidth = timeline.offsetWidth - playhead.offsetWidth;
+		
+		// play button event listenter
+		pButton.addEventListener("click", play);
+		
+		// timeupdate event listener
+		music.addEventListener("timeupdate", timeUpdate, false);
+		
+		// makes timeline clickable
+		timeline.addEventListener("click", function(event) {
+			moveplayhead(event);
+			music.currentTime = duration * clickPercent(event);
+		}, false);
+		
+		// returns click as decimal (.77) of the total timelineWidth
+		function clickPercent(event) {
+			return (event.clientX - getPosition(timeline)) / timelineWidth;
+		}
+		
+		// makes playhead draggable
+		playhead.addEventListener('mousedown', mouseDown, false);
+		window.addEventListener('mouseup', mouseUp, false);
+		
+		// Boolean value so that audio position is updated only when the playhead is released
+		var onplayhead = false;
+		
+		// mouseDown EventListener
+		function mouseDown() {
+			onplayhead = true;
+			window.addEventListener('mousemove', moveplayhead, true);
+			music.removeEventListener('timeupdate', timeUpdate, false);
+		}
+		
+		// mouseUp EventListener
+		// getting input from all mouse clicks
+		function mouseUp(event) {
+			if (onplayhead == true) {
+				moveplayhead(event);
+				window.removeEventListener('mousemove', moveplayhead, true);
+				// change current time
+				music.currentTime = duration * clickPercent(event);
+				music.addEventListener('timeupdate', timeUpdate, false);
+			}
+			onplayhead = false;
+		}
+		// mousemove EventListener
+		// Moves playhead as user drags
+		function moveplayhead(event) {
+			var newMargLeft = event.clientX - getPosition(timeline);
+		
+			if (newMargLeft >= 0 && newMargLeft <= timelineWidth) {
+				playhead.style.marginLeft = newMargLeft + "px";
+			}
+			if (newMargLeft < 0) {
+				playhead.style.marginLeft = "0px";
+			}
+			if (newMargLeft > timelineWidth) {
+				playhead.style.marginLeft = timelineWidth + "px";
+			}
+		}
+		
+		// timeUpdate
+		// Synchronizes playhead position with current point in audio
+		function timeUpdate() {
+			var playPercent = timelineWidth * (music.currentTime / duration);
+			playhead.style.marginLeft = playPercent + "px";
+			if (music.currentTime == duration) {
+				pButton.className = "";
+				pButton.className = "play";
+			}
+		}
+		
+		//Play and Pause
+		function play() {
+			// start music
+			if (music.paused) {
+				music.play();
+				// remove play, add pause
+				pButton.className = "";
+				pButton.className = "pause";
+			} else { // pause music
+				music.pause();
+				// remove pause, add play
+				pButton.className = "";
+				pButton.className = "play";
+			}
+		}
+		
+		// Gets audio file duration
+		music.addEventListener("canplaythrough", function() {
+			duration = music.duration;
+		}, false);
+		
+		// getPosition
+		// Returns elements left position relative to top-left of viewport
+		function getPosition(el) {
+			return el.getBoundingClientRect().left;
+		}
+		</script>
+		  
+		  <p>— Ai! Isso doeu, ok?</p>
+		  <p>— Ah, para de mentir, vai. Você já sentiu coisa pior.</p>
+		  <p>Com a agulha em mãos, continuo desenhando nas costas de Hasu, ignorando suas reclamações. Ela ri da minha cara com prazer, nunca desistindo de suas brincadeiras. Deitada no quarto mal iluminado, a tatuagem que estou fazendo nela começa a ficar um pouco torta, por mais que eu esteja realmente me esforçando. Mas não tem problema: quanto mais original, melhor. </p>
+		  <p>— Não vá errar essa caligrafia aí, ein! — Hasu volta a me irritar — Não quero passar vergonha.</p>
+		  <p>— É difícil fazer tudo certo quando você não para quieta — argumento de volta — Sua boca faz milagre quando está fechada.</p>
+		  <p>— Pois venha calar então, boba.</p>
+		  <p>Evitando novamente suas provocações, dou uns últimos ajustes na pele da mulher à minha frente, marcando-a com um símbolo japonês. “Lealdade”, é o que Hasu diz que essa figura significa. Para ser sincera, também não sei se ela está falando a verdade. De qualquer maneira, termino a tatuagem em suas costas, no nível de seus quadris. Se vista de longe, pode-se até dizer que se parece com a minha, por mais que sejam feitas por pessoas diferentes. A cicatrização da tatuagem de algumas horas atrás ainda é pouca, e a vermelhidão toma conta de nossas peles em volta da tinta.</p>
+		  <p>— Nada mal — Hasu diz, analisando a tatuagem no espelho mais próximo — Para uma iniciante como você…</p>
+		  <p>— Não é como se o seu trabalho tivesse ficado mais caprichado do que isso — rebato como sempre, sentando-me na cadeira ao seu lado.</p>
+		  <p>Arrastando a cadeira para frente do espelho, levanto um pouco minha camisa, o suficiente para visualizar a minha versão da tatuagem, também no nível do quadril, mas na frente do meu corpo, no lado direito. Comparando-as lado a lado, não me parecem de todo ruins. É como uma promessa: nunca esquecer uma da outra, não importa o que aconteça. A este ponto, é impossível deixar passar todos os momentos que tivemos juntas e, com a tatuagem, estas lembranças estarão marcadas para sempre em nossos corpos, incapaz de apagá-las por mais que tentemos.</p>
+		  <p>— Objetivo cumprido — Hasu fala ao olhar para nossos desenhos — Você não vai se livrar de mim assim tão fácil.</p>
+	  <p>— É o que vamos ver.</p>
+	  <p>Ela sabe muito bem que eu não sou esse tipo de pessoa, e muito menos a abandonaria por qualquer coisa. Mas é divertido confrontá-la de vez em quando, a marca registrada de nossa amizade. Parceria. Sem a sua ajuda, não teria conseguido nem mesmo sobreviver fora de casa, e eu devo minha vida à ela, minha companheira de longa data, que me ensinou muito ao longo do tempo. Ela também aprendeu bastante coisa, e é isso que faz nossa relação especial.</p>
+	  <p>Um estrondo corta rudemente nosso momento, vindo do andar de baixo de nosso estúdio escondido. A porta estava trancada, e a única pessoa que tem a chave (além de nós, é claro) é o nosso “chefe”, o dono desse lugar. Vozes abafadas conseguem ser escutadas abaixo de nós, e começo a temer que este seja nosso fim. Nós trabalhávamos na irregularidade, mas sempre demos nosso melhor e fizemos nossos clientes o mais confortáveis possível. Porém, quando reclamamos do preço do aluguel, acho que o proprietário não gostou muito da ideia. Não era de se surpreender que ele chamaria a polícia para nos tirar de lá o mais rápido possível. </p>
+	  <p>— Merda — Hasu fala baixinho, correndo para colocar todos os seus pertences dentro de sua pequena mochila de costas. Ela também já entendeu o que está por vir e, por mais que esperássemos por isso, não estávamos preparadas mentalmente pra lidar com as consequências. </p>
+	  <p>Acompanhando seu movimento, também começo a guardar minhas coisas, vendo minha amiga abrindo a janela do cômodo no canto de minha visão, e é aí que minha ficha cai. Não podemos ir pelo mesmo caminho, íamos ser encontradas facilmente juntas. Precisamos despistar os policiais o quanto antes, e isso significa me separar de Hasu, talvez por algum tempo, talvez para sempre. Nós não tínhamos dinheiro para celulares, e o único lugar seguro para nós era aquele estúdio. Agora, parece que não temos mais nada. Nenhum lugar era nosso lar.</p>
+	  <p>Soco minhas roupas dentro da mochila com raiva, algumas lágrimas de ódio caindo de meus olhos enquanto fecho o zíper e me preparo para sair pela porta dos fundos. Quando consegue finalmente destrancar a janela pela qual planejava escapar, Hasu senta no parapeito e olha para trás, os olhos também marejados, hesitante em ir embora. Ficamos nos encarando por um bom tempo, minhas mãos na maçaneta da porta, prontas para zarpar daquele lugar; o corpo dela inclinado para fora, seus cabelos voando com o vento forte da noite, escondendo grande parte de seu rosto maquiado.</p>
+	  <p>Por mais que eu queira me prender a esse lugar, à Hasu, a tudo o que passamos juntas, tenho que aceitar nosso destino. Já sabíamos que um dia isso ia acontecer e, não importa o que aconteça conosco, eu nunca a esquecerei. Ela fez parte da minha vida mais do que qualquer outra pessoa, e foi a melhor amiga que eu poderia ter tido nesses últimos tempos. Nós precisávamos uma da outra, mas agora é hora de dizer adeus.</p>
+	  <p>Depois de olhar em seus olhos castanhos escuros uma última vez, desvio o olhar para a porta, mantendo-o baixo enquanto abro a maçaneta, ouvindo os passos apressados de pessoas subindo pelas escadas em direção ao 2° andar. Estranhamente, outros passos mais próximos se misturam com os mais distantes e, quando olho para trás para conferir o que está acontecendo, Hasu pula em mim para um abraço, suas botas altas fazendo-a alcançar meus ombros. Em uma faísca de emoção, retribuo o abraço, mesmo que nunca tenhamos nos tratado desse jeito. Acho que esse realmente é o fim.</p>
+	  <p>Quando penso que havia acabado, tendo chorado todas as minhas preocupações fora, Hasu me surpreende mais uma vez: ao sair do abraço, ela aproveita a proximidade e coloca as mãos em minhas bochechas, puxando-me para um beijo. Era óbvio que ela queria muito isso, desde sempre, mas eu não reajo, não retribuo, só continuo parada com as mãos para baixo, incrédula.</p>
+	  <p>Com a maquiagem borrada, ela desce da ponta do pé e me encara uma última vez, ouvindo os barulhos da porta ao nosso lado sendo arrombada aos poucos. Antes que eu possa pensar em qualquer coisa para falar a ela, a mulher sai correndo em direção à janela, pulando pelo espaço na parede e caindo na telha abaixo, seu corpo esguio correndo o mais veloz que consegue, sumindo de vista em poucos segundos. Aproveito a deixa e atravesso a porta dos fundos em um só pulo, deixando para trás minha história, minha antiga vida, em busca de uma nova. Tive que abandonar tudo contra a minha vontade, mas não posso desistir de continuar, por mais difícil que seja deixá-la partir. Uma hora ou outra, isso não ia mais funcionar, e nós duas sabíamos disso. Só não queríamos que fosse agora.</p>
+
+		</section>
+		
+		<section>
+			<p class="categoria">Categorias: <a href="../lgbt.html">LGBTQIA+</a> <a href="../drama.html">Drama</a></p>
+		</section>
+
+		<section class="comentario">
+			<h2>Comentários</h2>
+			<form>
+				<textarea name="comentario" id="comentario-texto" placeholder="Faça um comentário..."></textarea>
+				<input type="image" id="seta-comentario" src="../img/seta-comentario.png">
+			</form>
+		</section>
+
+		<section>
+			<h3>Se você gosta de Drama, pode gostar de...</h3>
+			<div class="contos-slider">
+				<div class="continho">
+					<a href="companhia.html"><img src="capas/sua companhia.png" alt="Sua Companhia - Capa"></a>
+					<h4>Sua Companhia</h4>
+				</div>
+				<div class="continho">
+					<a href="traumas.html"><img src="capas/trauma.png" alt="Traumas - Capa"></a>
+					<h4>Traumas</h4>
+				</div>
+				<div class="continho">
+					<a href="pedacos.html"><img src="capas/pedaços.png" alt="Pedaços - Capa"></a>
+					<h4>Pedaços</h4>
+				</div>
+				<div class="continho">
+					<a href="reencontro.html"><img src="capas/reencontro.png" alt="O Reencontro - Capa"></a>
+					<h4>O Reencontro</h4>
+				</div>
+				<div class="continho">
+					<a href="desculpas.html"><img src="capas/desculpas.png" alt="Desculpas - Capa"></a>
+					<h4>Desculpas</h4>
+				</div>
+		</section>
+		<section>
+			<h3>Mais textos de Bia Carvalho</h3>
+			<div class="contos-slider">
+				<div class="continho">
+					<a href="mensagem.html"><img src="capas/mensagem.png" alt="Mensagens - Capa"></a>
+					<h4>Mensagens</h4>
+				</div>
+				<div class="continho">
+					<a href="milagre.html"><img src="capas/milagre.png" alt="Milagre - Capa"></a>
+					<h4>Milagre</h4>
+				</div>
+				<div class="continho">
+					<a href="chocolate.html"><img src="capas/chocolate.png" alt="Chocolate - Capa"></a>
+					<h4>Chocolate</h4>
+				</div>
+				<div class="continho">
+					<a href="admirador-secreto.html"><img src="capas/admirador.png" alt="Admirador Secreto - Capa"></a>
+					<h4>Admirador Secreto</h4>
+				</div>
+				<div class="continho">
+					<a href="não.html"><img src="capas/não.png" alt="Não - Capa"></a>
+					<h4>Não</h4>
+				</div>
+		</section>
+		<section>
+			<h3>Parecidos com A Separação</h3>
+			<div class="contos-slider">
+				<div class="continho">
+					<a href="depois.html"><img src="capas/depois.png" alt="O Depois - Capa"></a>
+					<h4>O Depois</h4>
+				</div>
+				<div class="continho">
+					<a href="carta.html"><img src="capas/carta.png" alt="A Carta - Capa"></a>
+					<h4>A Carta</h4>
+				</div>
+				<div class="continho">
+					<a href="eterna-presa.html"><img src="capas/eterna presa.png" alt="Eternamente Presa - Capa"></a>
+					<h4>Eternamente Presa</h4>
+				</div>
+				<div class="continho">
+					<a href="meu passado.html"><img src="capas/meu passado.png" alt="O Que Deixei Para Trás - Capa"></a>
+					<h4>O Que Deixei Para Trás</h4>
+				</div>
+				<div class="continho">
+					<a href="tatuagens.html"><img src="capas/tatuagem.png" alt="Tatuagens - Capa"></a>
+					<h4>Tatuagens</h4>
+				</div>
+		</section>
+
+		<a href="#nav"><img id="seta" src="../img/Seta.png" alt="Seta para o topo da página"></a>
+	</main>
+
+	<footer>
+		<div id="rodape">
+			<p>Contato: bianca.fac@gmail.com</p>
+
+			<div id="redes-sociais">
+				<a href="https://www.instagram.com" target="_blank"><img src="../img/ig.png" alt="Instagram"></a>
+				<a href="https://twitter.com/home" target="_blank"><img src="../img/twt.png" alt="Twitter"></a>
+				<a href="https://www.tiktok.com/pt-BR/" target="_blank"><img src="../img/ttk.png" alt="TikTok"></a>
+			</div>
+		</div>
+	</footer>
+</body>
+</html>

@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Mensagens</title>
+	<link rel="stylesheet" href="../css/style.css">
+	<link rel="icon" type="image/x-icon" href="../img/favicon.ico">
+
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Henny+Penny&family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+
+<!--        Menu Responsivo -->
+<script src="https://kit.fontawesome.com/3a591bff9c.js" crossorigin="anonymous"></script>
+<!-- Função Menu Responsivo - Teste -->
+<script>		function myFunction() {
+	document.getElementsByClassName("menu")[0].classList.toggle("responsive");}
+</script>
+
+</head>
+<body>
+	<header>
+		<nav id="nav">
+			<a href="../index.html"><img width="300px" src="../img/LogoPNG.png" alt="Logo Cafeteria dos Contos"></a>
+			<ul class="menu">
+				<!--                    Linha adicionada para o menu responsivo -->
+				<li class="icon"><a href="javascript:void(0);" onclick="myFunction()">&#9776;</a></li>
+				<li><a href="../index.html">Home</a></li>
+				<li class="conto-nav"><a href="../contos.html">Contos</a>
+					<ul class="dropdown">
+						<div>
+							<li><a href="../suspense.html">Suspense</a></li>
+							<li><a href="../terror.html">Terror</a></li>
+							<li><a href="../lgbt.html">LGBTQIA+</a></li>
+							<li><a href="../romance.html">Romance</a></li>
+						</div>
+						<div>
+							<li><a href="../fantasia.html">Fantasia</a></li>
+							<li><a href="../ficcao.html">Ficção</a></li>
+							<li><a href="../humor.html">Humor</a></li>
+							<li><a href="../drama.html">Drama</a></li>
+						</div>
+					</ul>
+				</li>
+				<li class="sobre-nav"><a href="../sobre.html">Sobre</a>
+					<ul class="dropdown">
+						<div>
+							<li><a href="../sobre.html">Quem somos</a></li>
+							<li><a href="../acessibilidade.html">Acessibilidade</a></li>
+							<li><a href="../contato.html">Contato</a></li>
+						</div>
+					</ul>
+				</li>
+				<li><a href="../newsletter.html">Newsletter</a></li>
+				<li><a href="../login.html">Login</a></li>
+			</ul>
+		</nav>
+	</header>
+
+	<main class="textos">
+		<ul class="breadcrumb">
+			<li class="bc-home"><a href="../contos.html">Contos</a></li>
+			<li class="bc-img-li"><img class="bc-img" src="../img/bc-seta.png" alt="breadcrumb"></li>
+			<li><a href="../drama.html">Drama</a></li>
+			<li class="bc-img-li"><img class="bc-img" src="../img/bc-seta.png" alt="breadcrumb"></li>
+			<li class="bc-ultimo">Mensagens</li>
+
+		</ul>
+
+		<section class="textos">
+		<h1>Mensagens</h1>
+		<h2>Bia Carvalho</h2>
+
+		<audio id="music" preload="true">
+			<source src="audios/nao-disponivel.m4a">
+		  </audio>
+		  <div id="audioplayer">
+			<button id="pButton" class="play"></button>
+			<div id="timeline">
+			  <div id="playhead"></div>
+			</div>
+		  </div>
+		  
+		  <script>
+			var music = document.getElementById('music'); // id for audio element
+		var duration = music.duration; // Duration of audio clip, calculated here for embedding purposes
+		var pButton = document.getElementById('pButton'); // play button
+		var playhead = document.getElementById('playhead'); // playhead
+		var timeline = document.getElementById('timeline'); // timeline
+		
+		// timeline width adjusted for playhead
+		var timelineWidth = timeline.offsetWidth - playhead.offsetWidth;
+		
+		// play button event listenter
+		pButton.addEventListener("click", play);
+		
+		// timeupdate event listener
+		music.addEventListener("timeupdate", timeUpdate, false);
+		
+		// makes timeline clickable
+		timeline.addEventListener("click", function(event) {
+			moveplayhead(event);
+			music.currentTime = duration * clickPercent(event);
+		}, false);
+		
+		// returns click as decimal (.77) of the total timelineWidth
+		function clickPercent(event) {
+			return (event.clientX - getPosition(timeline)) / timelineWidth;
+		}
+		
+		// makes playhead draggable
+		playhead.addEventListener('mousedown', mouseDown, false);
+		window.addEventListener('mouseup', mouseUp, false);
+		
+		// Boolean value so that audio position is updated only when the playhead is released
+		var onplayhead = false;
+		
+		// mouseDown EventListener
+		function mouseDown() {
+			onplayhead = true;
+			window.addEventListener('mousemove', moveplayhead, true);
+			music.removeEventListener('timeupdate', timeUpdate, false);
+		}
+		
+		// mouseUp EventListener
+		// getting input from all mouse clicks
+		function mouseUp(event) {
+			if (onplayhead == true) {
+				moveplayhead(event);
+				window.removeEventListener('mousemove', moveplayhead, true);
+				// change current time
+				music.currentTime = duration * clickPercent(event);
+				music.addEventListener('timeupdate', timeUpdate, false);
+			}
+			onplayhead = false;
+		}
+		// mousemove EventListener
+		// Moves playhead as user drags
+		function moveplayhead(event) {
+			var newMargLeft = event.clientX - getPosition(timeline);
+		
+			if (newMargLeft >= 0 && newMargLeft <= timelineWidth) {
+				playhead.style.marginLeft = newMargLeft + "px";
+			}
+			if (newMargLeft < 0) {
+				playhead.style.marginLeft = "0px";
+			}
+			if (newMargLeft > timelineWidth) {
+				playhead.style.marginLeft = timelineWidth + "px";
+			}
+		}
+		
+		// timeUpdate
+		// Synchronizes playhead position with current point in audio
+		function timeUpdate() {
+			var playPercent = timelineWidth * (music.currentTime / duration);
+			playhead.style.marginLeft = playPercent + "px";
+			if (music.currentTime == duration) {
+				pButton.className = "";
+				pButton.className = "play";
+			}
+		}
+		
+		//Play and Pause
+		function play() {
+			// start music
+			if (music.paused) {
+				music.play();
+				// remove play, add pause
+				pButton.className = "";
+				pButton.className = "pause";
+			} else { // pause music
+				music.pause();
+				// remove pause, add play
+				pButton.className = "";
+				pButton.className = "play";
+			}
+		}
+		
+		// Gets audio file duration
+		music.addEventListener("canplaythrough", function() {
+			duration = music.duration;
+		}, false);
+		
+		// getPosition
+		// Returns elements left position relative to top-left of viewport
+		function getPosition(el) {
+			return el.getBoundingClientRect().left;
+		}
+		</script>
+		  
+		  <p>Já estava prestes a cair no sono, acordada por um fio de angústias, quando de repente</p>
+		  <i>
+			<p>Bzzt.</p>
+		  </i>
+		  
+		  <p>Uma notificação faz meu celular vibrar ao meu lado, indicando uma nova mensagem. São duas horas da manhã.</p>
+		  <p>Meus olhos cansados agora não estão mais fechados, e meu corpo se vira em um impulso na direção do celular, as mãos ansiosas desbloqueando a tela do aparelho o mais rápido possível, errando a senha algumas vezes. Abro a notificação com esperanças, mas…</p>
+		  
+		  <i>
+			<p style="text-align: center;">“O novo pacote da Tim está em promoção! Por apenas 99,90 reais…”</p>
+		  </i>
+		  
+		  <p>Desligo a tela em decepção. Já é tarde, mas eu não consigo mais dormir enquanto você não me responde. Meu celular quase cai da cama quando solto-o no colchão, mas minha cabeça está tão cheia de paranoias e questionamentos que essa preocupação nem passa pelos meus pensamentos.</p>
+		  <p>Já fazem dois dias que eu decidi não te mandar mais mensagem. Eu estava tão ocupada com trabalhos de escola, tarefas domésticas e problemas de ansiedade que acabei não tendo tempo de te mandar mensagem. Ou talvez eu me forcei a não fazer isso, imaginando que você se importaria o suficiente comigo para querer saber como eu estou indo. Bom, aparentemente, não é o caso.</p>
+		  <p>Claro, eu sei que você também está passando por bastante coisa, a vida sempre é uma caixinha de surpresas, mas… eu queria fazer parte disso também. Nós combinamos que iríamos fazer parte da vida um do outro, não? Acho que é isso que um namoro quer dizer, você não acha? Pensei que oficializar as coisas fariam eu me sentir melhor, mas tudo foi desabando aos poucos.</p>
+		  <p>Estou fazendo perguntas retóricas, porque eu sei que você nunca vai me responder. Posso ligar para você todos os dias, que você nunca vai ter tempo para mim. Posso bloquear o seu número e você nem vai perceber. Posso trocar de celular e você nunca vai saber, só vai notar quando você realmente precisar de mim. Você vai precisar de mim? Você se importa de verdade, ou é tudo uma mentira?</p>
+		  <p>Por que você quer tanto me usar? Você sabe que eu não tenho forças para resistir a o que você faz. E eu continuo indo atrás, mesmo depois de todo esse tempo… Eu continuo atrás de você. E até agora, eu continuo falando sozinha, procurando por alguém que não está mais aqui. Onde está você, caralho? Você ainda me ama? Você sequer um dia me amou?</p>
+		  <p>Esquece. Eu sei que, se você responder minhas mensagens, eu vou correr atrás de você de novo, como um cachorrinho com a cauda entre as pernas, como se nada tivesse acontecido, como se tudo estivesse bem. Nada está bem, só você não vê. Talvez você veja, mas não se importe o suficiente para fazer alguma coisa a respeito. Talvez você goste de me ver sofrer. Ah, deixa para lá, você nem deve estar aqui para ver isso acontecer.</p>
+		  <p>A cada palavra que eu escrevo, eu sinto que estou mais sozinha. Porque eu sei que, no final, a única coisa que eu vou receber de volta é</p>
+		  
+		  <i>
+			<p style="text-align: center;">“Mensagem visualizada.”</p>
+		  </i>
+		</section>
+
+		<section>
+			<p class="categoria">Categorias: <a href="../drama.html">Drama</a></p>
+		</section>
+
+		<section class="comentario">
+			<h2>Comentários</h2>
+			<form>
+				<textarea name="comentario" id="comentario-texto" placeholder="Faça um comentário..."></textarea>
+				<input type="image" id="seta-comentario" src="../img/seta-comentario.png">
+			</form>
+		</section>
+
+		<section>
+			<h3>Se você gosta de Drama, pode gostar de...</h3>
+			<div class="contos-slider">
+				<div class="continho">
+					<a href="não.html"><img src="capas/não.png" alt="Não - Capa"></a>
+					<h4>Não</h4>
+				</div>
+				<div class="continho">
+					<a href="depois.html"><img src="capas/depois.png" alt="O Depois - Capa"></a>
+					<h4>O Depois</h4>
+				</div>
+				<div class="continho">
+					<a href="saudades.html"><img src="capas/saudades.png" alt="Saudades - Capa"></a>
+					<h4>Saudades</h4>
+				</div>
+				<div class="continho">
+					<a href="desculpas.html"><img src="capas/desculpas.png" alt="Desculpas - Capa"></a>
+					<h4>Desculpas</h4>
+				</div>
+				<div class="continho">
+					<a href="fogueira.html"><img src="capas/fogueira.png" alt="Fogueira - Capa"></a>
+					<h4>Fogueira</h4>
+				</div>
+		</section>
+		<section>
+			<h3>Mais textos de Bia Carvalho</h3>
+			<div class="contos-slider">
+				<div class="continho">
+					<a href="nobre-bruxa.html"><img src="capas/nobre bruxa.png" alt="A Nobre Bruxa - Capa"></a>
+					<h4>A Nobre Bruxa</h4>
+				</div>
+				<div class="continho">
+					<a href="flores.html"><img src="capas/primeira impressão - flores.png" alt="Primeira Impressão - Capa"></a>
+					<h4>Primeira Impressão</h4>
+				</div>
+				<div class="continho">
+					<a href="destinadas.html"><img src="capas/destinadas.png" alt="Destinadas - Capa"></a>
+					<h4>Destinadas</h4>
+				</div>
+				<div class="continho">
+					<a href="chocolate.html"><img src="capas/chocolate.png" alt="Chocolate - Capa"></a>
+					<h4>Chocolate</h4>
+				</div>
+				<div class="continho">
+					<a href="admirador-secreto.html"><img src="capas/admirador.png" alt="Admirador Secreto - Capa"></a>
+					<h4>Admirador Secreto</h4>
+				</div>
+		</section>
+		<section>
+			<h3>Parecidos com Mensagens</h3>
+			<div class="contos-slider">
+				<div class="continho">
+					<a href="longe-vc.html"><img src="capas/longe de vc.png" alt="Longe de Você - Capa"></a>
+					<h4>Longe de Você</h4>
+				</div>
+				<div class="continho">
+					<a href="tempestade.html"><img src="capas/tempestade.png" alt="Tempestade - Capa"></a>
+					<h4>Tempestade</h4>
+				</div>
+				<div class="continho">
+					<a href="saudades.html"><img src="capas/saudades.png" alt="Saudades - Capa"></a>
+					<h4>Saudades</h4>
+				</div>
+				<div class="continho">
+					<a href="pedacos.html"><img src="capas/pedaços.png" alt="Pedaços - Capa"></a>
+					<h4>Pedaços</h4>
+				</div>
+				<div class="continho">
+					<a href="carta.html"><img src="capas/carta.png" alt="A Carta - Capa"></a>
+					<h4>A Carta</h4>
+				</div>
+		</section>
+
+		<a href="#nav"><img id="seta" src="../img/Seta.png" alt="Seta para o topo da página"></a>
+	</main>
+
+	<footer>
+		<div id="rodape">
+			<p>Contato: bianca.fac@gmail.com</p>
+
+			<div id="redes-sociais">
+				<a href="https://www.instagram.com" target="_blank"><img src="../img/ig.png" alt="Instagram"></a>
+				<a href="https://twitter.com/home" target="_blank"><img src="../img/twt.png" alt="Twitter"></a>
+				<a href="https://www.tiktok.com/pt-BR/" target="_blank"><img src="../img/ttk.png" alt="TikTok"></a>
+			</div>
+		</div>
+	</footer>
+</body>
+</html>

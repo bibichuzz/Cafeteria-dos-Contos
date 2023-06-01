@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Álcool</title>
+	<link rel="stylesheet" href="../css/style.css">
+	<link rel="icon" type="image/x-icon" href="../img/favicon.ico">
+
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Henny+Penny&family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+
+<!--        Menu Responsivo -->
+<script src="https://kit.fontawesome.com/3a591bff9c.js" crossorigin="anonymous"></script>
+<!-- Função Menu Responsivo - Teste -->
+<script>		function myFunction() {
+	document.getElementsByClassName("menu")[0].classList.toggle("responsive");}
+</script>
+
+</head>
+<body>
+	<header>
+		<nav id="nav">
+			<a href="../index.html"><img width="300px" src="../img/LogoPNG.png" alt="Logo Cafeteria dos Contos"></a>
+			<ul class="menu">
+				<!--                    Linha adicionada para o menu responsivo -->
+				<li class="icon"><a href="javascript:void(0);" onclick="myFunction()">&#9776;</a></li>
+				<li><a href="../index.html">Home</a></li>
+				<li class="conto-nav"><a href="../contos.html">Contos</a>
+					<ul class="dropdown">
+						<div>
+							<li><a href="../suspense.html">Suspense</a></li>
+							<li><a href="../terror.html">Terror</a></li>
+							<li><a href="../lgbt.html">LGBTQIA+</a></li>
+							<li><a href="../romance.html">Romance</a></li>
+						</div>
+						<div>
+							<li><a href="../fantasia.html">Fantasia</a></li>
+							<li><a href="../ficcao.html">Ficção</a></li>
+							<li><a href="../humor.html">Humor</a></li>
+							<li><a href="../drama.html">Drama</a></li>
+						</div>
+					</ul>
+				</li>
+				<li class="sobre-nav"><a href="../sobre.html">Sobre</a>
+					<ul class="dropdown">
+						<div>
+							<li><a href="../sobre.html">Quem somos</a></li>
+							<li><a href="../acessibilidade.html">Acessibilidade</a></li>
+							<li><a href="../contato.html">Contato</a></li>
+						</div>
+					</ul>
+				</li>
+				<li><a href="../newsletter.html">Newsletter</a></li>
+				<li><a href="../login.html">Login</a></li>
+			</ul>
+		</nav>
+	</header>
+
+	<main class="textos">
+		<ul class="breadcrumb">
+			<li class="bc-home"><a href="../contos.html">Contos</a></li>
+			<li class="bc-img-li"><img class="bc-img" src="../img/bc-seta.png" alt="breadcrumb"></li>
+			<li><a href="../lgbt.html">LGBTQIA+</a></li>
+			<li class="bc-img-li"><img class="bc-img" src="../img/bc-seta.png" alt="breadcrumb"></li>
+			<li class="bc-ultimo">Álcool</li>
+
+		</ul>
+
+		<section class="textos">
+		<h1>Álcool</h1>
+		<h2>Bia Carvalho</h2>
+
+		<audio id="music" preload="true">
+			<source src="audios/nao-disponivel.m4a">
+		  </audio>
+		  <div id="audioplayer">
+			<button id="pButton" class="play"></button>
+			<div id="timeline">
+			  <div id="playhead"></div>
+			</div>
+		  </div>
+		  
+		  <script>
+			var music = document.getElementById('music'); // id for audio element
+		var duration = music.duration; // Duration of audio clip, calculated here for embedding purposes
+		var pButton = document.getElementById('pButton'); // play button
+		var playhead = document.getElementById('playhead'); // playhead
+		var timeline = document.getElementById('timeline'); // timeline
+		
+		// timeline width adjusted for playhead
+		var timelineWidth = timeline.offsetWidth - playhead.offsetWidth;
+		
+		// play button event listenter
+		pButton.addEventListener("click", play);
+		
+		// timeupdate event listener
+		music.addEventListener("timeupdate", timeUpdate, false);
+		
+		// makes timeline clickable
+		timeline.addEventListener("click", function(event) {
+			moveplayhead(event);
+			music.currentTime = duration * clickPercent(event);
+		}, false);
+		
+		// returns click as decimal (.77) of the total timelineWidth
+		function clickPercent(event) {
+			return (event.clientX - getPosition(timeline)) / timelineWidth;
+		}
+		
+		// makes playhead draggable
+		playhead.addEventListener('mousedown', mouseDown, false);
+		window.addEventListener('mouseup', mouseUp, false);
+		
+		// Boolean value so that audio position is updated only when the playhead is released
+		var onplayhead = false;
+		
+		// mouseDown EventListener
+		function mouseDown() {
+			onplayhead = true;
+			window.addEventListener('mousemove', moveplayhead, true);
+			music.removeEventListener('timeupdate', timeUpdate, false);
+		}
+		
+		// mouseUp EventListener
+		// getting input from all mouse clicks
+		function mouseUp(event) {
+			if (onplayhead == true) {
+				moveplayhead(event);
+				window.removeEventListener('mousemove', moveplayhead, true);
+				// change current time
+				music.currentTime = duration * clickPercent(event);
+				music.addEventListener('timeupdate', timeUpdate, false);
+			}
+			onplayhead = false;
+		}
+		// mousemove EventListener
+		// Moves playhead as user drags
+		function moveplayhead(event) {
+			var newMargLeft = event.clientX - getPosition(timeline);
+		
+			if (newMargLeft >= 0 && newMargLeft <= timelineWidth) {
+				playhead.style.marginLeft = newMargLeft + "px";
+			}
+			if (newMargLeft < 0) {
+				playhead.style.marginLeft = "0px";
+			}
+			if (newMargLeft > timelineWidth) {
+				playhead.style.marginLeft = timelineWidth + "px";
+			}
+		}
+		
+		// timeUpdate
+		// Synchronizes playhead position with current point in audio
+		function timeUpdate() {
+			var playPercent = timelineWidth * (music.currentTime / duration);
+			playhead.style.marginLeft = playPercent + "px";
+			if (music.currentTime == duration) {
+				pButton.className = "";
+				pButton.className = "play";
+			}
+		}
+		
+		//Play and Pause
+		function play() {
+			// start music
+			if (music.paused) {
+				music.play();
+				// remove play, add pause
+				pButton.className = "";
+				pButton.className = "pause";
+			} else { // pause music
+				music.pause();
+				// remove pause, add play
+				pButton.className = "";
+				pButton.className = "play";
+			}
+		}
+		
+		// Gets audio file duration
+		music.addEventListener("canplaythrough", function() {
+			duration = music.duration;
+		}, false);
+		
+		// getPosition
+		// Returns elements left position relative to top-left of viewport
+		function getPosition(el) {
+			return el.getBoundingClientRect().left;
+		}
+		</script>
+		  
+		  <p>Acordo com o despertador tocando alto, tirando-me do meu sono da tarde. Agora, são seis horas da tarde, e falta uma hora para Monique vir me buscar em casa para sairmos. Tiro forças para me levantar do colchão, completamente desanimada. Combinamos de ir ao bar com os amigos dela, e definitivamente esse é o último lugar no qual eu gostaria de estar em uma sexta à noite, após uma longa semana de trabalho pesado e cansativo. Se ela viesse aqui em casa, poderíamos assistir um filme, descansar… Mas eu quero fazer isso hoje. Por ela. É só um sacrifício, não vai me fazer mal tentar algo diferente essa semana.</p>
+	<p>Escolher uma roupa é a parte mais difícil. O que as pessoas vestem para essas ocasiões? Algo básico, um vestido confortável? Ou acessórios mais complicados, peças mais elaboradas? Decidi ir mais arrumada dessa vez para compensar minha falta de vontade de estar naquele lugar cheio de pessoas bebendo, gritando e falando de assuntos que eu não sei nada sobre. Só de pensar nisso minha barriga já dá um nó, mas eu continuo calçando meus sapatos enquanto ouço a campainha tocando, indicando a chegada de Monique. Ajeito minha regata marrom por cima da blusa branca estampada, suspirando em decepção enquanto coloco tudo o que preciso dentro de uma pequena bolsinha.</p>
+	<p>Desço as escadas correndo, quase tropeçando com a sandália de salto que decidi vestir, acompanhada de uma meia branca. Minha longa saia verde também não ajuda nesta situação, e tudo parece me atrapalhar cada vez mais: meus brincos balançam, meu cabelo pesa, o mundo está conspirando para me estressar e não me fazer querer sair para o bar hoje. Não queria que a ansiedade tomasse conta de mim esta noite, então, chegando no primeiro andar, respiro fundo e abro a porta sem pensar demais, dando de cara com minha namorada esperando pacientemente na entrada, observando a rua movimentada próxima ao rio. </p>
+<p>— Demorei demais? — pergunto sorrindo.</p>
+<p>— No tempo certo — Monique se aproxima e me puxa pela cintura para um beijo — Está pronta?</p>
+<p>— Você sabe que não, mas é melhor irmos antes que eu desista dessa ideia idiota — digo brincando enquanto andamos em direção ao centro da cidade, sua mão apoiada em meu quadril durante o trajeto.</p>
+	<p>Cada vez mais próximas do local de nosso encontro, não pude evitar o nervosismo perpassando toda a minha pele, arrepiando cada centímetro do meu corpo com o medo. Medo de me sentir deslocada. Medo de me sentir ignorada, subestimada, e acabar saindo chorando daquele lugar a qualquer momento. Não seria a primeira vez que isso aconteceria e, para falar a verdade, é como se eu já estivesse acostumada com essas situações. Foram tantas as vezes que fui rejeitada socialmente que minha vida já se tornou extremamente previsível.</p>
+	<p>Monique percebe a tensão em meus músculos e me aproxima ainda mais de seu corpo, falando baixinho para mim quando chegamos na porta do estabelecimento:</p>
+	<p>— Vai dar tudo certo, amor. Se você quiser ir embora a qualquer momento, é só me falar, eu volto com você. Vou estar contigo em todos os momentos, então não se preocupe, nada vai acontecer com você.</p>
+	<p>Por mais que essa segurança me tranquilize um pouco, não é o suficiente para me fazer relaxar por completo. Concordo com a cabeça e coloco um sorriso forçado no rosto, apertando o passo quando avistamos seus cinco amigos nos observando do balcão. Não esperava que fossem comparecer tantas pessoas, já que não estou muito habituada a vir aqui com frequência. Só cumprimento os funcionários quando passo pela frente e, poucas vezes, paro para conversar com alguns deles quando minha mãe está por aqui. Mas hoje é diferente, Dina saiu para viajar de novo e, agora, estou presa nessa ocasião constrangedora, onde eu quase não conheço as pessoas que estão aqui. Eles são amigos da Monique, não meus. Eu nunca seria capaz de fazer amigos que nem ela.</p>
+	<p>Felizmente, todos eles são extremamente compreensíveis. Monique deve ter comentado muito sobre mim para eles, então os cinco foram muito simpáticos, tentando sempre me incluir em coisas que eu poderia não entender, me explicando e ouvindo quando eu finalmente decidia soltar alguma coisa na roda. Um sentimento sossegado percorre minha mente, apaziguando grande parte da minha ansiedade durante os poucos minutos que haviam se passado.</p>
+	<p>Depois de algum tempo conversando, uma delas chama a atendente atrás do balcão e pede alguma bebida especial que eles tem na casa, familiarizada com o cardápio. Os outros seguem-na, fazendo seus pedidos um após o outro. Não tenho a mínima ideia do que fazer nessas circunstâncias, já que não costumo beber com frequência, somente em ocasiões especiais. Por mais que me ofereçam, não sou muito chegada, e não gosto da sensação que me traz, sentir que vou me perder a qualquer momento e terei minha consciência apagada se eu não tomar cuidado. É aterrorizante pensar nisso, então apenas viro para Monique pedindo uma água.</p>
+<p>— Certeza, amor? A gente pode dividir alguma coisa se você se sentir melhor assim. — ela fala com a voz mais preocupada do mundo, sabendo da minha dificuldade.</p>
+<p>… Merda. Por que é tão difícil negar o pedido de alguém que você ama? Eu sei que ela não liga se eu não a acompanhar, mas seria um gesto tão legal se eu ao menos o fizesse uma vez.</p>
+<p>— Tá — eu engulo em seco, disfarçando o nervosismo — Só… Só pede algo leve.</p>
+	<p>Ela olha para mim apreensiva, mas eu corto contato visual para ela não me fazer mudar de ideia. Assim, ela também vira para a moça das bebidas e faz seu pedido, mas acabo não escutando direito por causa do barulho alto da música e das pessoas em volta. Deus, como eu queria que isso acabasse logo.</p>
+	<p>As bebidas chegam rapidamente, cada uma com uma fruta diferente dentro do copo. A nossa bebida parece ser de morango, com alguns resquícios de laranja visíveis. Monique dá um gole e faz uma cara satisfeita, aprovando e passando para mim para que eu a experimentasse. Em um primeiro momento, eu hesito, mas logo arranco o copo da mão de minha namorada e puxo o canudo para minha boca, experimentando a bebida. É um gosto doce, com um toque cítrico, um sabor interessante. Acabo tomando um pouco mais, o que surpreende Monique, que sorri e me abraça enquanto seguro o canudinho de plástico, quase deixando tudo cair no chão.</p>
+<p>Parece que só me deixar levar pelo impulso também trouxe resultado, porque depois daquele gole eu parei de me importar. Naquela noite, eu poderia parar de pensar tanto na minha imagem e focar em mim ao menos uma vez na minha vida sem me sentir culpada sobre isso. Qualquer coisa, Monique estaria ali por mim, então eu decidi aproveitar o momento para me divertir, finalmente me permitir.</p>
+<p>Dividimos a bebida de morango e decidimos pedir mais uma, desta vez com uma fruta diferente. Para falar a verdade, não prestei atenção no que era também, eu não queria me preocupar e assim o fiz. A cada gole, o barulho parecia se distanciar de mim, e eu me sentia mais a vontade que nunca. Era como se não tivesse mais ninguém lá, somente eu, Monique e seus amigos, mas eu não me importo muito com eles. Minha atenção era apenas Monique. </p>
+<p>Um pouco de álcool depois e eu já não estava completamente sã, como o esperado, mas quem liga? É sexta-feira, minha semana foi uma tortura, e é a primeira vez em anos que eu deixo as preocupações de lado pra fazer isso. Sinceramente, foda-se. Depois de rir bastante ouvindo as histórias do grupo, a música alta tocando entra pelos meus ouvidos e se manifesta no meu corpo, a vontade de dançar atingiu-me como eletricidade, fazendo-me levantar aos poucos enquanto o ritmo me contagia para dançar. Fico ao lado de Monique enchendo seu saco, abraçando seus ombros e balançando conforme a música.</p>
+<p>Vendo essa situação, todos os seus amigos também levantam, começando a dançar entre si e cantar desafinados a letra, um coro desorganizado do qual eu também participava. Minha namorada parecia incrédula, mas também se deixou ser levada pela dança e pegou na minha mão para me guiar pela batida que saía da caixa de som, e meus pés já não estavam mais coordenados depois de ingerir uma quantidade considerável de álcool.</p>
+<p>Algumas músicas depois e meus pés já pediam por socorro, sofrendo dentro dos saltos que escolhi usar. A energia foi descendo e todos nos sentamos novamente, e o cansaço fez-me sentar no colo de Monique, apoiando minha cabeça em seu ombro. Minha mente girava incessantemente, repleta de pensamentos sem sentido e estímulos repentinos, mas meu corpo já não respondia mais tão bem.</p>
+<p>— Você é muito bonita, sabia? — sussurro no ouvido de Monique com um sorrisinho — Poderia passar hooooras e hoooras com você, nunca me cansaria.</p>
+<p>— Sério? — Ela vira para mim, fingindo surpresa — Não sabia que você estava tão animada assim.</p>
+<p>— Sua cara é muito linda — repito, passando a mão pelo seu cabelo e descendo os dedos por sua bochecha, ainda apoiada em seu ombro — Você é um monumento? Uma obra de arte?</p>
+<p>— Acho que tá na hora de descansar, Lilia — ela ri, puxando minha mão para perto e me dando um beijo, que retribuo com prazer — Não estava esperando tanta empolgação.</p>
+<p>— É você. Sem você, eu não estaria assim.</p>
+<p>Depois dessa minha fala desconcertada, Monique encosta sua testa na minha, fechando os olhos comigo. Ficamos ali por algum tempo, somente vivendo o momento. É, acho que eu não deveria ter bebido tanto assim.</p>
+<p>Já estava ficando tarde, e o bar começou a fechar as portas. Quase dormindo no colo de Monique, acordo em um impulso para me despedir de seus amigos, agradecendo pela noite incrível. Foi uma despedida desajeitada, todos já meio bambos após longas horas fora de casa. Minha namorada, mais estável do que eu naquele momento, me acompanha até em casa, aturando minha cabeça a mil por hora. Durante o caminho, eu pulava de felicidade, falando e falando e falando sem parar, apenas sendo ouvida pelo amor da minha vida. Ela não estava habituada a me ver desse jeito, mas sei que isso a deixou feliz. De saber que outra versão de mim existe; por mais distante da realidade que esteja, ela ainda está lá, escondida, esperando para despertar.</p>
+<p>Chegando na porta de entrada da casa da família Leanor, finjo choramingar para ela, colocando os braços em volta de seu pescoço e me aproximando de seu rosto abruptamente.</p>
+<p>— Seria tãoooo bom se você ficasse por aqui… — imploro — Já está tarde, não custa nada você-</p>
+<p>Monique logo corta meu drama com um selinho, espantando-me. Ela sabe que eu gosto de provocá-la para ficar, e dessa vez ela realmente ouviu. Ela me puxa pela bunda, um beijo caloroso tomando conta de nós. Nenhuma de nós queria que a noite acabasse ali. Meus lábios descem para seu pescoço, o sangue fervendo e pedindo por mais. Antes que qualquer coisa avançasse, Monique afasta nossos corpos poucos centímetros, abrindo a porta de minha casa e puxando minha mão para entrar. Com brilho nos olhos, eu a acompanho, fechando a porta e sem olhar para trás.</p>
+
+		  
+		</section>
+		<section>
+			<p class="categoria">Categorias: <a href="../lgbt.html">LGBTQIA+</a></p>
+		</section>
+
+		<section class="comentario">
+			<h2>Comentários</h2>
+			<form>
+				<textarea name="comentario" id="comentario-texto" placeholder="Faça um comentário..."></textarea>
+				<input type="image" id="seta-comentario" src="../img/seta-comentario.png">
+			</form>
+		</section>
+
+		<section>
+			<h3>Se você gosta de contos LGBTQIA+, pode gostar de...</h3>
+			<div class="contos-slider">
+				<div class="continho">
+					<a href="finalmente.html"><img src="capas/finalmente.png" alt="Finalmente - Capa"></a>
+					<h4>Finalmente</h4>
+				</div>
+				<div class="continho">
+					<a href="donzela.html"><img src="capas/donzela.png" alt="Ó, Donzela! - Capa"></a>
+					<h4>Ó, Donzela!</h4>
+				</div>
+				<div class="continho">
+					<a href="separacao.html"><img src="capas/separação.png" alt="A Separação - Capa"></a>
+					<h4>A Separação</h4>
+				</div>
+				<div class="continho">
+					<a href="de-manha.html"><img src="capas/de manhã.png" alt="De Manhã - Capa"></a>
+					<h4>De Manhã</h4>
+				</div>
+				<div class="continho">
+					<a href="destinadas.html"><img src="capas/destinadas.png" alt="Destinadas - Capa"></a>
+					<h4>Destinadas</h4>
+				</div>
+		</section>
+		<section>
+			<h3>Mais textos de Bia Carvalho</h3>
+			<div class="contos-slider">
+				<div class="continho">
+					<a href="meu passado.html"><img src="capas/meu passado.png" alt="O Que Deixei Para Trás - Capa"></a>
+					<h4>O Que Deixei Para Trás</h4>
+				</div>
+				<div class="continho">
+					<a href="telhado.html"><img src="capas/telhado.png" alt="Telhado de Natal - Capa"></a>
+					<h4>Telhado de Natal</h4>
+				</div>
+				<div class="continho">
+					<a href="desculpas.html"><img src="capas/desculpas.png" alt="Desculpas - Capa"></a>
+					<h4>Desculpas</h4>
+				</div>
+				<div class="continho">
+					<a href="crise.html"><img src="capas/crise.png" alt="Em Crise - Capa"></a>
+					<h4>Em Crise</h4>
+				</div>
+				<div class="continho">
+					<a href="limonada.html"><img src="capas/limonada.png" alt="Limonada - Capa"></a>
+					<h4>Limonada</h4>
+				</div>
+		</section>
+		<section>
+			<h3>Parecidos com Álcool</h3>
+			<div class="contos-slider">
+				<div class="continho">
+					<a href="reencontro.html"><img src="capas/reencontro.png" alt="O Reencontro - Capa"></a>
+					<h4>O Reencontro</h4>
+				</div>
+				<div class="continho">
+					<a href="não.html"><img src="capas/não.png" alt="Não - Capa"></a>
+					<h4>Não</h4>
+				</div>
+				<div class="continho">
+					<a href="tatuagens.html"><img src="capas/tatuagem.png" alt="Tatuagens - Capa"></a>
+					<h4>Tatuagens</h4>
+				</div>
+				<div class="continho">
+					<a href="saudades.html"><img src="capas/saudades.png" alt="Saudades - Capa"></a>
+					<h4>Saudades</h4>
+				</div>
+				<div class="continho">
+					<a href="a-sos.html"><img src="capas/a sós.png" alt="A Sós - Capa"></a>
+					<h4>A Sós</h4>
+				</div>
+		</section>
+
+		<a href="#nav"><img id="seta" src="../img/Seta.png" alt="Seta para o topo da página"></a>
+	</main>
+
+	<footer>
+		<div id="rodape">
+			<p>Contato: bianca.fac@gmail.com</p>
+
+			<div id="redes-sociais">
+				<a href="https://www.instagram.com" target="_blank"><img src="../img/ig.png" alt="Instagram"></a>
+				<a href="https://twitter.com/home" target="_blank"><img src="../img/twt.png" alt="Twitter"></a>
+				<a href="https://www.tiktok.com/pt-BR/" target="_blank"><img src="../img/ttk.png" alt="TikTok"></a>
+			</div>
+		</div>
+	</footer>
+</body>
+</html>

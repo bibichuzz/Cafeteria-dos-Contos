@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>A Nobre Bruxa</title>
+	<link rel="stylesheet" href="../css/style.css">
+	<link rel="icon" type="image/x-icon" href="../img/favicon.ico">
+
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Henny+Penny&family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+
+<!--        Menu Responsivo -->
+<script src="https://kit.fontawesome.com/3a591bff9c.js" crossorigin="anonymous"></script>
+<!-- Função Menu Responsivo - Teste -->
+<script>		function myFunction() {
+	document.getElementsByClassName("menu")[0].classList.toggle("responsive");}
+</script>
+
+</head>
+<body>
+	<header>
+		<nav id="nav">
+			<a href="../index.html"><img width="300px" src="../img/LogoPNG.png" alt="Logo Cafeteria dos Contos"></a>
+			<ul class="menu">
+				<!--                    Linha adicionada para o menu responsivo -->
+				<li class="icon"><a href="javascript:void(0);" onclick="myFunction()">&#9776;</a></li>
+				<li><a href="../index.html">Home</a></li>
+				<li class="conto-nav"><a href="../contos.html">Contos</a>
+					<ul class="dropdown">
+						<div>
+							<li><a href="../suspense.html">Suspense</a></li>
+							<li><a href="../terror.html">Terror</a></li>
+							<li><a href="../lgbt.html">LGBTQIA+</a></li>
+							<li><a href="../romance.html">Romance</a></li>
+						</div>
+						<div>
+							<li><a href="../fantasia.html">Fantasia</a></li>
+							<li><a href="../ficcao.html">Ficção</a></li>
+							<li><a href="../humor.html">Humor</a></li>
+							<li><a href="../drama.html">Drama</a></li>
+						</div>
+					</ul>
+				</li>
+				<li class="sobre-nav"><a href="../sobre.html">Sobre</a>
+					<ul class="dropdown">
+						<div>
+							<li><a href="../sobre.html">Quem somos</a></li>
+							<li><a href="../acessibilidade.html">Acessibilidade</a></li>
+							<li><a href="../contato.html">Contato</a></li>
+						</div>
+					</ul>
+				</li>
+				<li><a href="../newsletter.html">Newsletter</a></li>
+				<li><a href="../login.html">Login</a></li>
+			</ul>
+		</nav>
+	</header>
+
+	<main class="textos">
+		<ul class="breadcrumb">
+			<li class="bc-home"><a href="../contos.html">Contos</a></li>
+			<li class="bc-img-li"><img class="bc-img" src="../img/bc-seta.png" alt="breadcrumb"></li>
+			<li><a href="../fantasia.html">Fantasia</a></li>
+			<li class="bc-img-li"><img class="bc-img" src="../img/bc-seta.png" alt="breadcrumb"></li>
+			<li class="bc-ultimo">A Nobre Bruxa</li>
+
+		</ul>
+
+		<section class="textos">
+		<h1>A Nobre Bruxa</h1>
+		<h2>Bia Carvalho</h2>
+
+		<audio id="music" preload="true">
+			<source src="audios/nao-disponivel.m4a">
+		  </audio>
+		  <div id="audioplayer">
+			<button id="pButton" class="play"></button>
+			<div id="timeline">
+			  <div id="playhead"></div>
+			</div>
+		  </div>
+		  
+		  <script>
+			var music = document.getElementById('music'); // id for audio element
+		var duration = music.duration; // Duration of audio clip, calculated here for embedding purposes
+		var pButton = document.getElementById('pButton'); // play button
+		var playhead = document.getElementById('playhead'); // playhead
+		var timeline = document.getElementById('timeline'); // timeline
+		
+		// timeline width adjusted for playhead
+		var timelineWidth = timeline.offsetWidth - playhead.offsetWidth;
+		
+		// play button event listenter
+		pButton.addEventListener("click", play);
+		
+		// timeupdate event listener
+		music.addEventListener("timeupdate", timeUpdate, false);
+		
+		// makes timeline clickable
+		timeline.addEventListener("click", function(event) {
+			moveplayhead(event);
+			music.currentTime = duration * clickPercent(event);
+		}, false);
+		
+		// returns click as decimal (.77) of the total timelineWidth
+		function clickPercent(event) {
+			return (event.clientX - getPosition(timeline)) / timelineWidth;
+		}
+		
+		// makes playhead draggable
+		playhead.addEventListener('mousedown', mouseDown, false);
+		window.addEventListener('mouseup', mouseUp, false);
+		
+		// Boolean value so that audio position is updated only when the playhead is released
+		var onplayhead = false;
+		
+		// mouseDown EventListener
+		function mouseDown() {
+			onplayhead = true;
+			window.addEventListener('mousemove', moveplayhead, true);
+			music.removeEventListener('timeupdate', timeUpdate, false);
+		}
+		
+		// mouseUp EventListener
+		// getting input from all mouse clicks
+		function mouseUp(event) {
+			if (onplayhead == true) {
+				moveplayhead(event);
+				window.removeEventListener('mousemove', moveplayhead, true);
+				// change current time
+				music.currentTime = duration * clickPercent(event);
+				music.addEventListener('timeupdate', timeUpdate, false);
+			}
+			onplayhead = false;
+		}
+		// mousemove EventListener
+		// Moves playhead as user drags
+		function moveplayhead(event) {
+			var newMargLeft = event.clientX - getPosition(timeline);
+		
+			if (newMargLeft >= 0 && newMargLeft <= timelineWidth) {
+				playhead.style.marginLeft = newMargLeft + "px";
+			}
+			if (newMargLeft < 0) {
+				playhead.style.marginLeft = "0px";
+			}
+			if (newMargLeft > timelineWidth) {
+				playhead.style.marginLeft = timelineWidth + "px";
+			}
+		}
+		
+		// timeUpdate
+		// Synchronizes playhead position with current point in audio
+		function timeUpdate() {
+			var playPercent = timelineWidth * (music.currentTime / duration);
+			playhead.style.marginLeft = playPercent + "px";
+			if (music.currentTime == duration) {
+				pButton.className = "";
+				pButton.className = "play";
+			}
+		}
+		
+		//Play and Pause
+		function play() {
+			// start music
+			if (music.paused) {
+				music.play();
+				// remove play, add pause
+				pButton.className = "";
+				pButton.className = "pause";
+			} else { // pause music
+				music.pause();
+				// remove pause, add play
+				pButton.className = "";
+				pButton.className = "play";
+			}
+		}
+		
+		// Gets audio file duration
+		music.addEventListener("canplaythrough", function() {
+			duration = music.duration;
+		}, false);
+		
+		// getPosition
+		// Returns elements left position relative to top-left of viewport
+		function getPosition(el) {
+			return el.getBoundingClientRect().left;
+		}
+		</script>
+		  
+		  <p>Depois de horas caminhando pela floresta fechada, avisto uma pequena casa de madeira, praticamente imperceptível no meio da vegetação. Só consigo identificá-la quando estou a poucos metros da mesma. É como se já fizesse parte das árvores e das pedras, como se tivesse sido criada pela própria natureza, com raízes subindo suas paredes e rochas fazendo o papel de teto. Mas não engana: há sinais de mudança humana. Isso foi construído há muito tempo, mas não foi a natureza.</p>
+		  <p>Parece que o mito se tornou verdadeiro.</p>
+		  <p>Aproximo-me da casa tentando fazer o mínimo de barulho possível. A única coisa que se pode ouvir na floresta são os pássaros nos galhos, piando e conversando entre si, e meus pés esmagando as folhas do chão repleto delas. Os altos pinheiros bloqueiam a luz do sol, e mesmo de dia a casinha se esconde perfeitamente no ambiente, como uma camuflagem. É tão diferente que parece irreal, tudo um sonho. Ah, como eu queria que fosse.</p>
+		  <p>Quanto mais perto estou, mais o medo toma conta do meu corpo. E se for uma armadilha? E se a bruxa não existir? Gastei o que podem ser minhas últimas horas de vida caminhando para o nada? Não pode ser. Tem que ter alguma coisa. Eu tenho que me salvar. Eu preciso me salvar. Tudo tem que valer a pena.</p>
+		  <p>Respiro fundo e continuo a acercar o lugar, sempre atenta a qualquer ruído estranho. Meus cabelos pretos grudam em minha testa com o suor da tensão e da caminhada, mas isso não me incomoda. Quem liga para um fio de cabelo quando está desesperada? Ao alcançar a porta, dou três batidas fracas antes de abri-la, revelando o interior da humilde casa.</p>
+		  <p>Somente duas janelas compõem a luminosidade do lugar, e há muitas coisas amontoadas: livros, frascos, restos de comida; líquidos jorrando de vasos quebrados, molhando todas as páginas em que estão apoiados. Aqueles calhamaços formam uma barreira com uma passagem vazia entre eles. O interior é uma verdadeira bagunça.</p>
+		  <p>Não vejo ninguém à primeira vista, mas tenho quase certeza de que ela está aqui. Consigo avistar uma beirada de mesa atrás de tudo aquilo, e isso só confirma minhas suspeitas.</p>
+		  <p>Cautelosamente, dirijo-me em direção à mesa, observando cada detalhe daquele lugar mágico. Se eu nunca mais voltasse , pelo menos teria tudo guardado na memória. </p>
+		  <p>Minhas mãos tremiam de nervoso quando passei pela parede de livros e me deparei com quem eu estava procurando. Minha pele escura empalidece de tanta surpresa. Não esperava ver o que encontrei.</p>
+		  <p>Lá estava ela, a bruxa dos mitos de minha infância. A fantasia que criaram para assustar crianças. A lenda que ninguém acreditava. E ela existe.</p>
+		  <p>Ela já me encarava no momento em que cheguei em sua mesa. Seus olhos verdes eram incomuns e assustadores, olhando profundamente para mim, analisando cada centímetro da minha estrutura, avaliando meu físico e minhas feições. Seus cabelos loiros totalmente bagunçados e emaranhados estendiam-se até seus seios e ondulavam-se da raiz às pontas. Em sua cabeça, uma coroa se destacava.</p>
+		  <p>Tento falar, me mexer, mas não consigo. Minha voz falha, e meu corpo oscila por conta do susto. Por isso, ela solta sua voz primeiro:</p>
+		  <p>— Me parece que você é a única que conseguiu chegar até aqui. — Sua voz era grossa e fluída, como se voasse com o vento —  Me pergunto o que te fez ir tão longe, meu doce. Perdeu tantos amigos, tantos companheiros, eu suponho. — a bruxa diz, ainda me encarando e largando a pedra que estava segurando.</p>
+		  <p>Finalmente, consigo pronunciar alguma palavra:</p>
+		  <p>— Realmente. Essas perdas me fizeram ir até o final. Vim aqui para fazer tudo o que passei valer a pena. — minha voz não vacila, mostrando uma perspectiva decidida de mim mesma.</p>
+		  <p>— Talvez eu saiba o que você está procurando. — Ela se levanta e passa por trás de sua cadeira desgastada, revelando seu longo vestido vermelho desbotado — Se eu não me engano, é este frasco. Não é, mocinha?</p>
+		  <p>Não sei como decifra meus pensamentos, mas ela retira um dos milhares de vidrinhos apoiados nos livros e me oferece. Suas mãos enfeitadas com jóias não parecem de uma pessoa que viveu décadas a mais que um mortal. Na verdade, nenhuma parte dela parece. Seu rosto sem rugas, seus lábios carnudos e saudáveis, sua estatura jovem... É como se ela tivesse parado no tempo.</p>
+		  <p>Fito o frasco por alguns segundos até agarrá-lo com cuidado, voltando meu olhar à bruxa desconhecida.</p>
+		  <p>— Como vou saber se esta é a poção da liberdade? — falo e olho com incerteza à ela.</p>
+		  <p>— A pergunta é: por que eu te diria? — ela apoia os cotovelos na mesa, inclinando seu quadril para trás — Você confiaria em mim?</p>
+		  <p>— Se eu soubesse seu nome, talvez confiaria mais. — respondo com rispidez.</p>
+		  <p>— Holanda. Mas logo isso não importará. Voltando ao assunto, vai levá-la ou não, querida?</p>
+		  <p>Estou com receios, é claro, mas essa aparenta ser a única chance que tenho de me livrar de todo o meu sofrimento e de vingar todas as violências. Não sei o que esse líquido quase invisível faz, mas confio que essa bebida mudará minha vida e seu rumo.</p>
+		  <p>Sem respondê-la, viro o líquido em minha boca e engulo-o. Tem um gosto ácido e passa pela minha garganta como água. Na hora, não me sinto alterada, mas Holanda sorri maleficamente, e começo a me perguntar o porquê. Logo descubro.</p>
+		  <p>Começo a me sentir mais forte, disposta, cheia de vigor, e me pergunto se tudo não é fruto da minha imaginação. Me sinto livre, longe e distante de todo o mundo que conheço, me afastando cada vez mais dos meus sentidos. Minha visão começa a se apagar, e eu também apago.</p>
+		  <br>
+		  <p>Ao abrir os olhos, me apavoro. Não lembro onde estou, o que fui fazer, e quem é a mulher que está ao meu lado. Por que estou estatelada no chão de uma casa minúscula?</p>
+		  <p>E esse não é o maior problema. Quando me dou conta, não lembro do meu nome. Não lembro de onde sou. Não lembro de nenhuma pista do meu passado.</p>
+		  <p>Perturbada, decido sentar-me para forçar minha mente a lembrar. A misteriosa loira à minha esquerda me ajuda a endireitar-me. Ela sorri constantemente, e não consigo entender o motivo.</p>
+		  <p>Aos poucos, minha memória vai voltando, e já consigo recordar as coisas. Meu nome é Kilie, tenho 17 anos, moro na cidade de Pontu, nasci na aldeia de Orisk, tinha dois irmãos, uma irmã, uma companheira e vários amigos. Todos perdidos naquela maldita floresta agonizante.</p>
+		  <p>Seguro as lágrimas com todos os meus esforços e agarro o braço esquerdo da bruxa, lembrando-me de seu nome. Ela me encara com um olhar repleto de medo. Estranho, pensava que ela era invencível.</p>
+		  <p>— Holanda. — solto um grunhido com os dentes cerrados.</p>
+		  <p>— E-eu... — ela gagueja — Posso explicar tudo se você ao menos me soltar.</p>
+		  <p>— O que essa poção fez comigo? — Me sinto diferente, como se não pertencesse mais a esse mundo. Mas não entendo como isso pode ser liberdade.</p>
+		  <p>— Me solte! — ela grita e se desvencilha de mim, levantando-se e me empurrando para o chão.</p>
+		  <p>Apoio minhas mãos com toda a força e me ergo num salto, parando em sua frente e barrando-a.</p>
+		  <p>Entre sua respiração cortada, ela me responde com um sorriso irônico no rosto:</p>
+		  <p>— Eu estou livre do meu mundo, e você está livre do seu. — ela me encara — A bruxaria está em suas mãos agora, e espero ansiosamente que você consiga se livrar dela.</p>
+		  <p>Não tenho tempo de raciocinar antes dela quebrar um de seus vasos na minha têmpora e sair correndo pela porta de sua antiga casa com os pés descalços e seus cabelos balançando com seu corpo.</p>
+		  <p>Enquanto me recupero, parece que tudo veio à tona: as histórias começam a se encaixar, seu falatório faz sentido, e nunca me senti tão enganada em toda a minha vida.</p>
+		  
+		</section>
+		
+		<section>
+			<p class="categoria">Categorias: <a href="../fantasia.html">Fantasia</a></p>
+		</section>
+
+		<section class="comentario">
+			<h2>Comentários</h2>
+			<form>
+				<textarea name="comentario" id="comentario-texto" placeholder="Faça um comentário..."></textarea>
+				<input type="image" id="seta-comentario" src="../img/seta-comentario.png">
+			</form>
+		</section>
+
+		<section>
+			<h3>Se você gosta de Fantasia, pode gostar de...</h3>
+			<div class="contos-slider">
+				<div class="continho">
+					<a href="realeza.html"><img src="capas/segredos realeza.png" alt="Segredos da Realeza - Capa"></a>
+					<h4>Segredos da Realeza</h4>
+				</div>
+				<div class="continho">
+					<a href="donzela.html"><img src="capas/donzela.png" alt="Ó, Donzela! - Capa"></a>
+					<h4>Ó, Donzela!</h4>
+				</div>
+				<div class="continho">
+					<a href="ser-estranho.html"><img src="capas/ser estranho.png" alt="Seres Estranhos - Capa"></a>
+					<h4>Seres Estranhos</h4>
+				</div>
+				<div class="continho">
+					<a href="milagre.html"><img src="capas/milagre.png" alt="Milagre - Capa"></a>
+					<h4>Milagre</h4>
+				</div>
+				<div class="continho">
+					<a href="futuro-chegou.html"><img src="capas/futuro.png" alt="O Futuro Chegou - Capa"></a>
+					<h4>O Futuro Chegou</h4>
+				</div>
+		</section>
+		<section>
+			<h3>Mais textos de Bia Carvalho</h3>
+			<div class="contos-slider">
+				<div class="continho">
+					<a href="perfeicao.html"><img src="capas/perfeição.png" alt="Perfeição - Capa"></a>
+					<h4>Perfeição</h4>
+				</div>
+				<div class="continho">
+					<a href="saudades.html"><img src="capas/saudades.png" alt="Saudades - Capa"></a>
+					<h4>Saudades</h4>
+				</div>
+				<div class="continho">
+					<a href="longe-vc.html"><img src="capas/longe de vc.png" alt="Longe de Você - Capa"></a>
+					<h4>Longe de Você</h4>
+				</div>
+				<div class="continho">
+					<a href="carta.html"><img src="capas/carta.png" alt="A Carta - Capa"></a>
+					<h4>A Carta</h4>
+				</div>
+				<div class="continho">
+					<a href="então-natal.html"><img src="capas/ent eh natal.png" alt="Então, é Natal - Capa"></a>
+					<h4>Então, é Natal</h4>
+				</div>
+		</section>
+		<section>
+			<h3>Parecidos com A Nobre Bruxa</h3>
+			<div class="contos-slider">
+				<div class="continho">
+					<a href="depois.html"><img src="capas/depois.png" alt="O Depois - Capa"></a>
+					<h4>O Depois</h4>
+				</div>
+				<div class="continho">
+					<a href="fogueira.html"><img src="capas/fogueira.png" alt="Fogueira - Capa"></a>
+					<h4>Fogueira</h4>
+				</div>
+				<div class="continho">
+					<a href="reencontro.html"><img src="capas/reencontro.png" alt="O Reencontro - Capa"></a>
+					<h4>O Reencontro</h4>
+				</div>
+				<div class="continho">
+					<a href="separacao.html"><img src="capas/separação.png" alt="A Separação - Capa"></a>
+					<h4>A Separação</h4>
+				</div>
+				<div class="continho">
+					<a href="realeza.html"><img src="capas/segredos realeza.png" alt="Segredos da Realeza - Capa"></a>
+					<h4>Segredos da Realeza</h4>
+				</div>
+		</section>
+
+		<a href="#nav"><img id="seta" src="../img/Seta.png" alt="Seta para o topo da página"></a>
+	</main>
+
+	<footer>
+		<div id="rodape">
+			<p>Contato: bianca.fac@gmail.com</p>
+
+			<div id="redes-sociais">
+				<a href="https://www.instagram.com" target="_blank"><img src="../img/ig.png" alt="Instagram"></a>
+				<a href="https://twitter.com/home" target="_blank"><img src="../img/twt.png" alt="Twitter"></a>
+				<a href="https://www.tiktok.com/pt-BR/" target="_blank"><img src="../img/ttk.png" alt="TikTok"></a>
+			</div>
+		</div>
+	</footer>
+</body>
+</html>

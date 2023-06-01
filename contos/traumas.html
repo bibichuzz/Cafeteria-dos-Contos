@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Traumas</title>
+	<link rel="stylesheet" href="../css/style.css">
+	<link rel="icon" type="image/x-icon" href="../img/favicon.ico">
+
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Henny+Penny&family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+
+<!--        Menu Responsivo -->
+<script src="https://kit.fontawesome.com/3a591bff9c.js" crossorigin="anonymous"></script>
+<!-- Função Menu Responsivo - Teste -->
+<script>		function myFunction() {
+	document.getElementsByClassName("menu")[0].classList.toggle("responsive");}
+</script>
+
+</head>
+<body>
+	<header>
+		<nav id="nav">
+			<a href="../index.html"><img width="300px" src="../img/LogoPNG.png" alt="Logo Cafeteria dos Contos"></a>
+			<ul class="menu">
+				<!--                    Linha adicionada para o menu responsivo -->
+				<li class="icon"><a href="javascript:void(0);" onclick="myFunction()">&#9776;</a></li>
+				<li><a href="../index.html">Home</a></li>
+				<li class="conto-nav"><a href="../contos.html">Contos</a>
+					<ul class="dropdown">
+						<div>
+							<li><a href="../suspense.html">Suspense</a></li>
+							<li><a href="../terror.html">Terror</a></li>
+							<li><a href="../lgbt.html">LGBTQIA+</a></li>
+							<li><a href="../romance.html">Romance</a></li>
+						</div>
+						<div>
+							<li><a href="../fantasia.html">Fantasia</a></li>
+							<li><a href="../ficcao.html">Ficção</a></li>
+							<li><a href="../humor.html">Humor</a></li>
+							<li><a href="../drama.html">Drama</a></li>
+						</div>
+					</ul>
+				</li>
+				<li class="sobre-nav"><a href="../sobre.html">Sobre</a>
+					<ul class="dropdown">
+						<div>
+							<li><a href="../sobre.html">Quem somos</a></li>
+							<li><a href="../acessibilidade.html">Acessibilidade</a></li>
+							<li><a href="../contato.html">Contato</a></li>
+						</div>
+					</ul>
+				</li>
+				<li><a href="../newsletter.html">Newsletter</a></li>
+				<li><a href="../login.html">Login</a></li>
+			</ul>
+		</nav>
+	</header>
+
+	<main class="textos">
+		<ul class="breadcrumb">
+			<li class="bc-home"><a href="../contos.html">Contos</a></li>
+			<li class="bc-img-li"><img class="bc-img" src="../img/bc-seta.png" alt="breadcrumb"></li>
+			<li><a href="../drama.html">Drama</a></li>
+			<li class="bc-img-li"><img class="bc-img" src="../img/bc-seta.png" alt="breadcrumb"></li>
+			<li class="bc-ultimo">Traumas</li>
+
+		</ul>
+
+		<section class="textos">
+		<h1>Traumas</h1>
+		<h2>Bia Carvalho</h2>
+
+		<audio id="music" preload="true">
+			<source src="audios/nao-disponivel.m4a">
+		  </audio>
+		  <div id="audioplayer">
+			<button id="pButton" class="play"></button>
+			<div id="timeline">
+			  <div id="playhead"></div>
+			</div>
+		  </div>
+		  
+		  <script>
+			var music = document.getElementById('music'); // id for audio element
+		var duration = music.duration; // Duration of audio clip, calculated here for embedding purposes
+		var pButton = document.getElementById('pButton'); // play button
+		var playhead = document.getElementById('playhead'); // playhead
+		var timeline = document.getElementById('timeline'); // timeline
+		
+		// timeline width adjusted for playhead
+		var timelineWidth = timeline.offsetWidth - playhead.offsetWidth;
+		
+		// play button event listenter
+		pButton.addEventListener("click", play);
+		
+		// timeupdate event listener
+		music.addEventListener("timeupdate", timeUpdate, false);
+		
+		// makes timeline clickable
+		timeline.addEventListener("click", function(event) {
+			moveplayhead(event);
+			music.currentTime = duration * clickPercent(event);
+		}, false);
+		
+		// returns click as decimal (.77) of the total timelineWidth
+		function clickPercent(event) {
+			return (event.clientX - getPosition(timeline)) / timelineWidth;
+		}
+		
+		// makes playhead draggable
+		playhead.addEventListener('mousedown', mouseDown, false);
+		window.addEventListener('mouseup', mouseUp, false);
+		
+		// Boolean value so that audio position is updated only when the playhead is released
+		var onplayhead = false;
+		
+		// mouseDown EventListener
+		function mouseDown() {
+			onplayhead = true;
+			window.addEventListener('mousemove', moveplayhead, true);
+			music.removeEventListener('timeupdate', timeUpdate, false);
+		}
+		
+		// mouseUp EventListener
+		// getting input from all mouse clicks
+		function mouseUp(event) {
+			if (onplayhead == true) {
+				moveplayhead(event);
+				window.removeEventListener('mousemove', moveplayhead, true);
+				// change current time
+				music.currentTime = duration * clickPercent(event);
+				music.addEventListener('timeupdate', timeUpdate, false);
+			}
+			onplayhead = false;
+		}
+		// mousemove EventListener
+		// Moves playhead as user drags
+		function moveplayhead(event) {
+			var newMargLeft = event.clientX - getPosition(timeline);
+		
+			if (newMargLeft >= 0 && newMargLeft <= timelineWidth) {
+				playhead.style.marginLeft = newMargLeft + "px";
+			}
+			if (newMargLeft < 0) {
+				playhead.style.marginLeft = "0px";
+			}
+			if (newMargLeft > timelineWidth) {
+				playhead.style.marginLeft = timelineWidth + "px";
+			}
+		}
+		
+		// timeUpdate
+		// Synchronizes playhead position with current point in audio
+		function timeUpdate() {
+			var playPercent = timelineWidth * (music.currentTime / duration);
+			playhead.style.marginLeft = playPercent + "px";
+			if (music.currentTime == duration) {
+				pButton.className = "";
+				pButton.className = "play";
+			}
+		}
+		
+		//Play and Pause
+		function play() {
+			// start music
+			if (music.paused) {
+				music.play();
+				// remove play, add pause
+				pButton.className = "";
+				pButton.className = "pause";
+			} else { // pause music
+				music.pause();
+				// remove pause, add play
+				pButton.className = "";
+				pButton.className = "play";
+			}
+		}
+		
+		// Gets audio file duration
+		music.addEventListener("canplaythrough", function() {
+			duration = music.duration;
+		}, false);
+		
+		// getPosition
+		// Returns elements left position relative to top-left of viewport
+		function getPosition(el) {
+			return el.getBoundingClientRect().left;
+		}
+		</script>
+		  
+		  <p>Trabalhar na véspera de Natal deveria ser um crime, deveria existir uma lei que proíbe esse tipo de coisa. É como uma tortura pra qualquer pessoa que quer o mínimo de felicidade em suas vidas. Sinceramente, por que a vida tem que ser assim? Minha vontade era ficar arrumando a casa o dia todo, enfeitando cada canto das paredes com lanterninhas coloridas e vinhas floridas, rindo e comendo comida boa com a minha mãe. Aparentemente, os planos de Dina eram outros, e agora eu estou aqui, contando quantas flores têm no buquê de cada cliente para poder cobrar o preço certo no seu presente de natal. Que humilhação.</p>
+		  <p>Com isso, me encontro na floricultura, a casa completamente decorada com detalhes natalinos e promoções nas flores, um presente rápido, fácil e bonito para quem está sem tempo. Usando um suéter verde extremamente quente para entrar no clima do feriado, eu passo a compra de todos os clientes com um sorriso no rosto, desejando a todos um feliz Natal sincero. Pelo menos estou passando o dia com minha mãe, depois de tanto tempo esperando por isso. Ela faz propaganda de suas flores com tanta animação, sempre entusiasmada descrevendo seus cheiros, tipos, cores, tamanhos, como se fossem seus maiores orgulhos (além de mim, é claro). Sua alegria é contagiante, me incentivando a levar o dia de maneira mais leve, por mais que não seja a véspera de Natal perfeita.</p>
+		  <br>
+		  <p>Finalmente, parece que o expediente está chegando ao fim. O movimento começa a baixar, e já está quase na hora de fechar mais cedo por conta do feriado. Uma última velhinha passa pelo caixa e, como a loja já está toda vazia, não há sinais de mais nenhum cliente procurando pela flor perfeita além dela. Aliviada, atendo a senhora com a maior paciência do mundo, conversando com ela sobre seus netos, sobrinhos e todos os familiares amorosos que ela vai encontrar hoje a noite. Acho que essa é a melhor parte do meu trabalho, ouvir as histórias de todos que passam por aqui. São tão inspiradoras, revigorantes, cada um que passa por essa loja tem algo a acrescentar, e essa é a magia das flores.</p>
+		  <p>Porém, para minha surpresa, a simpática senhora não era minha última cliente do dia. Antes de terminar de cobrar o preço por seus vasos de barro, outras pessoas começaram a entrar pela porta da frente, mas antes mesmo do sino acima fazer qualquer tipo de barulho, já as avisto pela vidraça da vitrine. Meu estômago embrulha somente de vê-la se aproximando. Com seus amigos, Catarina adentra à floricultura, conversando com seu namorado sobre qualquer idiotice que seja. Me distraio por alguns segundos, deixando a pobre idosa esperando que suas flores sejam processadas pela idiota da caixa: eu. Rapidamente finalizo as compras dela, despedindo-me com o sorriso mais falso que já dei em minha vida e voltando minha atenção a Cat.</p>
+		  <p>Agora, ela já está passando pelas prateleiras, rindo e se divertindo com seus conhecidos. Sua voz faz meu corpo todo estremecer, como se ela estivesse sussurrando no meu ouvido tudo o que ela sempre pensou de mim:</p>
+		  <br>
+		  <p><i>"Ela é assim mesmo, ela é esquisita."</i></p>
+		  <p><i>"Só sou sua amiga porque você não larga do meu pé."</i></p>
+		  <p><i>"Até eu desenho coisas melhores que isso."</i></p>
+		  <p><i>"Quem liga para suas flores?"</i> É como se eu pudesse ouvi-la pisando no meu buquê de novo e de novo e de novo, os caules das flores quebrando debaixo de sua sapatilha.</p>
+		  <br>
+		  <p>Por que ela está aqui? Por que ela não pode simplesmente sumir da minha vida? Por que eu nunca, nunca consigo esquecê-la? Pra sempre guardada na porcaria do meu cérebro, um mofo na minha mente. Seria tão mais fácil se eu só esquecesse de tudo, se eu não tivesse nem mesmo existido naquela época… Tudo seria mais simples.</p>
+		  <p>Enquanto observo o grupo passeando pelos corredores, meu corpo vai murchando atrás do balcão, sobrando somente minha cabeça apoiada em meus braços, a cara enterrada em minhas mãos para segurar o choro. Vê-la junto de outras pessoas é o que me faz mais mal; o pavor de ser humilhada publicamente mais uma vez por ela faz meus dedos passarem pelos meus cabelos em nervosismo. Cogito até levantar do caixa e simplesmente não atendê-la, mas agora já é tarde demais: ela vem se aproximando, e não há como evitar contato agora. Procuro por consolo com meu olhar, desejando encontrar minha mãe, mas acho que o pânico que passava pelo meu corpo fez eu perdê-la de vista naquele momento.</p>
+		  <p>Seu sorriso fingido e cara amassada vêm em minha direção, como se não me reconhecesse. É claro, fingir que está tudo bem e que não me conhece com certeza é a melhor opção. Bom, para Catarina e meus antigos amigos, ela nunca fez nada, eu que sou a emocionada, dramática que leva tudo muito a sério, as emoções à flor da pele. É óbvio que ela não liga, não foi ela que saiu despedaçada daquela relação. Ela vai continuar fingindo que nunca falou comigo só para manter todas essas amizades falsas dela, nutrindo esperanças e aguardando o momento certo para cortá-las, assim como fez comigo. Esse tipo de pessoa nunca muda, não importa o quanto o tempo passe.</p>
+		  <p>— São essas aqui — ela diz enquanto coloca o buquê que montou no balcão, com seu namorado Zé Ninguém a abraçando por trás, que não parece ligar muito para mim. Já ela me olha fixamente, como em uma provocação.</p>
+		  <p>Registro seu pedido rapidamente, desviando o olhar o máximo que posso, sem esboçar reação alguma ao seu comportamento infantil. Talvez, se fosse algum outro momento, eu teria o mínimo de forças para retrucar, mas agora eu só anseio ir para casa e terminar logo com meu expediente. Quanto mais rápido eu for embora, mais tempo vou passar com minha mãe debaixo da árvore de Natal, esquecendo toda e qualquer interação que tenha acontecido entre eu e essa puta na floricultura hoje. Já não vale mais a pena brigar, o que tem-se a fazer é ignorar até que o problema vá embora sozinho.</p>
+		  <p>Quando digo-lhe o preço total, seu namorado toma as rédeas e paga pelas flores, entregando-as para Cat e a direcionando até a porta, ainda conversando com seus amigos, que a acompanham. Antes de ir embora, eu percebo que Catarina ainda tenta me encarar, mas eu resisto aos meus impulsos e só olho para o outro lado, esperando o sino parar de tocar para voltar minha atenção à Dina, que corre em minha direção para me confortar com um abraço. Eu sei que ela viu tudo, e ela sabe como o passado foi difícil para mim. Seus braços em volta do meu corpo trazem tanta segurança que me sinto livre para chorar, enfim livre da presença de minha ex-amiga.</p>
+		  
+
+		</section>
+		<section>
+			<p class="categoria">Categorias: <a href="../drama.html">Drama</a></p>
+		</section>
+
+		<section class="comentario">
+			<h2>Comentários</h2>
+			<form>
+				<textarea name="comentario" id="comentario-texto" placeholder="Faça um comentário..."></textarea>
+				<input type="image" id="seta-comentario" src="../img/seta-comentario.png">
+			</form>
+		</section>
+
+		<section>
+			<h3>Se você gosta de Drama, pode gostar de...</h3>
+			<div class="contos-slider">
+				<div class="continho">
+					<a href="depois.html"><img src="capas/depois.png" alt="O Depois - Capa"></a>
+					<h4>O Depois</h4>
+				</div>
+				<div class="continho">
+					<a href="pedacos.html"><img src="capas/pedaços.png" alt="Pedaços - Capa"></a>
+					<h4>Pedaços</h4>
+				</div>
+				<div class="continho">
+					<a href="companhia.html"><img src="capas/sua companhia.png" alt="Sua Companhia - Capa"></a>
+					<h4>Sua Companhia</h4>
+				</div>
+				<div class="continho">
+					<a href="reencontro.html"><img src="capas/reencontro.png" alt="O Reencontro - Capa"></a>
+					<h4>O Reencontro</h4>
+				</div>
+				<div class="continho">
+					<a href="não.html"><img src="capas/não.png" alt="Não - Capa"></a>
+					<h4>Não</h4>
+				</div>
+		</section>
+		<section>
+			<h3>Mais textos de Bia Carvalho</h3>
+			<div class="contos-slider">
+				<div class="continho">
+					<a href="carta.html"><img src="capas/carta.png" alt="A Carta - Capa"></a>
+					<h4>A Carta</h4>
+				</div>
+				<div class="continho">
+					<a href="luz-de-velas.html"><img src="capas/luz de vela.png" alt="Luz de Velas - Capa"></a>
+					<h4>Luz de Velas</h4>
+				</div>
+				<div class="continho">
+					<a href="ela.html"><img src="capas/ela.png" alt="Ela - Capa"></a>
+					<h4>Ela</h4>
+				</div>
+				<div class="continho">
+					<a href="fogueira.html"><img src="capas/fogueira.png" alt="Fogueira - Capa"></a>
+					<h4>Fogueira</h4>
+				</div>
+				<div class="continho">
+					<a href="não.html"><img src="capas/não.png" alt="Não - Capa"></a>
+					<h4>Não</h4>
+				</div>
+		</section>
+		<section>
+			<h3>Parecidos com Traumas</h3>
+			<div class="contos-slider">
+				<div class="continho">
+					<a href="crise.html"><img src="capas/crise.png" alt="Em Crise - Capa"></a>
+					<h4>Em Crise</h4>
+				</div>
+				<div class="continho">
+					<a href="flores.html"><img src="capas/primeira impressão - flores.png" alt="Primeira Impressão - Capa"></a>
+					<h4>Primeira Impressão</h4>
+				</div>
+				<div class="continho">
+					<a href="mãe.html"><img src="capas/mãe.png" alt="Mãe? - Capa"></a>
+					<h4>Mãe?</h4>
+				</div>
+				<div class="continho">
+					<a href="saudades.html"><img src="capas/saudades.png" alt="Saudades - Capa"></a>
+					<h4>Saudades</h4>
+				</div>
+				<div class="continho">
+					<a href="estou-viva.html"><img src="capas/estou viva.png" alt="Estou Viva - Capa"></a>
+					<h4>Estou Viva</h4>
+				</div>
+		</section>
+
+		<a href="#nav"><img id="seta" src="../img/Seta.png" alt="Seta para o topo da página"></a>
+	</main>
+
+	<footer>
+		<div id="rodape">
+			<p>Contato: bianca.fac@gmail.com</p>
+
+			<div id="redes-sociais">
+				<a href="https://www.instagram.com" target="_blank"><img src="../img/ig.png" alt="Instagram"></a>
+				<a href="https://twitter.com/home" target="_blank"><img src="../img/twt.png" alt="Twitter"></a>
+				<a href="https://www.tiktok.com/pt-BR/" target="_blank"><img src="../img/ttk.png" alt="TikTok"></a>
+			</div>
+		</div>
+	</footer>
+</body>
+</html>

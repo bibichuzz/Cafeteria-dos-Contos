@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Primeira Impressão</title>
+	<link rel="stylesheet" href="../css/style.css">
+	<link rel="icon" type="image/x-icon" href="../img/favicon.ico">
+
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Henny+Penny&family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+
+<!--        Menu Responsivo -->
+<script src="https://kit.fontawesome.com/3a591bff9c.js" crossorigin="anonymous"></script>
+<!-- Função Menu Responsivo - Teste -->
+<script>		function myFunction() {
+	document.getElementsByClassName("menu")[0].classList.toggle("responsive");}
+</script>
+
+</head>
+<body>
+	<header>
+		<nav id="nav">
+			<a href="../index.html"><img width="300px" src="../img/LogoPNG.png" alt="Logo Cafeteria dos Contos"></a>
+			<ul class="menu">
+				<!--                    Linha adicionada para o menu responsivo -->
+				<li class="icon"><a href="javascript:void(0);" onclick="myFunction()">&#9776;</a></li>
+				<li><a href="../index.html">Home</a></li>
+				<li class="conto-nav"><a href="../contos.html">Contos</a>
+					<ul class="dropdown">
+						<div>
+							<li><a href="../suspense.html">Suspense</a></li>
+							<li><a href="../terror.html">Terror</a></li>
+							<li><a href="../lgbt.html">LGBTQIA+</a></li>
+							<li><a href="../romance.html">Romance</a></li>
+						</div>
+						<div>
+							<li><a href="../fantasia.html">Fantasia</a></li>
+							<li><a href="../ficcao.html">Ficção</a></li>
+							<li><a href="../humor.html">Humor</a></li>
+							<li><a href="../drama.html">Drama</a></li>
+						</div>
+					</ul>
+				</li>
+				<li class="sobre-nav"><a href="../sobre.html">Sobre</a>
+					<ul class="dropdown">
+						<div>
+							<li><a href="../sobre.html">Quem somos</a></li>
+							<li><a href="../acessibilidade.html">Acessibilidade</a></li>
+							<li><a href="../contato.html">Contato</a></li>
+						</div>
+					</ul>
+				</li>
+				<li><a href="../newsletter.html">Newsletter</a></li>
+				<li><a href="../login.html">Login</a></li>
+			</ul>
+		</nav>
+	</header>
+
+	<main class="textos">
+		<ul class="breadcrumb">
+			<li class="bc-home"><a href="../contos.html">Contos</a></li>
+			<li class="bc-img-li"><img class="bc-img" src="../img/bc-seta.png" alt="breadcrumb"></li>
+			<li><a href="../ficcao.html">Ficção</a></li>
+			<li class="bc-img-li"><img class="bc-img" src="../img/bc-seta.png" alt="breadcrumb"></li>
+			<li class="bc-ultimo">Primeira Impressão</li>
+
+		</ul>
+
+		<section class="textos">
+		<h1>Primeira Impressão</h1>
+		<h2>Bia Carvalho</h2>
+
+		<audio id="music" preload="true">
+			<source src="audios/nao-disponivel.m4a">
+		  </audio>
+		  <div id="audioplayer">
+			<button id="pButton" class="play"></button>
+			<div id="timeline">
+			  <div id="playhead"></div>
+			</div>
+		  </div>
+		  
+		  <script>
+			var music = document.getElementById('music'); // id for audio element
+		var duration = music.duration; // Duration of audio clip, calculated here for embedding purposes
+		var pButton = document.getElementById('pButton'); // play button
+		var playhead = document.getElementById('playhead'); // playhead
+		var timeline = document.getElementById('timeline'); // timeline
+		
+		// timeline width adjusted for playhead
+		var timelineWidth = timeline.offsetWidth - playhead.offsetWidth;
+		
+		// play button event listenter
+		pButton.addEventListener("click", play);
+		
+		// timeupdate event listener
+		music.addEventListener("timeupdate", timeUpdate, false);
+		
+		// makes timeline clickable
+		timeline.addEventListener("click", function(event) {
+			moveplayhead(event);
+			music.currentTime = duration * clickPercent(event);
+		}, false);
+		
+		// returns click as decimal (.77) of the total timelineWidth
+		function clickPercent(event) {
+			return (event.clientX - getPosition(timeline)) / timelineWidth;
+		}
+		
+		// makes playhead draggable
+		playhead.addEventListener('mousedown', mouseDown, false);
+		window.addEventListener('mouseup', mouseUp, false);
+		
+		// Boolean value so that audio position is updated only when the playhead is released
+		var onplayhead = false;
+		
+		// mouseDown EventListener
+		function mouseDown() {
+			onplayhead = true;
+			window.addEventListener('mousemove', moveplayhead, true);
+			music.removeEventListener('timeupdate', timeUpdate, false);
+		}
+		
+		// mouseUp EventListener
+		// getting input from all mouse clicks
+		function mouseUp(event) {
+			if (onplayhead == true) {
+				moveplayhead(event);
+				window.removeEventListener('mousemove', moveplayhead, true);
+				// change current time
+				music.currentTime = duration * clickPercent(event);
+				music.addEventListener('timeupdate', timeUpdate, false);
+			}
+			onplayhead = false;
+		}
+		// mousemove EventListener
+		// Moves playhead as user drags
+		function moveplayhead(event) {
+			var newMargLeft = event.clientX - getPosition(timeline);
+		
+			if (newMargLeft >= 0 && newMargLeft <= timelineWidth) {
+				playhead.style.marginLeft = newMargLeft + "px";
+			}
+			if (newMargLeft < 0) {
+				playhead.style.marginLeft = "0px";
+			}
+			if (newMargLeft > timelineWidth) {
+				playhead.style.marginLeft = timelineWidth + "px";
+			}
+		}
+		
+		// timeUpdate
+		// Synchronizes playhead position with current point in audio
+		function timeUpdate() {
+			var playPercent = timelineWidth * (music.currentTime / duration);
+			playhead.style.marginLeft = playPercent + "px";
+			if (music.currentTime == duration) {
+				pButton.className = "";
+				pButton.className = "play";
+			}
+		}
+		
+		//Play and Pause
+		function play() {
+			// start music
+			if (music.paused) {
+				music.play();
+				// remove play, add pause
+				pButton.className = "";
+				pButton.className = "pause";
+			} else { // pause music
+				music.pause();
+				// remove pause, add play
+				pButton.className = "";
+				pButton.className = "play";
+			}
+		}
+		
+		// Gets audio file duration
+		music.addEventListener("canplaythrough", function() {
+			duration = music.duration;
+		}, false);
+		
+		// getPosition
+		// Returns elements left position relative to top-left of viewport
+		function getPosition(el) {
+			return el.getBoundingClientRect().left;
+		}
+		</script>
+		  
+		  <p>Quando você mora em cidade pequena, você acaba conhecendo todo mundo dali, cada centímetro das ruas na palma das suas mãos. As ruas traçadas como labirintos fazem sentido na sua cabeça, é como se tudo se encaixasse, sempre na mesma rotina. Acordar, trabalhar, estudar, desenhar e dormir é o que eu faço todos os dias. Não estou dizendo que isso é ruim; pelo contrário, amo o que faço com a minha mãe. Porém, eu também gostaria de ter meus próprios sonhos, minha própria vida, algo que me tirasse da monotonia.</p>
+		  <p>Meu passatempo preferido é ficar observando a moça que frequenta a loja toda semana para buscar flores para o cemitério. Ela se chama Monique, nome que eu claramente descobri pelo seu cartão de crédito. Pelo o que entendi, ou seja, ouvi de fofocas descobertas pela minha mãe, ela veio de outra cidade com o irmão para trabalhar e compor música. É um tanto quanto diferente do visual que normalmente é visto pela cidade, mas eu gosto. Gosto de ficar olhando seu comportamento, como ela anda com confiança, as roupas largas indicando conforto, liberdade. Acho que eu queria ser assim.</p>
+		  <p>Minha mãe diz que a pobrezinha sai desidratada toda vez que entra na loja, porque eu vivo encarando ela durante todo o tempo que ela está aqui dentro. Será que eu pareço muito estranha? Não posso negar, ela é muito bonita, e só de ouvir sua voz durante o pagamento das flores já me faz ficar extremamente interessada, o jeito que ela fala comigo causando nós na minha cabeça. Pelo o que ouço dos vizinhos e conhecidos, ela vive de bico para todo mundo, e nunca causou nenhum problema. Então, por que não tentar?</p>
+		  <p>O problema é… Bom, tentar. Como eu vou sequer tomar uma atitude se somente sua presença perto de mim já me deixa nervosa, bagunçando todos os cálculos de preço só para conseguir vê-la por mais alguns segundos todas as vezes que frequenta a floricultura? Não sei se ela percebe, mas parece não se importar. Tirando o fato de que eu mesma não sei socializar, cidadezinhas do interior estão sempre espalhando fofocas, e eu não quero saber o que vão falar de mim se eu começar a sair com Monique. Eu sei que ainda nem a chamei para sair, mas… Sei lá, o futuro me deixa ansiosa, a incerteza me inquieta. Minha zona de conforto é tão boa, tão estável… Eu não preciso sair daqui. E ainda mais, ela deve me achar uma completa idiota toda vez que vê minha cara.</p>
+		  <p>Mas minha mãe obviamente me obrigou a estourar a bolha na qual eu existo. Eu já vivo há tanto tempo no automático que não percebi o quanto Monique já mudou na minha vida. Em que momento eu estaria interessada o suficiente para ir trabalhar se não fosse pela minha mãe me subornando com margaridas? Por vontade própria, eu sento naquele caixa e aguardo pelo o que parecem séculos a mulher voltar para a loja uma vez por semana, torcendo para que qualquer sinal da porta se abrindo seja ela, seu sorriso simpático cativando-me de longe. E eu espero, espero que algum dia um anjo caia do céu e me ajude a tomar coragem para chamá-la para sair.</p>
+		  <p>No meu caso, esse anjo tem nome e se chama Dina Leanor.</p>
+		  <p>Chegamos na floricultura no mesmo horário de sempre, abrindo as janelas e ventilando a casinha o máximo que podemos, molhando as flores com água fresca e cuidando com carinho de cada uma delas, como se fossem animais de estimação extremamente cheirosos. Após sentar atrás daquela máquina do caixa, já sinto que será um longo dia. Mordo as canetas que eu uso durante o tédio, até que Monique passa pela porta. Já notei sua silhueta antes mesmo dela entrar, e meu olhar não consegue desgrudar dela. Minha mãe percebe com seu instinto e, no mesmo momento, já pula para atrás do balcão, fingindo estar arrumando algumas coisas atrás de mim.</p>
+		  <p>— E então? — ela pergunta — Vai falar alguma coisa ou vai ficar aí intimidando a coitada?</p>
+		  <p>— Intimidando? — me viro para ela, preocupada — Essa é a impressão que estou causando?</p>
+		  <p>— É brincadeira, bobinha — ela faz uma careta — Mas eu acho bom você fazer alguma coisa logo. Nunca se sabe quando as pessoas vão embora. O que você tem a perder, filha? Olha para você, você é linda, simpática e, se algo de ruim acontecer, você sabe que eu estarei aqui. Agora vai, vai e atira!</p>
+		  <p>Ela sussurra as últimas palavras enquanto Monique se aproxima, uma caixa de papelão em seus braços repleta de flores das mais diversas cores e formas. Olho para minha mãe em pânico, mas ela somente me manda um beijo e soletra com os lábios: “Eu te amo”. Suspiro fundo, fechando os olhos e abrindo um longo sorriso para a moça em minha frente, disfarçando meus pés que batem rapidamente o calcanhar no chão,  não conseguindo ficar parados. Faço os procedimentos normais de uma compra mas, antes que ela possa ir embora, me obrigo a falar com ela:</p>
+		  <p>— Ah, e… Meu nome é Lilia, se você quiser sair algum dia desses. — eu falo em um impulso — É bom saber o nome para convidar os outros para sair.</p>
+		  <p>Ela se vira com um sorriso no rosto, como se já esperasse que algum dia isso fosse acontecer.</p>
+		  <p>— Pelo menos não precisei perguntar seu nome — ela responde, o que faz meu coração bater mais forte por alguns segundos — Da próxima vez, vou só perguntar o horário.</p>
+		  <p>Ela vira a cabeça de volta para frente, saindo da floricultura e dando um último olhar para mim, quando finalmente entendo: isso foi um começo.</p>
+		  
+		  
+		</section>
+		<section>
+			<p class="categoria">Categorias: <a href="../ficcao.html">Ficção</a></p>
+		</section>
+
+		<section class="comentario">
+			<h2>Comentários</h2>
+			<form>
+				<textarea name="comentario" id="comentario-texto" placeholder="Faça um comentário..."></textarea>
+				<input type="image" id="seta-comentario" src="../img/seta-comentario.png">
+			</form>
+		</section>
+
+		<section>
+			<h3>Se você gosta de Ficção, pode gostar de...</h3>
+			<div class="contos-slider">
+				<div class="continho">
+					<a href="chocolate.html"><img src="capas/chocolate.png" alt="Chocolate - Capa"></a>
+					<h4>Chocolate</h4>
+				</div>
+				<div class="continho">
+					<a href="a-sos.html"><img src="capas/a sós.png" alt="A Sós - Capa"></a>
+					<h4>A Sós</h4>
+				</div>
+				<div class="continho">
+					<a href="entrevista.html"><img src="capas/entrevistada.png" alt="Entrevistada - Capa"></a>
+					<h4>Entrevistada</h4>
+				</div>
+				<div class="continho">
+					<a href="tempestade.html"><img src="capas/tempestade.png" alt="Tempestade - Capa"></a>
+					<h4>Tempestade</h4>
+				</div>
+				<div class="continho">
+					<a href="estou-viva.html"><img src="capas/estou viva.png" alt="Estou Viva - Capa"></a>
+					<h4>Estou Viva</h4>
+				</div>
+		</section>
+		<section>
+			<h3>Mais textos de Bia Carvalho</h3>
+			<div class="contos-slider">
+				<div class="continho">
+					<a href="acidente.html"><img src="capas/acidente.png" alt="O Acidente - Capa"></a>
+					<h4>O Acidente</h4>
+				</div>
+				<div class="continho">
+					<a href="de-manha.html"><img src="capas/de manha.png" alt="De Manhã - Capa"></a>
+					<h4>De Manhã</h4>
+				</div>
+				<div class="continho">
+					<a href="desculpas.html"><img src="capas/desculpas.png" alt="Desculpas - Capa"></a>
+					<h4>Desculpas</h4>
+				</div>
+				<div class="continho">
+					<a href="futuro-chegou.html"><img src="capas/futuro.png" alt="O Futuro Chegou - Capa"></a>
+					<h4>O Futuro Chegou</h4>
+				</div>
+				<div class="continho">
+					<a href="eterna-presa.html"><img src="capas/eterna presa.png" alt="Eternamente Presa - Capa"></a>
+					<h4>Eternamente Presa</h4>
+				</div>
+		</section>
+		<section>
+			<h3>Parecidos com Primeira Impressão</h3>
+			<div class="contos-slider">
+				<div class="continho">
+					<a href="traumas.html"><img src="capas/trauma.png" alt="Traumas - Capa"></a>
+					<h4>Traumas</h4>
+				</div>
+				<div class="continho">
+					<a href="tatuagens.html"><img src="capas/tatuagem.png" alt="Tatuagens - Capa"></a>
+					<h4>Tatuagens</h4>
+				</div>
+				<div class="continho">
+					<a href="crise.html"><img src="capas/crise.png" alt="Em Crise - Capa"></a>
+					<h4>Em Crise</h4>
+				</div>
+				<div class="continho">
+					<a href="destinadas.html"><img src="capas/destinadas.png" alt="Destinadas - Capa"></a>
+					<h4>Destinadas</h4>
+				</div>
+				<div class="continho">
+					<a href="ela.html"><img src="capas/ela.png" alt="Ela - Capa"></a>
+					<h4>Ela</h4>
+				</div>
+		</section>
+
+		<a href="#nav"><img id="seta" src="../img/Seta.png" alt="Seta para o topo da página"></a>
+	</main>
+
+	<footer>
+		<div id="rodape">
+			<p>Contato: bianca.fac@gmail.com</p>
+
+			<div id="redes-sociais">
+				<a href="https://www.instagram.com" target="_blank"><img src="../img/ig.png" alt="Instagram"></a>
+				<a href="https://twitter.com/home" target="_blank"><img src="../img/twt.png" alt="Twitter"></a>
+				<a href="https://www.tiktok.com/pt-BR/" target="_blank"><img src="../img/ttk.png" alt="TikTok"></a>
+			</div>
+		</div>
+	</footer>
+</body>
+</html>

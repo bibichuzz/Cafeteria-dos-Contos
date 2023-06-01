@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Entrevistada</title>
+	<link rel="stylesheet" href="../css/style.css">
+	<link rel="icon" type="image/x-icon" href="../img/favicon.ico">
+
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Henny+Penny&family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+
+<!--        Menu Responsivo -->
+<script src="https://kit.fontawesome.com/3a591bff9c.js" crossorigin="anonymous"></script>
+<!-- Função Menu Responsivo - Teste -->
+<script>		function myFunction() {
+	document.getElementsByClassName("menu")[0].classList.toggle("responsive");}
+</script>
+
+</head>
+<body>
+	<header>
+		<nav id="nav">
+			<a href="../index.html"><img width="300px" src="../img/LogoPNG.png" alt="Logo Cafeteria dos Contos"></a>
+			<ul class="menu">
+				<!--                    Linha adicionada para o menu responsivo -->
+				<li class="icon"><a href="javascript:void(0);" onclick="myFunction()">&#9776;</a></li>
+				<li><a href="../index.html">Home</a></li>
+				<li class="conto-nav"><a href="../contos.html">Contos</a>
+					<ul class="dropdown">
+						<div>
+							<li><a href="../suspense.html">Suspense</a></li>
+							<li><a href="../terror.html">Terror</a></li>
+							<li><a href="../lgbt.html">LGBTQIA+</a></li>
+							<li><a href="../romance.html">Romance</a></li>
+						</div>
+						<div>
+							<li><a href="../fantasia.html">Fantasia</a></li>
+							<li><a href="../ficcao.html">Ficção</a></li>
+							<li><a href="../humor.html">Humor</a></li>
+							<li><a href="../drama.html">Drama</a></li>
+						</div>
+					</ul>
+				</li>
+				<li class="sobre-nav"><a href="../sobre.html">Sobre</a>
+					<ul class="dropdown">
+						<div>
+							<li><a href="../sobre.html">Quem somos</a></li>
+							<li><a href="../acessibilidade.html">Acessibilidade</a></li>
+							<li><a href="../contato.html">Contato</a></li>
+						</div>
+					</ul>
+				</li>
+				<li><a href="../newsletter.html">Newsletter</a></li>
+				<li><a href="../login.html">Login</a></li>
+			</ul>
+		</nav>
+	</header>
+
+	<main class="textos">
+		<ul class="breadcrumb">
+			<li class="bc-home"><a href="../contos.html">Contos</a></li>
+			<li class="bc-img-li"><img class="bc-img" src="../img/bc-seta.png" alt="breadcrumb"></li>
+			<li><a href="../lgbt.html">LGBTQIA+</a>/<a href="../ficcao.html">Ficção</a></li>
+			<li class="bc-img-li"><img class="bc-img" src="../img/bc-seta.png" alt="breadcrumb"></li>
+			<li class="bc-ultimo">Entrevistada</li>
+
+		</ul>
+
+		<section class="textos">
+		<h1>Entrevistada</h1>
+		<h2>Bia Carvalho</h2>
+
+		<audio id="music" preload="true">
+			<source src="audios/nao-disponivel.m4a">
+		  </audio>
+		  <div id="audioplayer">
+			<button id="pButton" class="play"></button>
+			<div id="timeline">
+			  <div id="playhead"></div>
+			</div>
+		  </div>
+		  
+		  <script>
+			var music = document.getElementById('music'); // id for audio element
+		var duration = music.duration; // Duration of audio clip, calculated here for embedding purposes
+		var pButton = document.getElementById('pButton'); // play button
+		var playhead = document.getElementById('playhead'); // playhead
+		var timeline = document.getElementById('timeline'); // timeline
+		
+		// timeline width adjusted for playhead
+		var timelineWidth = timeline.offsetWidth - playhead.offsetWidth;
+		
+		// play button event listenter
+		pButton.addEventListener("click", play);
+		
+		// timeupdate event listener
+		music.addEventListener("timeupdate", timeUpdate, false);
+		
+		// makes timeline clickable
+		timeline.addEventListener("click", function(event) {
+			moveplayhead(event);
+			music.currentTime = duration * clickPercent(event);
+		}, false);
+		
+		// returns click as decimal (.77) of the total timelineWidth
+		function clickPercent(event) {
+			return (event.clientX - getPosition(timeline)) / timelineWidth;
+		}
+		
+		// makes playhead draggable
+		playhead.addEventListener('mousedown', mouseDown, false);
+		window.addEventListener('mouseup', mouseUp, false);
+		
+		// Boolean value so that audio position is updated only when the playhead is released
+		var onplayhead = false;
+		
+		// mouseDown EventListener
+		function mouseDown() {
+			onplayhead = true;
+			window.addEventListener('mousemove', moveplayhead, true);
+			music.removeEventListener('timeupdate', timeUpdate, false);
+		}
+		
+		// mouseUp EventListener
+		// getting input from all mouse clicks
+		function mouseUp(event) {
+			if (onplayhead == true) {
+				moveplayhead(event);
+				window.removeEventListener('mousemove', moveplayhead, true);
+				// change current time
+				music.currentTime = duration * clickPercent(event);
+				music.addEventListener('timeupdate', timeUpdate, false);
+			}
+			onplayhead = false;
+		}
+		// mousemove EventListener
+		// Moves playhead as user drags
+		function moveplayhead(event) {
+			var newMargLeft = event.clientX - getPosition(timeline);
+		
+			if (newMargLeft >= 0 && newMargLeft <= timelineWidth) {
+				playhead.style.marginLeft = newMargLeft + "px";
+			}
+			if (newMargLeft < 0) {
+				playhead.style.marginLeft = "0px";
+			}
+			if (newMargLeft > timelineWidth) {
+				playhead.style.marginLeft = timelineWidth + "px";
+			}
+		}
+		
+		// timeUpdate
+		// Synchronizes playhead position with current point in audio
+		function timeUpdate() {
+			var playPercent = timelineWidth * (music.currentTime / duration);
+			playhead.style.marginLeft = playPercent + "px";
+			if (music.currentTime == duration) {
+				pButton.className = "";
+				pButton.className = "play";
+			}
+		}
+		
+		//Play and Pause
+		function play() {
+			// start music
+			if (music.paused) {
+				music.play();
+				// remove play, add pause
+				pButton.className = "";
+				pButton.className = "pause";
+			} else { // pause music
+				music.pause();
+				// remove pause, add play
+				pButton.className = "";
+				pButton.className = "play";
+			}
+		}
+		
+		// Gets audio file duration
+		music.addEventListener("canplaythrough", function() {
+			duration = music.duration;
+		}, false);
+		
+		// getPosition
+		// Returns elements left position relative to top-left of viewport
+		function getPosition(el) {
+			return el.getBoundingClientRect().left;
+		}
+		</script>
+		  
+		  <p>Meus olhos lacrimejam por causa da luz forte e me fazem piscar mais uma vez, ainda não acostumada com o brilho do estúdio. Somada ao meu nervosismo, a minha sensibilidade aumenta, me deixando vulnerável a qualquer tipo de desconforto. Eu sabia que a fama me traria grandes entrevistas, mas não esperava que a experiência fosse tão sufocante, tão opressiva. Todos os olhares da plateia, me intimidando antes de entrarmos em cena, já me fazem querer vomitar. É como se estivessem observando cada movimento meu, esperando por um passo em falso para me desmontar por completo. Não vou sobreviver por muito tempo no mundo da fama se eu me preocupar demais com isso, então eu só aceito os olhares com um sorriso no rosto, de orelha a orelha. Meu maxilar dói com tanto esforço. </p>
+		  <p>Termino minha garrafa d’água enquanto o intervalo do programa acaba e, logo em seguida, o entrevistador volta a apresentar seu roteiro, voltando-se para mim com algumas perguntas sobre minhas mais novas canções, parte do meu plano de divulgação. Se os olhares do público já não eram suficientes antes, agora eu me sinto ardendo por dentro, com medo do que terei de responder, como se as pupilas alheias queimassem minha pele, sugando minha alma fora diante de tanto julgamento e expectativa. É um programa de muita audiência, e eu pensei que estava preparada para dar esse passo em minha carreira. Eu tinha que estar.</p>
+		  <p>— No sucesso incrível de seu último álbum, Glória, você revela ter tido muitas experiências, como posso dizer, “inovadoras” em sua vida amorosa, não? — a audiência solta uma onda de risadas baixas, enquanto Leon, o apresentador, sorri para mim em um ar sugestivo — Eu entendo, a vida de famoso nem sempre é tão quieta quanto gostaríamos — ele ri, tentando fazer com que eu fale mais sobre minhas inspirações.</p>
+		  <p>Inspirações? Que inspirações? Claro, minha vida é tão caótica quanto um furacão em meio à tempestade, mas, quando falamos de relacionamentos, eu não tive quase nenhum, pra falar a verdade. Pode parecer mentira, mas tudo o que eu escrevo e componho são só… Bem, mentiras. Historinhas inventadas pela minha cabeça, colocadas em uma boa melodia, e contadas em um tom convincente. Nem tudo é tão profundo quanto as pessoas pensam. Ah, se eu tivesse tido alguma experiência… Eu teria falado muito sobre ela. Teria escrito milhares de álbuns apaixonados, um para cada namorada que eu tivesse, descrevendo nos mínimos detalhes cada uma de minhas decepções amorosas. Porém, voltando para a minha pobre realidade, essas namoradas são fruto completo da minha imaginação, e eu não tenho nada além do desejo de que essa situação fosse diferente. </p>
+		  <p>Mas os espectadores não querem ouvir a verdade. A vida deles é sem graça, sem emoção, sem a adrenalina de viver sob constante vigia. Eles querem ouvir o que lhes interessa, o que lhes instiga, o que lhes incentiva a procurar e pedir por mais e mais de seus ídolos. Então, como de costume em minhas próprias letras de música, eu menti.</p>
+		  <p>— Bom, é claro que eu tenho muitas experiências — gesticulo longe enquanto falo, forçando uma risada — Mas sabe, como celebridade, prefiro manter meus assuntos pessoais longe dos holofotes. Desculpa, fãs, mas vocês vão ter que ficar imaginando. — digo, deixando no ar teorias e dúvidas, provocando à plateia um suspiro de decepção fingido.</p>
+		  <p>— Ah, Glória, sempre nos deixando na curiosidade, não é, pessoal? — Leon continua sua entrevista, mudando rapidamente de expressão — Porém, vamos ser sinceros, lidar com homem não é fácil. Diz aí, qual foi a sua pior experiência com um homem? Já escreveu sobre ela?</p>
+		  <p>Espera, eu ouvi direito? Homens? Ah, claro, homens. É tudo sobre homens. Eu nunca especifiquei gênero nenhum em minhas canções, mas é claro que vão supor que eu estava falando de um homem. Fala sério! Lésbicas realmente não possuem um dia de paz. Se eu tivesse coragem, apoio, liberdade, segurança, gritaria para todo mundo dentro desse auditório: eu amo mulheres! Eu amo ser lésbica, eu amo ser eu! Mas eu não tenho. Quem garante que eu estarei viva depois de dizer isso em rede nacional? Vou ser crucificada aos quatro ventos, com suposições absurdas: “algum homem deve ter iludido ela, por isso ela virou sapatão”. Cara, se fosse assim, eu já teria me tornado hétero faz tempo, porque o tanto de vezes que eu já fui idiota por outras mulheres é brincadeira, acho que não saberia nem contar. Mas ninguém entenderia minhas dores, meus pensamentos, minhas lutas, minha identidade. Às vezes, nem eu mesma me entendo.</p>
+		  <p>Então, eu menti. De novo. Já virou um hábito, o que torna tudo mais fácil. </p>
+		  <p>— Ai, Leon — dou uma risada sem graça, disfarçando o nervosismo diante da pergunta — Acho que é melhor eu não contar essas coisas ao vivo na televisão. Mas eu prometo que, chegando nos camarins, você vai ficar sabendo de tudo — finalizo minha resposta, desviando ao máximo de qualquer conceito concreto. Quanto mais subjetivo, menos comprometimento.</p>
+		  <p>E falando em comprometimento…</p>
+		  <p>— Por favor, quero saber de todas as fofocas! — ele fala, mas sabe muito bem que eu não vou falar nada para ele depois que o show acabar. É tudo fingimento, é tudo parte da peça — Mas, por fim, já que estamos no tópico de relacionamentos, você já está pensando em expandir para novos horizontes? Será que logo, logo, veremos uma Glória comprometida?</p>
+		  <p>A cada pergunta que Leon fazia, meu corpo trêmulo se encolhia ainda mais na poltrona onde eu estava sentada, me arrependendo de cada decisão que me fez chegar a esse momento, revivendo flashes da minha vida diante de uma multidão de pessoas que me observava incessantemente.</p>
+		  <p>Comprometimento? Eu não lido com esse tipo de relação. Eu não preciso de outra pessoa, eu não preciso de ninguém! Não é como se eu tivesse medo, não é como se eu fugisse de qualquer aproximação de um relacionamento sério, é só que… Tá, talvez eu tenha um problema com comprometimento. Mas é uma proteção, sabe? Quando você se machuca demais, a última coisa que você aprende a fazer é se blindar e se defender de qualquer tipo de sentimento íntimo, evitando uma relação duradoura a qualquer custo. Quer dizer, isso não é normal?</p>
+	  <p>Bom, nada que uma boa terapia não resolva. Algum dia, terei de enfrentar meus medos. Sozinha. Agora não é o momento. Não há como fugir por muito tempo, mas eu tento evitar minhas inseguranças o máximo que posso.</p>
+		  <p>Tanta sinceridade em meus pensamentos, tantas mentiras cuspidas pela minha boca na frente de tantas câmeras. </p>
+		  <p>— Bom, não sei se vocês — aponto para a plateia — me verão com alguém, mas eu com certeza continuarei em minha busca! — rio pela última vez naquela noite, a falsidade tomando conta de mim novamente. Ninguém ali estava sendo verdadeiro. Estávamos todos atuando de acordo com a mídia, isso não é novidade.</p>
+		  <p>Após uma breve despedida de Leon para sua audiência, levanto de minha poltrona vermelha e aveludada e me despeço do público desta noite, passando os olhos pelas cadeiras lotadas daquele estúdio não tão espaçoso. Encaro cada uma daquelas pessoas, cada detalhe de seus rostos, suas mentes preparadas para fazer dezenas de suposições minhas pela internet, espalhando meu nome pelas redes. Acho que nenhuma palavra minha dita nesse maldito programa foi honesta, mas o importante é que continuem falando. O que importa é que eu continue relevante e, se a única maneira disso acontecer é mentindo, parece que eu virei uma ótima atriz de novela mexicana.</p>
+	  
+		  
+		</section>
+		<section>
+			<p class="categoria">Categorias: <a href="../ficcao.html">Ficção</a> <a href="../lgbt.html">LGBTQIA+</a></p>
+		</section>
+
+		<section class="comentario">
+			<h2>Comentários</h2>
+			<form>
+				<textarea name="comentario" id="comentario-texto" placeholder="Faça um comentário..."></textarea>
+				<input type="image" id="seta-comentario" src="../img/seta-comentario.png">
+			</form>
+		</section>
+
+		<section>
+			<h3>Se você gosta de Ficção, pode gostar de...</h3>
+			<div class="contos-slider">
+				<div class="continho">
+					<a href="a-sos.html"><img src="capas/a sós.png" alt="A Sós - Capa"></a>
+					<h4>A Sós</h4>
+				</div>
+				<div class="continho">
+					<a href="destinadas.html"><img src="capas/destinadas.png" alt="Destinadas - Capa"></a>
+					<h4>Destinadas</h4>
+				</div>
+				<div class="continho">
+					<a href="estou-viva.html"><img src="capas/estou viva.png" alt="Estou Viva - Capa"></a>
+					<h4>Estou Viva</h4>
+				</div>
+				<div class="continho">
+					<a href="tatuagens.html"><img src="capas/tatuagem.png" alt="Tatuagens - Capa"></a>
+					<h4>Tatuagens</h4>
+				</div>
+				<div class="continho">
+					<a href="tempestade.html"><img src="capas/tempestade.png" alt="Tempestade - Capa"></a>
+					<h4>Tempestade</h4>
+				</div>
+		</section>
+		<section>
+			<h3>Mais textos de Bia Carvalho</h3>
+			<div class="contos-slider">
+				<div class="continho">
+					<a href="companhia.html"><img src="capas/sua companhia.png" alt="Sua Companhia - Capa"></a>
+					<h4>Sua Companhia</h4>
+				</div>
+				<div class="continho">
+					<a href="meu passado.html"><img src="capas/meu passado.png" alt="O Que Deixei Para Trás - Capa"></a>
+					<h4>O Que Deixei Para Trás</h4>
+				</div>
+				<div class="continho">
+					<a href="futuro-chegou.html"><img src="capas/futuro.png" alt="O Futuro Chegou - Capa"></a>
+					<h4>O Futuro Chegou</h4>
+				</div>
+				<div class="continho">
+					<a href="chocolate.html"><img src="capas/chocolate.png" alt="Chocolate - Capa"></a>
+					<h4>Chocolate</h4>
+				</div>
+				<div class="continho">
+					<a href="ela.html"><img src="capas/ela.png" alt="Ela - Capa"></a>
+					<h4>Ela</h4>
+				</div>
+		</section>
+		<section>
+			<h3>Parecidos com Entrevistada</h3>
+			<div class="contos-slider">
+				<div class="continho">
+					<a href="longe-vc.html"><img src="capas/longe de vc.png" alt="Longe de Você - Capa"></a>
+					<h4>Longe de Você</h4>
+				</div>
+				<div class="continho">
+					<a href="queria.html"><img src="capas/eu queria ser.png" alt="Eu Queria Ser - Capa"></a>
+					<h4>Eu Queria Ser</h4>
+				</div>
+				<div class="continho">
+					<a href="mensagem.html"><img src="capas/mensagem.png" alt="Mensagens - Capa"></a>
+					<h4>Mensagens</h4>
+				</div>
+				<div class="continho">
+					<a href="realeza.html"><img src="capas/segredos realeza.png" alt="Segredos da Realeza - Capa"></a>
+					<h4>Segredos da Realeza</h4>
+				</div>
+				<div class="continho">
+					<a href="pedacos.html"><img src="capas/pedaços.png" alt="Pedaços - Capa"></a>
+					<h4>Pedaços</h4>
+				</div>
+		</section>
+
+		<a href="#nav"><img id="seta" src="../img/Seta.png" alt="Seta para o topo da página"></a>
+	</main>
+
+	<footer>
+		<div id="rodape">
+			<p>Contato: bianca.fac@gmail.com</p>
+
+			<div id="redes-sociais">
+				<a href="https://www.instagram.com" target="_blank"><img src="../img/ig.png" alt="Instagram"></a>
+				<a href="https://twitter.com/home" target="_blank"><img src="../img/twt.png" alt="Twitter"></a>
+				<a href="https://www.tiktok.com/pt-BR/" target="_blank"><img src="../img/ttk.png" alt="TikTok"></a>
+			</div>
+		</div>
+	</footer>
+</body>
+</html>

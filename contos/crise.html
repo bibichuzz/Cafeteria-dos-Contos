@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Em Crise</title>
+	<link rel="stylesheet" href="../css/style.css">
+	<link rel="icon" type="image/x-icon" href="../img/favicon.ico">
+
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Henny+Penny&family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+
+<!--        Menu Responsivo -->
+<script src="https://kit.fontawesome.com/3a591bff9c.js" crossorigin="anonymous"></script>
+<!-- Função Menu Responsivo - Teste -->
+<script>		function myFunction() {
+	document.getElementsByClassName("menu")[0].classList.toggle("responsive");}
+</script>
+
+</head>
+<body>
+	<header>
+		<nav id="nav">
+			<a href="../index.html"><img width="300px" src="../img/LogoPNG.png" alt="Logo Cafeteria dos Contos"></a>
+			<ul class="menu">
+				<!--                    Linha adicionada para o menu responsivo -->
+				<li class="icon"><a href="javascript:void(0);" onclick="myFunction()">&#9776;</a></li>
+				<li><a href="../index.html">Home</a></li>
+				<li class="conto-nav"><a href="../contos.html">Contos</a>
+					<ul class="dropdown">
+						<div>
+							<li><a href="../suspense.html">Suspense</a></li>
+							<li><a href="../terror.html">Terror</a></li>
+							<li><a href="../lgbt.html">LGBTQIA+</a></li>
+							<li><a href="../romance.html">Romance</a></li>
+						</div>
+						<div>
+							<li><a href="../fantasia.html">Fantasia</a></li>
+							<li><a href="../ficcao.html">Ficção</a></li>
+							<li><a href="../humor.html">Humor</a></li>
+							<li><a href="../drama.html">Drama</a></li>
+						</div>
+					</ul>
+				</li>
+				<li class="sobre-nav"><a href="../sobre.html">Sobre</a>
+					<ul class="dropdown">
+						<div>
+							<li><a href="../sobre.html">Quem somos</a></li>
+							<li><a href="../acessibilidade.html">Acessibilidade</a></li>
+							<li><a href="../contato.html">Contato</a></li>
+						</div>
+					</ul>
+				</li>
+				<li><a href="../newsletter.html">Newsletter</a></li>
+				<li><a href="../login.html">Login</a></li>
+			</ul>
+		</nav>
+	</header>
+
+	<main class="textos">
+		<ul class="breadcrumb">
+			<li class="bc-home"><a href="../contos.html">Contos</a></li>
+			<li class="bc-img-li"><img class="bc-img" src="../img/bc-seta.png" alt="breadcrumb"></li>
+			<li><a href="../ficcao.html">Ficção</a></li>
+			<li class="bc-img-li"><img class="bc-img" src="../img/bc-seta.png" alt="breadcrumb"></li>
+			<li class="bc-ultimo">Em Crise</li>
+
+		</ul>
+
+		<section class="textos">
+		<h1>Em Crise</h1>
+		<h2>Bia Carvalho</h2>
+
+		<audio id="music" preload="true">
+			<source src="audios/nao-disponivel.m4a">
+		  </audio>
+		  <div id="audioplayer">
+			<button id="pButton" class="play"></button>
+			<div id="timeline">
+			  <div id="playhead"></div>
+			</div>
+		  </div>
+		  
+		  <script>
+			var music = document.getElementById('music'); // id for audio element
+		var duration = music.duration; // Duration of audio clip, calculated here for embedding purposes
+		var pButton = document.getElementById('pButton'); // play button
+		var playhead = document.getElementById('playhead'); // playhead
+		var timeline = document.getElementById('timeline'); // timeline
+		
+		// timeline width adjusted for playhead
+		var timelineWidth = timeline.offsetWidth - playhead.offsetWidth;
+		
+		// play button event listenter
+		pButton.addEventListener("click", play);
+		
+		// timeupdate event listener
+		music.addEventListener("timeupdate", timeUpdate, false);
+		
+		// makes timeline clickable
+		timeline.addEventListener("click", function(event) {
+			moveplayhead(event);
+			music.currentTime = duration * clickPercent(event);
+		}, false);
+		
+		// returns click as decimal (.77) of the total timelineWidth
+		function clickPercent(event) {
+			return (event.clientX - getPosition(timeline)) / timelineWidth;
+		}
+		
+		// makes playhead draggable
+		playhead.addEventListener('mousedown', mouseDown, false);
+		window.addEventListener('mouseup', mouseUp, false);
+		
+		// Boolean value so that audio position is updated only when the playhead is released
+		var onplayhead = false;
+		
+		// mouseDown EventListener
+		function mouseDown() {
+			onplayhead = true;
+			window.addEventListener('mousemove', moveplayhead, true);
+			music.removeEventListener('timeupdate', timeUpdate, false);
+		}
+		
+		// mouseUp EventListener
+		// getting input from all mouse clicks
+		function mouseUp(event) {
+			if (onplayhead == true) {
+				moveplayhead(event);
+				window.removeEventListener('mousemove', moveplayhead, true);
+				// change current time
+				music.currentTime = duration * clickPercent(event);
+				music.addEventListener('timeupdate', timeUpdate, false);
+			}
+			onplayhead = false;
+		}
+		// mousemove EventListener
+		// Moves playhead as user drags
+		function moveplayhead(event) {
+			var newMargLeft = event.clientX - getPosition(timeline);
+		
+			if (newMargLeft >= 0 && newMargLeft <= timelineWidth) {
+				playhead.style.marginLeft = newMargLeft + "px";
+			}
+			if (newMargLeft < 0) {
+				playhead.style.marginLeft = "0px";
+			}
+			if (newMargLeft > timelineWidth) {
+				playhead.style.marginLeft = timelineWidth + "px";
+			}
+		}
+		
+		// timeUpdate
+		// Synchronizes playhead position with current point in audio
+		function timeUpdate() {
+			var playPercent = timelineWidth * (music.currentTime / duration);
+			playhead.style.marginLeft = playPercent + "px";
+			if (music.currentTime == duration) {
+				pButton.className = "";
+				pButton.className = "play";
+			}
+		}
+		
+		//Play and Pause
+		function play() {
+			// start music
+			if (music.paused) {
+				music.play();
+				// remove play, add pause
+				pButton.className = "";
+				pButton.className = "pause";
+			} else { // pause music
+				music.pause();
+				// remove pause, add play
+				pButton.className = "";
+				pButton.className = "play";
+			}
+		}
+		
+		// Gets audio file duration
+		music.addEventListener("canplaythrough", function() {
+			duration = music.duration;
+		}, false);
+		
+		// getPosition
+		// Returns elements left position relative to top-left of viewport
+		function getPosition(el) {
+			return el.getBoundingClientRect().left;
+		}
+		</script>
+		  
+		  <p>Floricultura Leanor, a única floricultura existente em nossa pequena cidadezinha. Nossa floricultura, a loja de flores da família Leanor. As paredes externas chamam atenção, destoando dos arredores com sua cor verde-claro, quase não podendo ser vista pela quantidade de flores que há na porta da frente, cobrindo a vidraça que permite ver o interior da loja. Hoje, somos eu e minha mãe cuidando das vendas, dividindo o trabalho entre nós. Enquanto Dina arruma as prateleiras dos estreitos corredores de plantas, ajeito-me no meu lugar de sempre: a cadeira alta atrás do balcão de pagamentos. Como passo quase todos os meus dias aqui, tudo já tem a minha cara: pequenos desenhos cobrem a máquina do caixa, colados com fita adesiva em volta da registradora. É um jeito que achei de me animar durante o expediente.</p>
+		  <p>O movimento vai e vem como esperado, um dia comum no meio da semana, no qual as pessoas procuram flores para levar à seus amados, presentear entes queridos falecidos ou até mesmo comprar sementes para começarem seus próprios jardins caseiros. Por mais monótono que seja, somente estar na companhia de minha mãe já me faz sentir bem o suficiente para continuar aqui e ter motivação para cuidar e guardar nossa tradição com tanto esforço.</p>
+		  <p>Mas, mesmo dando o meu máximo, há horas em que simplesmente não é mais possível esconder o estresse. A mente já se encontra tão sobrecarregada que qualquer coisa pode fazê-la explodir.</p>
+		  <p>Precisou de um erro. Um maldito erro para minha cabeça começar a pregar peças em mim. Uma moça entrou, pegou o seu pedido e, na hora de pagar, eu acabei errando o preço, um erro de digitação. Percebo logo depois do pagamento, infernizando a pobre mulher com minhas mais sinceras desculpas, devolvendo seu dinheiro com um sorriso no rosto. Ela não chegou a reclamar, não chegou a me criticar, apenas foi embora sorrindo, mas eu já me cobrei por conta própria.</p>
+		  <p>“Boa, Lilia, mais uma vez você consegue estragar tudo. Se nem cobrar o preço certo em uma simples compra de mercado você consegue, quem dirá fazer qualquer outra coisa? Você estuda, estuda, estuda, e de que adianta? Onde vai parar se você não tem pra onde ir? Nada além dessa cidadezinha de merda e de sua mãe, que você não consegue viver sem. Que criança! Sempre atrás da mamãezinha, incapaz de fazer qualquer coisa sozinha. Fique aí desenhando, tenho certeza de que, se descobrirem, vão te mandar para o jardim de infância, vendo o quão infantil você consegue ser. Vai, vai lá e chore por isso com alguém que você ama, tenho absoluta certeza de que Monique não aguenta mais ouvir a sua voz reclamando de tudo, sempre cansada da vida e fazendo questão de irritar todos à sua volta. Você realmente acha que os outros gostam de você? Você nem consegue ser você mesma! Nem você gosta do que você é.”</p>
+		  <p>A cada minuto que se passa, todos esses pensamentos permeiam meu corpo incessantemente, minhas pernas não parando de balançar atrás da mesa do balcão. Meus dedos já não ficam mais quietos, procurando papéis para rasgar, moedas para mexer, panos para limpar. Quase quebro minha caneta com os dentes enquanto minha mente cospe todas as minhas inseguranças para fora, jorrando tudo o que estava guardado como uma torneira aberta, sem previsão de fechar. Lágrimas se seguram em meus olhos, e meu raciocínio para de funcionar. Eu não sou ninguém, eu nunca serei ninguém.</p>
+		  <p>Espero por longas horas nessa agonia, torcendo para o dia passar mais rápido mas, cada vez que olho no relógio, parece que o tempo passa mais devagar, quase parando. Só eu estou sentindo isso, mais ninguém. </p>
+		  <p>Quando finalmente encontro um momento de paz na floricultura, sem nenhum cliente, desço do meu banquinho rapidamente, quase tropeçando para fora. Corro para o banheiro tentando não chamar atenção e me tranco por alguns minutos. Boto tudo para fora: parece que nunca chorei tanto em minha vida. O tempo vai passando, passando, e lágrimas continuam saindo de meu corpo, tirando forças que nem eu sabia que tinha para continuar me debulhando em meus pensamentos, a ansiedade correndo solta dentro da minha cabeça. “E é por isso que você tem que esconder quem você é. Imagina se as pessoas vêem isso? Ninguém nem ia querer se aproximar de uma pessoa como essa.”</p>
+		  <p>Sou tirada de minha agonia por um breve instante com uma batida na porta, e uma voz suave se direciona a mim.</p>
+		  <p>— Lilia? Tá tudo bem? — minha mãe pergunta pelo outro lado.</p>
+		  <p>— Tá sim, mãe. — respondo, contendo qualquer resquício de choro que havia restado.</p>
+		  <p>— Pode me deixar entrar?</p>
+		  <p>Sem respondê-la, já sabendo que ela não acreditou em minha mentira fajuta, destranco a fechadura do banheiro e ela entra. É um lugar apertado, sem muito espaço e, enquanto me sento no chão com a cara entre os joelhos, ela senta na privada, passando a mão na minha cabeça.</p>
+		  <p>— Tá tudo bem, filha. — ela fala, tentando tranquilizar-me, mas o estresse sobe à minha cabeça.</p>
+		  <p>— Não, não tá! — Volto a chorar, os soluços preenchendo minha fala — Nunca consigo fazer nada, eu sou uma decepção. Desculpa por não conseguir te ajudar como você merece. Eu não sirvo para nada.</p>
+		  <p>— Pare de se cobrar tanto, meu anjo. Você sempre deu o seu melhor, mesmo quando não estava bem. Você sempre me ajudou o máximo que pôde desde criança, e eu nunca poderia ser mais grata por você estar na minha vida. — ela diz, me puxando para um abraço. Eu retribuo — Você é humana, e humanos são cheios de erros. Você acha que eu também nunca errei? Mas sabe o que a gente faz com esses erros? A gente aprende com eles. A gente muda. Muda pra melhor. E você já é o melhor que você poderia ser, e é por isso que eu te amo.</p>
+		  <p>Agora, encaixada em seus ombros, volto a chorar, mas dessa vez não de tristeza. O choro de uma sensação que não consigo descrever em palavras, somente senti-la. Sentir que eu tenho alguém. Alguém que confia em mim. Alguém que me enxerga. Alguém para eu chamar de “mãe”.</p>
+		  <p>— Eu te amo, mãe — minha voz sai abafada por suas roupas. — Não mude nunca, por favor.</p>
+		  <p>— Eu também te amo, Lilia. Por favor, não mude nunca.</p>
+	  
+		  
+		</section>
+		<section>
+			<p class="categoria">Categorias: <a href="../ficcao.html">Ficção</a></p>
+		</section>
+
+		<section class="comentario">
+			<h2>Comentários</h2>
+			<form>
+				<textarea name="comentario" id="comentario-texto" placeholder="Faça um comentário..."></textarea>
+				<input type="image" id="seta-comentario" src="../img/seta-comentario.png">
+			</form>
+		</section>
+
+		<section>
+			<h3>Se você gosta de Ficção, pode gostar de...</h3>
+			<div class="contos-slider">
+				<div class="continho">
+					<a href="a-sos.html"><img src="capas/a sós.png" alt="A Sós - Capa"></a>
+					<h4>A Sós</h4>
+				</div>
+				<div class="continho">
+					<a href="destinadas.html"><img src="capas/destinadas.png" alt="Destinadas - Capa"></a>
+					<h4>Destinadas</h4>
+				</div>
+				<div class="continho">
+					<a href="tempestade.html"><img src="capas/tempestade.png" alt="Tempestade - Capa"></a>
+					<h4>Tempestade</h4>
+				</div>
+				<div class="continho">
+					<a href="perfeicao.html"><img src="capas/perfeição.png" alt="Perfeição - Capa"></a>
+					<h4>Perfeição</h4>
+				</div>
+				<div class="continho">
+					<a href="tatuagens.html"><img src="capas/tatuagem.png" alt="Tatuagens - Capa"></a>
+					<h4>Tatuagens</h4>
+				</div>
+		</section>
+		<section>
+			<h3>Mais textos de Bia Carvalho</h3>
+			<div class="contos-slider">
+				<div class="continho">
+					<a href="eterna-presa.html"><img src="capas/eterna presa.png" alt="Eternamente Presa - Capa"></a>
+					<h4>Eternamente Presa</h4>
+				</div>
+				<div class="continho">
+					<a href="mãe.html"><img src="capas/mãe.png" alt="Mãe? - Capa"></a>
+					<h4>Mãe?</h4>
+				</div>
+				<div class="continho">
+					<a href="nobre-bruxa.html"><img src="capas/nobre bruxa.png" alt="A Nobre Bruxa - Capa"></a>
+					<h4>A Nobre Bruxa</h4>
+				</div>
+				<div class="continho">
+					<a href="ser-estranho.html"><img src="capas/ser estranho.png" alt="Seres Estranhos - Capa"></a>
+					<h4>Seres Estranhos</h4>
+				</div>
+				<div class="continho">
+					<a href="companhia.html"><img src="capas/sua companhia.png" alt="Sua Companhia - Capa"></a>
+					<h4>Sua Companhia</h4>
+				</div>
+		</section>
+		<section>
+			<h3>Parecidos com Em Crise</h3>
+			<div class="contos-slider">
+				<div class="continho">
+					<a href="flores.html"><img src="capas/primeira impressão - flores.png" alt="Primeira Impressão - Capa"></a>
+					<h4>Primeira Impressão</h4>
+				</div>
+				<div class="continho">
+					<a href="desculpas.html"><img src="capas/desculpas.png" alt="Desculpas - Capa"></a>
+					<h4>Desculpas</h4>
+				</div>
+				<div class="continho">
+					<a href="pedacos.html"><img src="capas/pedaços.png" alt="Pedaços - Capa"></a>
+					<h4>Pedaços</h4>
+				</div>
+				<div class="continho">
+					<a href="traumas.html"><img src="capas/trauma.png" alt="Traumas - Capa"></a>
+					<h4>Traumas</h4>
+				</div>
+				<div class="continho">
+					<a href="estou-viva.html'"><img src="capas/estou viva.png" alt="Estou Viva - Capa"></a>
+					<h4>Estou Viva</h4>
+				</div>
+		</section>
+
+		<a href="#nav"><img id="seta" src="../img/Seta.png" alt="Seta para o topo da página"></a>
+	</main>
+
+	<footer>
+		<div id="rodape">
+			<p>Contato: bianca.fac@gmail.com</p>
+
+			<div id="redes-sociais">
+				<a href="https://www.instagram.com" target="_blank"><img src="../img/ig.png" alt="Instagram"></a>
+				<a href="https://twitter.com/home" target="_blank"><img src="../img/twt.png" alt="Twitter"></a>
+				<a href="https://www.tiktok.com/pt-BR/" target="_blank"><img src="../img/ttk.png" alt="TikTok"></a>
+			</div>
+		</div>
+	</footer>
+</body>
+</html>

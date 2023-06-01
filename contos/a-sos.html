@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>A Sós</title>
+	<link rel="stylesheet" href="../css/style.css">
+	<link rel="icon" type="image/x-icon" href="../img/favicon.ico">
+
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Henny+Penny&family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+
+<!--        Menu Responsivo -->
+<script src="https://kit.fontawesome.com/3a591bff9c.js" crossorigin="anonymous"></script>
+<!-- Função Menu Responsivo - Teste -->
+<script>		function myFunction() {
+	document.getElementsByClassName("menu")[0].classList.toggle("responsive");}
+</script>
+
+</head>
+<body>
+	<header>
+		<nav id="nav">
+			<a href="../index.html"><img width="300px" src="../img/LogoPNG.png" alt="Logo Cafeteria dos Contos"></a>
+			<ul class="menu">
+				<!--                    Linha adicionada para o menu responsivo -->
+				<li class="icon"><a href="javascript:void(0);" onclick="myFunction()">&#9776;</a></li>
+				<li><a href="../index.html">Home</a></li>
+				<li class="conto-nav"><a href="../contos.html">Contos</a>
+					<ul class="dropdown">
+						<div>
+							<li><a href="../suspense.html">Suspense</a></li>
+							<li><a href="../terror.html">Terror</a></li>
+							<li><a href="../lgbt.html">LGBTQIA+</a></li>
+							<li><a href="../romance.html">Romance</a></li>
+						</div>
+						<div>
+							<li><a href="../fantasia.html">Fantasia</a></li>
+							<li><a href="../ficcao.html">Ficção</a></li>
+							<li><a href="../humor.html">Humor</a></li>
+							<li><a href="../drama.html">Drama</a></li>
+						</div>
+					</ul>
+				</li>
+				<li class="sobre-nav"><a href="../sobre.html">Sobre</a>
+					<ul class="dropdown">
+						<div>
+							<li><a href="../sobre.html">Quem somos</a></li>
+							<li><a href="../acessibilidade.html">Acessibilidade</a></li>
+							<li><a href="../contato.html">Contato</a></li>
+						</div>
+					</ul>
+				</li>
+				<li><a href="../newsletter.html">Newsletter</a></li>
+				<li><a href="../login.html">Login</a></li>
+			</ul>
+		</nav>
+	</header>
+
+	<main class="textos">
+		<ul class="breadcrumb">
+			<li class="bc-home"><a href="../contos.html">Contos</a></li>
+			<li class="bc-img-li"><img class="bc-img" src="../img/bc-seta.png" alt="breadcrumb"></li>
+			<li><a href="../ficcao.html">Ficção</a></li>
+			<li class="bc-img-li"><img class="bc-img" src="../img/bc-seta.png" alt="breadcrumb"></li>
+			<li class="bc-ultimo">A Sós</li>
+
+		</ul>
+
+		<section class="textos">
+		<h1>A Sós</h1>
+		<h2>Bia Carvalho</h2>
+
+		<audio id="music" preload="true">
+			<source src="audios/nao-disponivel.m4a">
+		  </audio>
+		  <div id="audioplayer">
+			<button id="pButton" class="play"></button>
+			<div id="timeline">
+			  <div id="playhead"></div>
+			</div>
+		  </div>
+		  
+		  <script>
+			var music = document.getElementById('music'); // id for audio element
+		var duration = music.duration; // Duration of audio clip, calculated here for embedding purposes
+		var pButton = document.getElementById('pButton'); // play button
+		var playhead = document.getElementById('playhead'); // playhead
+		var timeline = document.getElementById('timeline'); // timeline
+		
+		// timeline width adjusted for playhead
+		var timelineWidth = timeline.offsetWidth - playhead.offsetWidth;
+		
+		// play button event listenter
+		pButton.addEventListener("click", play);
+		
+		// timeupdate event listener
+		music.addEventListener("timeupdate", timeUpdate, false);
+		
+		// makes timeline clickable
+		timeline.addEventListener("click", function(event) {
+			moveplayhead(event);
+			music.currentTime = duration * clickPercent(event);
+		}, false);
+		
+		// returns click as decimal (.77) of the total timelineWidth
+		function clickPercent(event) {
+			return (event.clientX - getPosition(timeline)) / timelineWidth;
+		}
+		
+		// makes playhead draggable
+		playhead.addEventListener('mousedown', mouseDown, false);
+		window.addEventListener('mouseup', mouseUp, false);
+		
+		// Boolean value so that audio position is updated only when the playhead is released
+		var onplayhead = false;
+		
+		// mouseDown EventListener
+		function mouseDown() {
+			onplayhead = true;
+			window.addEventListener('mousemove', moveplayhead, true);
+			music.removeEventListener('timeupdate', timeUpdate, false);
+		}
+		
+		// mouseUp EventListener
+		// getting input from all mouse clicks
+		function mouseUp(event) {
+			if (onplayhead == true) {
+				moveplayhead(event);
+				window.removeEventListener('mousemove', moveplayhead, true);
+				// change current time
+				music.currentTime = duration * clickPercent(event);
+				music.addEventListener('timeupdate', timeUpdate, false);
+			}
+			onplayhead = false;
+		}
+		// mousemove EventListener
+		// Moves playhead as user drags
+		function moveplayhead(event) {
+			var newMargLeft = event.clientX - getPosition(timeline);
+		
+			if (newMargLeft >= 0 && newMargLeft <= timelineWidth) {
+				playhead.style.marginLeft = newMargLeft + "px";
+			}
+			if (newMargLeft < 0) {
+				playhead.style.marginLeft = "0px";
+			}
+			if (newMargLeft > timelineWidth) {
+				playhead.style.marginLeft = timelineWidth + "px";
+			}
+		}
+		
+		// timeUpdate
+		// Synchronizes playhead position with current point in audio
+		function timeUpdate() {
+			var playPercent = timelineWidth * (music.currentTime / duration);
+			playhead.style.marginLeft = playPercent + "px";
+			if (music.currentTime == duration) {
+				pButton.className = "";
+				pButton.className = "play";
+			}
+		}
+		
+		//Play and Pause
+		function play() {
+			// start music
+			if (music.paused) {
+				music.play();
+				// remove play, add pause
+				pButton.className = "";
+				pButton.className = "pause";
+			} else { // pause music
+				music.pause();
+				// remove pause, add play
+				pButton.className = "";
+				pButton.className = "play";
+			}
+		}
+		
+		// Gets audio file duration
+		music.addEventListener("canplaythrough", function() {
+			duration = music.duration;
+		}, false);
+		
+		// getPosition
+		// Returns elements left position relative to top-left of viewport
+		function getPosition(el) {
+			return el.getBoundingClientRect().left;
+		}
+		</script>
+		  
+		  <p>Bato na porta com cautela, observando a casa à minha frente. É uma casa simples, não tão pequena quanto a minha, e repleta de plantas verdes e vívidas que percorrem as paredes externas, extremamente bem cuidadas.  Os parapeitos das janelas dão vida à casa com uma concentração de pétalas coloridas, mas não sei reconhecer quais flores são essas. Nunca fui muito boa em botânica, mesmo com Lilia sempre me ensinando tudo o que sabe quando visito ela na floricultura. Minha cabeça não foi feita para guardar esse tipo de informação, mas me esforço o máximo que posso para lembrar de tudo o que ela me fala, por mais que seja bastante coisa.</p>
+		  <p>— Gladíolos — uma voz conhecida me tira do meu transe — É o nome dessas flores.</p>
+		  <p>Ela dá uma risadinha e, quando me viro, vejo Lilia apoiada na porta aberta, esperando que eu a notasse. Ela adora apreciar qualquer coisa que eu esteja fazendo, e agora não é diferente. Ao percebê-la me encarando, dou um sorrisinho constrangido e entro na casa, recebendo um selinho de boas-vindas logo de manhã.</p>
+		  <p>Já tinha olhado pela fresta do lado de fora diversas vezes quando a trouxe de volta para casa, mas nunca tinha entrado aqui. O ambiente é aconchegante, e tudo parece estar em seu devido lugar, por mais que não seja tão organizado. Claro, não poderiam faltar flores em volta de todo o cenário.</p>
+		  <p>— Bom, essa é a minha casa! — ela ergue os braços, como se apresentasse uma obra de arte recém produzida — Sinta-se à vontade. Eu preciso terminar alguns estudos, mas eu aceito uma companhia.</p>
+		  <p>Prestando mais atenção aos meus arredores, consigo ver a sala da casa, preenchida por um pequeno sofá, coberto por um pano bem decorado, e uma TV de tubo minúscula, a luz entrando pela janela e iluminando uma linda pintura, com traços característicos de Lilia. Há muitas coisas espalhadas, mas os objetos parecem se encaixar no meio de tanta natureza que infiltra meus sentidos. Do lado oposto, uma mesa de jantar está posta com diversos alimentos para um café da tarde; Lilia realmente preparou tudo para minha visita. Porém, acabamos não parando ali de imediato, subindo as escadas em direção ao seu quarto.</p>
+		  <p>Mesmo com os raios de sol adentrando a moradia, o andar de cima é extremamente escuro, e poucas luzes elétricas podem ser ligadas. Quando minha visão começa a se ajustar, Lilia já está dentro de seus aposentos, ajeitando-se no chão com seu antigo laptop, cheia de livros à sua volta. Nas paredes, há diversas fotos penduradas, todas com datas escritas na frente e tiradas em lugares diferentes, a câmera sempre posicionada no melhor ângulo. Cada memória, cada momento guardado nesses míseros papéis traz uma faísca de alegria para quem observa minimamente seus detalhes, como se estivessem vivos na minha frente.</p>
+		  <p>— São todas da minha mãe — Lilia diz enquanto segura uma presilha com os dentes, erguendo o cabelo com as mãos para prendê-lo em um rabo de cavalo — Eu não tenho nenhuma habilidade para produzir essas maravilhas.</p>
+		  <p>Enquanto ela se arruma desajeitadamente para seus estudos, encostada no colchão de sua cama, fico admirando o trabalho de Dina Leanor. Por mais que a mãe de Lilia passe muito tempo fora da cidade, ela é a pessoa em quem mais confia. É extremamente difícil chamá-la para sair quando sua mãe está aqui pois elas adoram passar tempo juntas e aproveitar cada momento. Obviamente eu também amo minha mãe, mas a relação delas parece muito mais do que isso. É como uma conexão surpreendentemente intensa, algo que eu não conseguiria explicar nem se eu tentasse. Provavelmente eu nunca entenderei o que elas têm; é algo único, e eu não ousaria questionar.</p>
+		  <p>Lilia me deixa à vontade em sua casa, apostando toda a sua confiança em mim. Além de Dina, eu diria que sou a única pessoa com a qual ela se sente confortável o suficiente para compartilhar o que sente, ficando à vontade para relaxar a postura e deixar de medir cada palavra que sai de sua boca. Ela se preocupa demais com o que os outros vão pensar, mas quando está sozinha comigo eu consigo ver quem ela realmente é. Por fora, ela tenta manter essa imagem simpática e por muitas vezes indiferente, mas isso é só uma máscara que ela veste todos os dias, e infelizmente quase nunca tem a coragem de tirá-la. Uma pena ela não mostrar ao mundo sua autenticidade.</p>
+		  <p>Esse é um dos motivos pelos quais aceitei o convite de vir para cá hoje, tirando o fato de que ela é minha namorada. Ela sempre se vira sozinha quando sua mãe sai para suas viagens de emergência, cuidando da floricultura e se sobrecarregando diversas vezes para deixar todo mundo contente. Conhecendo ela como eu a conheço, a minha companhia já traz uma grande diferença nesses momentos, Lilia enfim permitindo-se relaxar quando estou próxima. É como nossa válvula de escape, uma realidade só nossa onde só nós existimos. A gente e nada mais.</p>
+		  <p>Acabei trazendo minha guitarra nas costas caso eu quisesse praticar um pouco durante minha pequena estadia aqui, mas não quero desconcentrar Lilia. Dedicada como sempre, ela está enfiada de cara em algum livro de botânica, se especializando cada vez mais nos assuntos que lhe interessam. Ela não fala disso para ninguém, pois tem receio de acharem suas ambições bobas, fúteis, inadequadas para alguém como ela. Suas inseguranças sempre dominaram-na, e nesse caso não é diferente. Mesmo que esconda seus interesses de todos à sua volta, seu empenho para aprender é inabalável, e seus olhos não desviam do texto à sua frente nem por um segundo.</p>
+		  <p>Ela mordisca a caneta em suas mãos, já completamente marcada por outras mordidas de ansiedade, e mexe em sua regata branca, ajustando seu corpo em uma posição mais confortável. Acho que agora entendo porque Lilia gosta tanto de ficar me observando. É uma sensação incrível, sentir que estar perto da pessoa que você ama lhe traz tanta felicidade, conforto, segurança. Não necessitamos de palavras, apenas de uma a outra. Cada movimento minucioso de seus dedos me cativa, e nada faz com que eu consiga parar de pensar nela.</p>
+		  <p>Largo todas as minhas coisas na porta do quarto, indo até a cama de solteiro roxa dela e me deitando lentamente, esgueirando o pescoço para fora para bisbilhotar suas anotações. É de se deslumbrar toda a sua organização de estudos se comparada ao seu quarto, a escrivaninha coberta de objetos largados e plantas circulando todo o perímetro, preenchendo meu campo de visão por completo. Inspirada por minha namorada, aproveito o momento silencioso entre nós para abrir meu caderno de composições e começar a pensar em uma música nova. Uma música para ela. É um silêncio prazeroso que, mesmo não havendo nenhuma conversa, sabemos muito bem que não haveria lugar melhor para se estar agora do que aqui, juntas.</p>
+		  <p>O tempo passa em um piscar de olhos, nós duas distraídas em nossos próprios pensamentos e, quando menos se espera, a hora do almoço já se foi faz tempo, o fim da tarde marcado pela luz alaranjada que invade o quarto. Entreolhamos-nos rindo da situação, deixando o clima leve. Devastadas depois de tanto pensar, descemos as escadas para comermos alguma coisa, Lilia já sem forças para continuar estudando. Enquanto comemos ferozmente após longas horas famintas, ela descansa a cabeça em meus ombros, e uma súbita euforia corre por minhas veias com a realização de estar aqui, com ela, como sempre estamos. Essa sensação nunca deixará de ser boa.</p>
+		  <p>Ao voltarmos para o andar de cima, Lilia já está cansada demais para fazer qualquer coisa, um cansaço satisfatório depois de todas essas horas de pura dedicação. Acabei produzindo algumas coisas, mas não tanto quanto ela o fez. Já que ela ama me escutar tocar minhas canções autorais, pego minha guitarra do chão, conecto o que preciso para fazê-la funcionar e passo alguns acordes sentada em sua cama, como para entretê-la. Atrás de mim, ela me abraça com carinho, balançando a cabeça ao ritmo da música. Por mais que estivesse aproveitando, ela vai diminuindo sua animação até estar completamente deitada, capotada de sono ao meu lado. Antes que ela feche os olhos de vez, aproximo-me, dando-lhe um beijinho na testa que a faz sorrir de volta para mim, suas pálpebras nem se dando o esforço de abrirem.</p>
+		  <p>— Boa tarde, meu amor — ela diz, a voz embargada de sono.</p>
+		  <p>Acabo nem respondendo, somente me deito junto a ela, aconchegada em seus braços. Alguns minutos se passam, e já não me lembro de estar acordada.</p>
+		  
+		  
+		</section>
+		<section>
+			<p class="categoria">Categorias: <a href="../ficcao.html">Ficção</a></p>
+		</section>
+
+		<section class="comentario">
+			<h2>Comentários</h2>
+			<form>
+				<textarea name="comentario" id="comentario-texto" placeholder="Faça um comentário..."></textarea>
+				<input type="image" id="seta-comentario" src="../img/seta-comentario.png">
+			</form>
+		</section>
+
+		<section>
+			<h3>Se você gosta de Ficção, pode gostar de...</h3>
+			<div class="contos-slider">
+				<div class="continho">
+					<a href="estou-viva.html"><img src="capas/estou viva.png" alt="Estou Viva - Capa"></a>
+					<h4>Estou Viva</h4>
+				</div>
+				<div class="continho">
+					<a href="flores.html"><img src="capas/primeira impressão - flores.png" alt="Primeira Impressão - Capa"></a>
+					<h4>Primeira Impressão</h4>
+				</div>
+				<div class="continho">
+					<a href="perfeicao.html"><img src="capas/perfeição.png" alt="Perfeição - Capa"></a>
+					<h4>Perfeição</h4>
+				</div>
+				<div class="continho">
+					<a href="tatuagens.html"><img src="capas/tatuagem.png" alt="Tatuagens - Capa"></a>
+					<h4>Tatuagens</h4>
+				</div>
+				<div class="continho">
+					<a href="destinadas.html"><img src="capas/destinadas.png" alt="Destinadas - Capa"></a>
+					<h4>Destinadas</h4>
+				</div>
+		</section>
+		<section>
+			<h3>Mais textos de Bia Carvalho</h3>
+			<div class="contos-slider">
+				<div class="continho">
+					<a href="carta.html"><img src="capas/carta.png" alt="A Carta - Capa"></a>
+					<h4>A Carta</h4>
+				</div>
+				<div class="continho">
+					<a href="admirador-secreto.html"><img src="capas/admirador.png" alt="Admirador Secreto - Capa"></a>
+					<h4>Admirador Secreto</h4>
+				</div>
+				<div class="continho">
+					<a href="companhia.html"><img src="capas/sua companhia.png" alt="Sua Companhia - Capa"></a>
+					<h4>Sua Companhia</h4>
+				</div>
+				<div class="continho">
+					<a href="desculpas.html"><img src="capas/desculpas.png" alt="Desculpas - Capa"></a>
+					<h4>Desculpas</h4>
+				</div>
+				<div class="continho">
+					<a href="de-manha.html"><img src="capas/de manhã.png" alt="De Manhã - Capa"></a>
+					<h4>De Manhã</h4>
+				</div>
+		</section>
+		<section>
+			<h3>Parecidos com A Sós</h3>
+			<div class="contos-slider">
+				<div class="continho">
+					<a href="tatuagens.html"><img src="capas/tatuagem.png" alt="Tatuagens - Capa"></a>
+					<h4>Tatuagens</h4>
+				</div>
+				<div class="continho">
+					<a href="saudades.html"><img src="capas/saudades.png" alt="Saudades - Capa"></a>
+					<h4>Saudades</h4>
+				</div>
+				<div class="continho">
+					<a href="flores.html"><img src="capas/primeira impressão - flores.png" alt="Primeira Impressão - Capa"></a>
+					<h4>Primeira Impressão</h4>
+				</div>
+				<div class="continho">
+					<a href="longe-vc.html"><img src="capas/longe de vc.png" alt="Longe de Você - Capa"></a>
+					<h4>Longe de Você</h4>
+				</div>
+				<div class="continho">
+					<a href="festa.html"><img src="capas/alcool.png" alt="Álcool - Capa"></a>
+					<h4>Álcool</h4>
+				</div>
+		</section>
+
+		<a href="#nav"><img id="seta" src="../img/Seta.png" alt="Seta para o topo da página"></a>
+	</main>
+
+	<footer>
+		<div id="rodape">
+			<p>Contato: bianca.fac@gmail.com</p>
+
+			<div id="redes-sociais">
+				<a href="https://www.instagram.com" target="_blank"><img src="../img/ig.png" alt="Instagram"></a>
+				<a href="https://twitter.com/home" target="_blank"><img src="../img/twt.png" alt="Twitter"></a>
+				<a href="https://www.tiktok.com/pt-BR/" target="_blank"><img src="../img/ttk.png" alt="TikTok"></a>
+			</div>
+		</div>
+	</footer>
+</body>
+</html>

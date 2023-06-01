@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Desculpas</title>
+	<link rel="stylesheet" href="../css/style.css">
+	<link rel="icon" type="image/x-icon" href="../img/favicon.ico">
+
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Henny+Penny&family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+
+<!--        Menu Responsivo -->
+<script src="https://kit.fontawesome.com/3a591bff9c.js" crossorigin="anonymous"></script>
+<!-- Função Menu Responsivo - Teste -->
+<script>		function myFunction() {
+	document.getElementsByClassName("menu")[0].classList.toggle("responsive");}
+</script>
+
+</head>
+<body>
+	<header>
+		<nav id="nav">
+			<a href="../index.html"><img width="300px" src="../img/LogoPNG.png" alt="Logo Cafeteria dos Contos"></a>
+			<ul class="menu">
+				<!--                    Linha adicionada para o menu responsivo -->
+				<li class="icon"><a href="javascript:void(0);" onclick="myFunction()">&#9776;</a></li>
+				<li><a href="../index.html">Home</a></li>
+				<li class="conto-nav"><a href="../contos.html">Contos</a>
+					<ul class="dropdown">
+						<div>
+							<li><a href="../suspense.html">Suspense</a></li>
+							<li><a href="../terror.html">Terror</a></li>
+							<li><a href="../lgbt.html">LGBTQIA+</a></li>
+							<li><a href="../romance.html">Romance</a></li>
+						</div>
+						<div>
+							<li><a href="../fantasia.html">Fantasia</a></li>
+							<li><a href="../ficcao.html">Ficção</a></li>
+							<li><a href="../humor.html">Humor</a></li>
+							<li><a href="../drama.html">Drama</a></li>
+						</div>
+					</ul>
+				</li>
+				<li class="sobre-nav"><a href="../sobre.html">Sobre</a>
+					<ul class="dropdown">
+						<div>
+							<li><a href="../sobre.html">Quem somos</a></li>
+							<li><a href="../acessibilidade.html">Acessibilidade</a></li>
+							<li><a href="../contato.html">Contato</a></li>
+						</div>
+					</ul>
+				</li>
+				<li><a href="../newsletter.html">Newsletter</a></li>
+				<li><a href="../login.html">Login</a></li>
+			</ul>
+		</nav>
+	</header>
+
+	<main class="textos">
+		<ul class="breadcrumb">
+			<li class="bc-home"><a href="../contos.html">Contos</a></li>
+			<li class="bc-img-li"><img class="bc-img" src="../img/bc-seta.png" alt="breadcrumb"></li>
+			<li><a href="../drama.html">Drama</a>/<a href="../romance.html">Romance</a></li>
+			<li class="bc-img-li"><img class="bc-img" src="../img/bc-seta.png" alt="breadcrumb"></li>
+			<li class="bc-ultimo">Desculpas</li>
+
+		</ul>
+
+		<section class="textos">
+		<h1>Desculpas</h1>
+		<h2>Bia Carvalho</h2>
+
+		<audio id="music" preload="true">
+			<source src="audios/nao-disponivel.m4a">
+		  </audio>
+		  <div id="audioplayer">
+			<button id="pButton" class="play"></button>
+			<div id="timeline">
+			  <div id="playhead"></div>
+			</div>
+		  </div>
+		  
+		  <script>
+			var music = document.getElementById('music'); // id for audio element
+		var duration = music.duration; // Duration of audio clip, calculated here for embedding purposes
+		var pButton = document.getElementById('pButton'); // play button
+		var playhead = document.getElementById('playhead'); // playhead
+		var timeline = document.getElementById('timeline'); // timeline
+		
+		// timeline width adjusted for playhead
+		var timelineWidth = timeline.offsetWidth - playhead.offsetWidth;
+		
+		// play button event listenter
+		pButton.addEventListener("click", play);
+		
+		// timeupdate event listener
+		music.addEventListener("timeupdate", timeUpdate, false);
+		
+		// makes timeline clickable
+		timeline.addEventListener("click", function(event) {
+			moveplayhead(event);
+			music.currentTime = duration * clickPercent(event);
+		}, false);
+		
+		// returns click as decimal (.77) of the total timelineWidth
+		function clickPercent(event) {
+			return (event.clientX - getPosition(timeline)) / timelineWidth;
+		}
+		
+		// makes playhead draggable
+		playhead.addEventListener('mousedown', mouseDown, false);
+		window.addEventListener('mouseup', mouseUp, false);
+		
+		// Boolean value so that audio position is updated only when the playhead is released
+		var onplayhead = false;
+		
+		// mouseDown EventListener
+		function mouseDown() {
+			onplayhead = true;
+			window.addEventListener('mousemove', moveplayhead, true);
+			music.removeEventListener('timeupdate', timeUpdate, false);
+		}
+		
+		// mouseUp EventListener
+		// getting input from all mouse clicks
+		function mouseUp(event) {
+			if (onplayhead == true) {
+				moveplayhead(event);
+				window.removeEventListener('mousemove', moveplayhead, true);
+				// change current time
+				music.currentTime = duration * clickPercent(event);
+				music.addEventListener('timeupdate', timeUpdate, false);
+			}
+			onplayhead = false;
+		}
+		// mousemove EventListener
+		// Moves playhead as user drags
+		function moveplayhead(event) {
+			var newMargLeft = event.clientX - getPosition(timeline);
+		
+			if (newMargLeft >= 0 && newMargLeft <= timelineWidth) {
+				playhead.style.marginLeft = newMargLeft + "px";
+			}
+			if (newMargLeft < 0) {
+				playhead.style.marginLeft = "0px";
+			}
+			if (newMargLeft > timelineWidth) {
+				playhead.style.marginLeft = timelineWidth + "px";
+			}
+		}
+		
+		// timeUpdate
+		// Synchronizes playhead position with current point in audio
+		function timeUpdate() {
+			var playPercent = timelineWidth * (music.currentTime / duration);
+			playhead.style.marginLeft = playPercent + "px";
+			if (music.currentTime == duration) {
+				pButton.className = "";
+				pButton.className = "play";
+			}
+		}
+		
+		//Play and Pause
+		function play() {
+			// start music
+			if (music.paused) {
+				music.play();
+				// remove play, add pause
+				pButton.className = "";
+				pButton.className = "pause";
+			} else { // pause music
+				music.pause();
+				// remove pause, add play
+				pButton.className = "";
+				pButton.className = "play";
+			}
+		}
+		
+		// Gets audio file duration
+		music.addEventListener("canplaythrough", function() {
+			duration = music.duration;
+		}, false);
+		
+		// getPosition
+		// Returns elements left position relative to top-left of viewport
+		function getPosition(el) {
+			return el.getBoundingClientRect().left;
+		}
+		</script>
+		  
+		  <p>— Eu te amo. — ela sussurra para mim, olhando no fundo dos meus olhos. Ela está falando a mais pura verdade, e tem o sorriso mais sincero que já vi em toda a minha vida estampado em seu rosto.</p>
+		  <p>Não. Não, não, não. Isso não pode estar acontecendo de novo. Como eu pude ser tão inocente, tão ingênua? Eu não queria que isso acontecesse, e agora chegamos a esse ponto. Quanto mais eu fujo, mais isso volta a me perseguir. Eu tento me desvencilhar desse sentimento, mas parece que ele sempre dá um jeito de me abocanhar pelas costas, mesmo eu não estando pronta para isso.</p>
+		  <p>Minha cabeça entra em confusão, e a tensão toma conta de minha consciência, tirando-me a liberdade, deixando-me descontrolado. Emoções? O que é isso? Fazia muito tempo que eu não sentia algo tão forte, tão de perto, bem na minha frente. Não é uma coisa que eu procurava encontrar tão cedo, e isso me assusta. Será que eu estou pronta para lidar com isso? No fundo, eu tenho a mais profunda certeza de que não estou.</p>
+		  <p>Quantos problemas os sentimentos já não me causaram, me passaram a perna, me deixaram na mão? É só você pensar que vale a pena se arriscar, que na primeira oportunidade eles começam a tomar conta de você, e é aí que seu corpo e sua alma são levados por eles, enganados, expostos, incapazes de agir com razão. Quando você menos percebe, você já está cego por uma falsa paixão e, quando tudo chega ao fim, você começa a considerar que o inferno pudesse ser menos doloroso do que aquilo. Talvez você já tenha passado pelos portões de Hades, e só percebeu quando era tarde demais.</p>
+		  <p>Minha boca se abre, falhando em soltar qualquer som sequer, tamanho o espanto, presa pelo medo, outro sentimento que também me preenche. Os olhos dela, antes apaixonados, agora começam a perder o brilho, desolados pelos longos segundos de meu silêncio, quebrando-a por dentro. Sua mão em minha bochecha desce em desistência, e logo ela começa a se afastar, se arrependendo do que fizera, do que falara, do que sentira.</p>
+		  <p>Como em um instinto, seguro-a pelo pulso, impedindo-a de tentar ir embora. Não é como se ela estivesse tentando fugir, mas eu vejo em sua expressão que ela prefere sair deste lugar o mais rápido possível e esquecer tudo o que aconteceu até agora do que ter que me ouvir falar, com receio de que tudo desmorone em sua frente. Eu demorei demais, eu hesitei demais. É a pior coisa que alguém pode fazer após ouvir aquelas míseras três palavras.</p>
+		  <p>— Desculpa. — eu finalmente consigo soltar — Eu não… Eu não quero te magoar.</p>
+		  <p>É como uma corda que me prende, um sentimento pesado que não me deixa seguir em frente. Meus traumas passados me puxam, como se quisessem me punir, me fazer sentir incapaz, insuficiente. Não é que eu não a ame, é que eu sei que ela não me merece. Não merece alguém tão frágil, tão quebrado, tão distante. Ela merece ser feliz com qualquer outro, não comigo. Depois de tudo o que a vida me mostrou, eu tenho consciência de que não mereço ela. Eu não me amo.</p>
+		  <p>Mas… se ela me ama, como poderia ser feliz com outra pessoa? Quem seria seu porto seguro, se não eu? Sou eu quem a escuto, sou eu quem a consolo, quem a merece. Sou eu quem a ama. E sou eu quem não tem a coragem de admitir minhas próprias emoções, meus próprios erros. Como pude ser tão tolo de me deixar cair às suas tentações? Agora, não há mais nada a fazer, a não ser aceitar meu destino. Por mais que eu tente negar, me abster dessa responsabilidade, ignorar sua existência não vai fazer com que tudo o que eu sinto suma de repente.</p>
+		  <p>Abrindo um sorriso em meio às lágrimas, declaro com a voz embargada em choro:</p>
+		  <p>— Eu também te amo. Eu juro. Eu prometo. — eu seguro suas mãos fortemente, em um gesto acolhedor, e ela vê por trás da água caindo de meus olhos a verdade nas minhas palavras. Ela vê quem eu verdadeiramente sou.</p>
+		  <p>Antes que eu pudesse pensar em qualquer outra desculpa esfarrapada para não amá-la, ela me puxa para um beijo apaixonado, suas mãos em minhas bochechas para assegurar de que eu não vá a lugar nenhum. E, para não quebrar seu coração, eu vou ficar aqui. E espero que, dessa vez, seja para sempre.</p>
+		  
+		  
+		</section>
+		<section>
+			<p class="categoria">Categorias: <a href="../drama.html">Drama</a> <a href="../romance.html">Romance</a></p>
+		</section>
+
+		<section class="comentario">
+			<h2>Comentários</h2>
+			<form>
+				<textarea name="comentario" id="comentario-texto" placeholder="Faça um comentário..."></textarea>
+				<input type="image" id="seta-comentario" src="../img/seta-comentario.png">
+			</form>
+		</section>
+
+		<section>
+			<h3>Se você gosta de Romance, pode gostar de...</h3>
+			<div class="contos-slider">
+				<div class="continho">
+					<a href="luz-de-velas.html"><img src="capas/luz de vela.png" alt="Luz de Velas - Capa"></a>
+					<h4>Luz de Velas</h4>
+				</div>
+				<div class="continho">
+					<a href="destinadas.html"><img src="capas/destinadas.png" alt="Destinadas - Capa"></a>
+					<h4>Destinadas</h4>
+				</div>
+				<div class="continho">
+					<a href="longe-vc.html"><img src="capas/longe de vc.png" alt="Longe de Você - Capa"></a>
+					<h4>Longe de Você</h4>
+				</div>
+				<div class="continho">
+					<a href="de-manha.html"><img src="capas/de manha.png" alt="De Manhã - Capa"></a>
+					<h4>De Manhã</h4>
+				</div>
+				<div class="continho">
+					<a href="donzela.html"><img src="capas/donzela.png" alt="Ó, Donzela! - Capa"></a>
+					<h4>Ó, Donzela!</h4>
+				</div>
+		</section>
+		<section>
+			<h3>Mais textos de Bia Carvalho</h3>
+			<div class="contos-slider">
+				<div class="continho">
+					<a href="então-natal.html"><img src="capas/ent eh natal.png" alt="Então, é Natal - Capa"></a>
+					<h4>Então, é Natal</h4>
+				</div>
+				<div class="continho">
+					<a href="destinadas.html"><img src="capas/destinadas.png" alt="Destinadas - Capa"></a>
+					<h4>Destinadas</h4>
+				</div>
+				<div class="continho">
+					<a href="carta.html"><img src="capas/carta.png" alt="A Carta - Capa"></a>
+					<h4>A Carta</h4>
+				</div>
+				<div class="continho">
+					<a href="perfeicao.html"><img src="capas/perfeição.png" alt="Perfeição - Capa"></a>
+					<h4>Perfeição</h4>
+				</div>
+				<div class="continho">
+					<a href="entrevista.html"><img src="capas/entrevistada.png" alt="Entrevistada - Capa"></a>
+					<h4>Entrevistada</h4>
+				</div>
+		</section>
+		<section>
+			<h3>Parecidos com Desculpas</h3>
+			<div class="contos-slider">
+				<div class="continho">
+					<a href="não.html"><img src="capas/não.png" alt="Não - Capa"></a>
+					<h4>Não</h4>
+				</div>
+				<div class="continho">
+					<a href="longe-vc.html"><img src="capas/longe de vc.png" alt="Longe de Você - Capa"></a>
+					<h4>Longe de Você</h4>
+				</div>
+				<div class="continho">
+					<a href="mensagem.html"><img src="capas/mensagem.png" alt="Mensagens - Capa"></a>
+					<h4>Mensagens</h4>
+				</div>
+				<div class="continho">
+					<a href="reencontro.html"><img src="capas/reencontro.png" alt="O Reencontro - Capa"></a>
+					<h4>O Reencontro</h4>
+				</div>
+				<div class="continho">
+					<a href="queria.html"><img src="capas/eu queria ser.png" alt="Eu Queria Ser - Capa"></a>
+					<h4>Eu Queria Ser</h4>
+				</div>
+		</section>
+
+		<a href="#nav"><img id="seta" src="../img/Seta.png" alt="Seta para o topo da página"></a>
+	</main>
+
+	<footer>
+		<div id="rodape">
+			<p>Contato: bianca.fac@gmail.com</p>
+
+			<div id="redes-sociais">
+				<a href="https://www.instagram.com" target="_blank"><img src="../img/ig.png" alt="Instagram"></a>
+				<a href="https://twitter.com/home" target="_blank"><img src="../img/twt.png" alt="Twitter"></a>
+				<a href="https://www.tiktok.com/pt-BR/" target="_blank"><img src="../img/ttk.png" alt="TikTok"></a>
+			</div>
+		</div>
+	</footer>
+</body>
+</html>

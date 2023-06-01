@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Quem Somos</title>
+	<link rel="stylesheet" href="css/style.css">
+	<link rel="icon" type="image/x-icon" href="img/favicon.ico">
+
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Henny+Penny&family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+
+<!--        Menu Responsivo -->
+<script src="https://kit.fontawesome.com/3a591bff9c.js" crossorigin="anonymous"></script>
+<!-- Função Menu Responsivo - Teste -->
+<script>		function myFunction() {
+	document.getElementsByClassName("menu")[0].classList.toggle("responsive");}
+</script>
+
+</head>
+<body>
+	<header>
+		<nav id="nav">
+			<a href="index.html"><img width="300px" src="img/LogoPNG.png" alt="Logo Cafeteria dos Contos"></a>
+			<ul class="menu">
+				<!--                    Linha adicionada para o menu responsivo -->
+				<li class="icon"><a href="javascript:void(0);" onclick="myFunction()">&#9776;</a></li>
+				<li><a href="index.html">Home</a></li>
+				<li class="conto-nav"><a href="contos.html">Contos</a>
+					<ul class="dropdown">
+						<div>
+							<li><a href="suspense.html">Suspense</a></li>
+							<li><a href="terror.html">Terror</a></li>
+							<li><a href="lgbt.html">LGBTQIA+</a></li>
+							<li><a href="romance.html">Romance</a></li>
+						</div>
+						<div>
+							<li><a href="fantasia.html">Fantasia</a></li>
+							<li><a href="ficcao.html">Ficção</a></li>
+							<li><a href="humor.html">Humor</a></li>
+							<li><a href="drama.html">Drama</a></li>
+						</div>
+					</ul>
+				</li>
+				<li class="sobre-nav"><a href="sobre.html">Sobre</a>
+					<ul class="dropdown">
+						<div>
+							<li><a href="sobre.html">Quem somos</a></li>
+							<li><a href="acessibilidade.html">Acessibilidade</a></li>
+							<li><a href="contato.html">Contato</a></li>
+						</div>
+					</ul>
+				</li>
+				<li><a href="newsletter.html">Newsletter</a></li>
+				<li><a href="login.html">Login</a></li>
+			</ul>
+		</nav>
+	</header>
+
+	<main>
+		<ul class="breadcrumb">
+			<li class="bc-home">Sobre</li>
+			<li class="bc-img-li"><img class="bc-img" src="img/bc-seta.png" alt="breadcrumb"></li>
+			<li class="bc-ultimo">Quem somos</li>
+		</ul>
+		<h1>QUEM SOMOS</h1>
+		<div id="img-sobre1">
+			<img id="img-sobre2" src="img/quemsomos.png" alt="Livro com página aberta em uma representação da logo da Cafeteria dos Contos">
+		</div>
+
+		<section class="sobre">
+			<p>Sente-se conosco, pegue sua xícara de chá, café, suco, água, e nos acompanhe na trajetória desse site reconfortante e aconchegante, o lugar perfeito para seus textos e suas distrações. Já se sente em casa? Ótimo, então já podemos começar nossa viagem por entre tantas histórias e aventuras juntos.
+			</p>
+		</section>
+
+		<section class="sobre">
+			<h2>Sobre o projeto</h2>
+			<p>A Cafeteria dos Contos é um projeto desenvolvido por Bianca Carvalho, uma adolescente amante de contos e histórias com uma imaginação extremamente fértil. Tendo a escrita como hobbie e a multimídia como sonho de profissão, decidiu juntar seus dois sonhos e tornar este projeto uma realidade: um lugar onde todos possam, finalmente, ler seus contos. Não só isso, mas se inspirar neles.
+			</p>
+			<p>
+			Bianca acredita muito na ideia de inspirações e referências para escrever textos. Sem ideias, como poderemos pensar? Como poderemos nos expressar? A literatura sempre terá uma parte de nós com ela, e só poderemos nos mostrar em plenitude quando também conhecermos a literatura dos outros.
+			</p>
+			<p>Com contos pequenos, simples e reconfortantes para quem os lê, os textos disponibilizados tem como intuito incentivar jovens escritores a continuarem escrevendo e tendo inspirações, seguindo com suas criações e suas vontades de liberdade de expressão. Com um formato acessível para dispositivos móveis, o acesso a literatura se amplia, podendo alcançar até mesmo quem não tem tempo e/ou dinheiro para consumir livros e obras físicas, propagando ainda mais a cultura de <strong>LER</strong>!</p>
+			<p class="pequeno">Bianca Carvalho</p>
+		</section>
+
+		<section id="sobre-acessibilidade1">
+			<div id="sobre-acessibilidade2">
+
+					<img src="img/acessibilidade.png" alt="Ícone de acessibilidade">
+
+				<div id="sobre-acessibilidade3">
+					<h2>ACESSIBILIDADE</h2>
+					<p>Como tornar textos acessíveis para todo mundo? Como fazer com que o máximo de pessoas tenham acesso à leitura, não importa onde estejam ou como sejam? É simples! É só pensarmos na acessibilidade.</p>
+					<button><a href="acessibilidade.html">SAIBA MAIS</a></button>
+				</div>
+			</div>
+		</section>
+		<a href="#nav"><img id="seta" src="img/Seta.png" alt="Seta para o topo da página"></a>
+	</main>
+
+	<footer>
+		<div id="rodape">
+			<p>Contato: bianca.fac@gmail.com</p>
+
+			<div id="redes-sociais">
+				<a href="https://www.instagram.com" target="_blank"><img src="img/ig.png" alt="Instagram"></a>
+				<a href="https://twitter.com/home" target="_blank"><img src="img/twt.png" alt="Twitter"></a>
+				<a href="https://www.tiktok.com/pt-BR/" target="_blank"><img src="img/ttk.png" alt="TikTok"></a>
+			</div>
+		</div>
+	</footer>
+</body>
+</html>

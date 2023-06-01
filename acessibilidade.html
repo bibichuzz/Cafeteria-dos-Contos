@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Acessibilidade</title>
+	<link rel="stylesheet" href="css/style.css">
+	<link rel="icon" type="image/x-icon" href="img/favicon.ico">
+
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Henny+Penny&family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+
+<!--        Menu Responsivo -->
+<script src="https://kit.fontawesome.com/3a591bff9c.js" crossorigin="anonymous"></script>
+<!-- Função Menu Responsivo - Teste -->
+<script>		function myFunction() {
+	document.getElementsByClassName("menu")[0].classList.toggle("responsive");}
+</script>
+
+</head>
+<body>
+	<header>
+		<nav id="nav">
+			<a href="index.html"><img width="300px" src="img/LogoPNG.png" alt="Logo Cafeteria dos Contos"></a>
+			<ul class="menu">
+				<!--                    Linha adicionada para o menu responsivo -->
+				<li class="icon"><a href="javascript:void(0);" onclick="myFunction()">&#9776;</a></li>
+				<li><a href="index.html">Home</a></li>
+				<li class="conto-nav"><a href="contos.html">Contos</a>
+					<ul class="dropdown">
+						<div>
+							<li><a href="suspense.html">Suspense</a></li>
+							<li><a href="terror.html">Terror</a></li>
+							<li><a href="lgbt.html">LGBTQIA+</a></li>
+							<li><a href="romance.html">Romance</a></li>
+						</div>
+						<div>
+							<li><a href="fantasia.html">Fantasia</a></li>
+							<li><a href="ficcao.html">Ficção</a></li>
+							<li><a href="humor.html">Humor</a></li>
+							<li><a href="drama.html">Drama</a></li>
+						</div>
+					</ul>
+				</li>
+				<li class="sobre-nav"><a href="sobre.html">Sobre</a>
+					<ul class="dropdown">
+						<div>
+							<li><a href="sobre.html">Quem somos</a></li>
+							<li><a href="acessibilidade.html">Acessibilidade</a></li>
+							<li><a href="contato.html">Contato</a></li>
+						</div>
+					</ul>
+				</li>
+				<li><a href="newsletter.html">Newsletter</a></li>
+				<li><a href="login.html">Login</a></li>
+			</ul>
+		</nav>
+	</header>
+
+	<main>
+		<ul class="breadcrumb">
+			<li class="bc-home">Sobre</li>
+			<li class="bc-img-li"><img class="bc-img" src="img/bc-seta.png" alt="breadcrumb"></li>
+			<li class="bc-ultimo">Acessibilidade</li>
+		</ul>
+		<section class="sobre">
+			<h1>ACESSIBILIDADE</h1>
+			<div id="acessibilidade-img"><img src="img/acessibilidade.png" alt="Ícone de acessibilidade"></div>
+			<p>Pensando que a Cafeteria dos Contos tem como objetivo e missão alcançar muitas pessoas, para que estas possam ter acesso fácil, rápido e prático a textos, uma ideia surgiu em meio à criação do projeto: e se disponibilizassemos áudios para os leitores, para que o site alcance tanto pessoas com deficiências visuais como pessoas apressadas e ocupadas, que não tem tempo para ler um conto, mas que tem tempo para ouvi-lo?</p>
+			<p>É claro que leitores de tela podem fazer este trabalho para a gente, mas será que é a mesma coisa? Será que tem a mesma entonação, o mesmo impacto, a mesma preocupação? Com essas problemáticas em mente, a Cafeteria dos Contos oferece, em alguns de seus contos, áudios de leitura para os usuários que não podem acompanhar o texto pelas palavras escritas. Demais, não?</p>
+			<p>Mas espera! Também não somos profissionais. Ninguém sabe de tudo, e sempre podemos trabalhar para melhorar. Por isso, com a ajuda de vocês, vocês podem entrar em contato conosco se quiserem ajudar na adaptação de nossos textos para uma versão auditiva! O que acha dessa iniciativa?</p>
+		</section>
+
+		<section id="sobre-contato">
+			<p>TEM ALGUMA SUGESTÃO?
+				<br>
+				CONTATE-NOS!</p>
+			<a href="contato.html"><img src="img/contato.png" alt="Carta aberta para Contato"></a>
+		</section>
+		<a href="#nav"><img id="seta" src="img/Seta.png" alt="Seta para o topo da página"></a>
+	</main>
+
+	<footer>
+		<div id="rodape">
+			<p>Contato: bianca.fac@gmail.com</p>
+
+			<div id="redes-sociais">
+				<a href="https://www.instagram.com" target="_blank"><img src="img/ig.png" alt="Instagram"></a>
+				<a href="https://twitter.com/home" target="_blank"><img src="img/twt.png" alt="Twitter"></a>
+				<a href="https://www.tiktok.com/pt-BR/" target="_blank"><img src="img/ttk.png" alt="TikTok"></a>
+			</div>
+		</div>
+	</footer>
+</body>
+</html>

@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>O Acidente</title>
+	<link rel="stylesheet" href="../css/style.css">
+	<link rel="icon" type="image/x-icon" href="../img/favicon.ico">
+
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Henny+Penny&family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+
+<!--        Menu Responsivo -->
+<script src="https://kit.fontawesome.com/3a591bff9c.js" crossorigin="anonymous"></script>
+<!-- Função Menu Responsivo - Teste -->
+<script>		function myFunction() {
+	document.getElementsByClassName("menu")[0].classList.toggle("responsive");}
+</script>
+
+</head>
+<body>
+	<header>
+		<nav id="nav">
+			<a href="../index.html"><img width="300px" src="../img/LogoPNG.png" alt="Logo Cafeteria dos Contos"></a>
+			<ul class="menu">
+				<!--                    Linha adicionada para o menu responsivo -->
+				<li class="icon"><a href="javascript:void(0);" onclick="myFunction()">&#9776;</a></li>
+				<li><a href="../index.html">Home</a></li>
+				<li class="conto-nav"><a href="../contos.html">Contos</a>
+					<ul class="dropdown">
+						<div>
+							<li><a href="../suspense.html">Suspense</a></li>
+							<li><a href="../terror.html">Terror</a></li>
+							<li><a href="../lgbt.html">LGBTQIA+</a></li>
+							<li><a href="../romance.html">Romance</a></li>
+						</div>
+						<div>
+							<li><a href="../fantasia.html">Fantasia</a></li>
+							<li><a href="../ficcao.html">Ficção</a></li>
+							<li><a href="../humor.html">Humor</a></li>
+							<li><a href="../drama.html">Drama</a></li>
+						</div>
+					</ul>
+				</li>
+				<li class="sobre-nav"><a href="../sobre.html">Sobre</a>
+					<ul class="dropdown">
+						<div>
+							<li><a href="../sobre.html">Quem somos</a></li>
+							<li><a href="../acessibilidade.html">Acessibilidade</a></li>
+							<li><a href="../contato.html">Contato</a></li>
+						</div>
+					</ul>
+				</li>
+				<li><a href="../newsletter.html">Newsletter</a></li>
+				<li><a href="../login.html">Login</a></li>
+			</ul>
+		</nav>
+	</header>
+
+	<main class="textos">
+		<ul class="breadcrumb">
+			<li class="bc-home"><a href="../contos.html">Contos</a></li>
+			<li class="bc-img-li"><img class="bc-img" src="../img/bc-seta.png" alt="breadcrumb"></li>
+			<li><a href="../suspense.html">Suspense</a></li>
+			<li class="bc-img-li"><img class="bc-img" src="../img/bc-seta.png" alt="breadcrumb"></li>
+			<li class="bc-ultimo">O Acidente</li>
+
+		</ul>
+
+		<section class="textos">
+		<h1>O Acidente</h1>
+		<h2>Bia Carvalho</h2>
+
+		<audio id="music" preload="true">
+			<source src="audios/nao-disponivel.m4a">
+		  </audio>
+		  <div id="audioplayer">
+			<button id="pButton" class="play"></button>
+			<div id="timeline">
+			  <div id="playhead"></div>
+			</div>
+		  </div>
+		  
+		  <script>
+			var music = document.getElementById('music'); // id for audio element
+		var duration = music.duration; // Duration of audio clip, calculated here for embedding purposes
+		var pButton = document.getElementById('pButton'); // play button
+		var playhead = document.getElementById('playhead'); // playhead
+		var timeline = document.getElementById('timeline'); // timeline
+		
+		// timeline width adjusted for playhead
+		var timelineWidth = timeline.offsetWidth - playhead.offsetWidth;
+		
+		// play button event listenter
+		pButton.addEventListener("click", play);
+		
+		// timeupdate event listener
+		music.addEventListener("timeupdate", timeUpdate, false);
+		
+		// makes timeline clickable
+		timeline.addEventListener("click", function(event) {
+			moveplayhead(event);
+			music.currentTime = duration * clickPercent(event);
+		}, false);
+		
+		// returns click as decimal (.77) of the total timelineWidth
+		function clickPercent(event) {
+			return (event.clientX - getPosition(timeline)) / timelineWidth;
+		}
+		
+		// makes playhead draggable
+		playhead.addEventListener('mousedown', mouseDown, false);
+		window.addEventListener('mouseup', mouseUp, false);
+		
+		// Boolean value so that audio position is updated only when the playhead is released
+		var onplayhead = false;
+		
+		// mouseDown EventListener
+		function mouseDown() {
+			onplayhead = true;
+			window.addEventListener('mousemove', moveplayhead, true);
+			music.removeEventListener('timeupdate', timeUpdate, false);
+		}
+		
+		// mouseUp EventListener
+		// getting input from all mouse clicks
+		function mouseUp(event) {
+			if (onplayhead == true) {
+				moveplayhead(event);
+				window.removeEventListener('mousemove', moveplayhead, true);
+				// change current time
+				music.currentTime = duration * clickPercent(event);
+				music.addEventListener('timeupdate', timeUpdate, false);
+			}
+			onplayhead = false;
+		}
+		// mousemove EventListener
+		// Moves playhead as user drags
+		function moveplayhead(event) {
+			var newMargLeft = event.clientX - getPosition(timeline);
+		
+			if (newMargLeft >= 0 && newMargLeft <= timelineWidth) {
+				playhead.style.marginLeft = newMargLeft + "px";
+			}
+			if (newMargLeft < 0) {
+				playhead.style.marginLeft = "0px";
+			}
+			if (newMargLeft > timelineWidth) {
+				playhead.style.marginLeft = timelineWidth + "px";
+			}
+		}
+		
+		// timeUpdate
+		// Synchronizes playhead position with current point in audio
+		function timeUpdate() {
+			var playPercent = timelineWidth * (music.currentTime / duration);
+			playhead.style.marginLeft = playPercent + "px";
+			if (music.currentTime == duration) {
+				pButton.className = "";
+				pButton.className = "play";
+			}
+		}
+		
+		//Play and Pause
+		function play() {
+			// start music
+			if (music.paused) {
+				music.play();
+				// remove play, add pause
+				pButton.className = "";
+				pButton.className = "pause";
+			} else { // pause music
+				music.pause();
+				// remove pause, add play
+				pButton.className = "";
+				pButton.className = "play";
+			}
+		}
+		
+		// Gets audio file duration
+		music.addEventListener("canplaythrough", function() {
+			duration = music.duration;
+		}, false);
+		
+		// getPosition
+		// Returns elements left position relative to top-left of viewport
+		function getPosition(el) {
+			return el.getBoundingClientRect().left;
+		}
+		</script>
+		  
+		  <p>Uma bola de neve acerta em cheio a nuca de Mia, que logo em seguida se vira para arremessar outra na direção de Gabriel. As duas crianças estavam brincando por horas na neve fofa da montanha, aproveitando o último dia de hospedagem no local. Mel, a vira-lata da família, perseguia os dois com pulos e cambalhotas, muitas vezes sem conseguir se equilibrar no solo macio.</p>
+		  <p>Do topo da montanha, se via longas florestas de pinheiros, acompanhadas por uma cordilheira ainda maior. Por conta da altitude, uma neblina fina preenchia o céu, limitando a visão dos irmãos, que corriam em volta do albergue e lutavam em seus castelos construídos com neve.</p>
+		  <p>Seu pai avisou-os para tomarem cuidado com as brincadeiras enquanto ele arrumava as malas, sempre observando pela janela para ter controle do que faziam lá fora. Bem agasalhados, pareciam dois pontinhos coloridos, um azul e um verde, respingados no papel em branco.</p>
+		  <p>Os jovens demoravam a se cansar, e a cachorra continuava com a agitação do início do dia. Disparavam pela neve, com Mel avançando contra eles e derrubando-os com o impacto. Um passatempo que era costumeiro para eles nunca pareceu tão divertido.</p>
+		  <p>Certo momento, Gabriel e Mia corriam ofegantes lado a lado, com a cadela em seu encalço, empenhando-se para alcançá-los. Ao se aproximarem do limite imposto pelo pai para se divertirem, brecaram bruscamente. Mas eles não esperavam que Mel não parasse de correr.</p>
+		  <p>O animal saltou para cima de Mia, e a garotinha, ao atingir o chão, escorregou da borda da montanha e começou a deslizar lentamente pela neve. Desesperada, ela procurou uma pedra para se segurar e tentou subir de volta para o topo, mas o chão era muito fofo, e nada parecia adiantar. Gabriel gritava como louco, o que chamou a atenção do pai, João, que acabava de organizar os pertences de todos. Ao olhar pela janela, o pânico se instaurou em seu corpo, e o homem apressou-se na direção de Mia, mesmo sem saber o que fazer.</p>
+		  <p>Cada vez mais, a filha descia, se afastando e dificultando sua volta à superfície. João, aflito, voltou depressa para a casa buscar uma corda, mas o tempo se esgotava. Gabriel fitava a irmã com o mesmo olhar de medo que ela tinha, sem poder fazer nada para salvá-la, imóvel enquanto a observava ir cada vez mais longe.</p>
+		  <p>Mia, incapacitada de se segurar em algo, foi rolando montanha abaixo, uma bolinha azul que rapidamente sumia em meio à neve branca e à floresta densa. O ponto desapareceu do campo de visão de Gabriel. E nunca mais foi visto.</p>
+		  
+		</section>
+		<section>
+			<p class="categoria">Categorias: <a href="../suspense.html">Suspense</a></p>
+		</section>
+
+		<section class="comentario">
+			<h2>Comentários</h2>
+			<form>
+				<textarea name="comentario" id="comentario-texto" placeholder="Faça um comentário..."></textarea>
+				<input type="image" id="seta-comentario" src="../img/seta-comentario.png">
+			</form>
+		</section>
+		
+		<section>
+			<h3>Se você gosta de Suspense, pode gostar de...</h3>
+			<div class="contos-slider">
+				<div class="continho">
+					<a href="eterna-presa.html"><img src="capas/eterna presa.png" alt="Eternamente Presa - Capa"></a>
+					<h4>Eternamente Presa</h4>
+				</div>
+				<div class="continho">
+					<a href="carta.html"><img src="capas/carta.png" alt="A Carta - Capa"></a>
+					<h4>A Carta</h4>
+				</div>
+				<div class="continho">
+					<a href="bom dia.html"><img src="capas/bom dia.png" alt="Bom Dia! - Capa"></a>
+					<h4>Bom Dia!</h4>
+				</div>
+				<div class="continho">
+					<a href="meu passado.html"><img src="capas/meu passado.png" alt="O Que Deixei Para Trás - Capa"></a>
+					<h4>O Que Deixei Para Trás</h4>
+				</div>
+				<div class="continho">
+					<a href="nobre-bruxa.html"><img src="capas/nobre bruxa.png" alt="A Nobre Bruxa - Capa"></a>
+					<h4>A Nobre Bruxa</h4>
+				</div>
+		</section>
+		<section>
+			<h3>Mais textos de Bia Carvalho</h3>
+			<div class="contos-slider">
+				<div class="continho">
+					<a href="telhado.html"><img src="capas/telhado.png" alt="Telhado de Natal - Capa"></a>
+					<h4>Telhado de Natal</h4>
+				</div>
+				<div class="continho">
+					<a href="então-natal.html"><img src="capas/ent eh natal.png" alt="Então, é Natal - Capa"></a>
+					<h4>Então, é Natal</h4>
+				</div>
+				<div class="continho">
+					<a href="realeza.html"><img src="capas/segredos realeza.png" alt="Segredos da Realeza - Capa"></a>
+					<h4>Segredos da Realeza</h4>
+				</div>
+				<div class="continho">
+					<a href="mãe.html"><img src="capas/mãe.png" alt="Mãe? - Capa"></a>
+					<h4>Mãe?</h4>
+				</div>
+				<div class="continho">
+					<a href="milagre.html"><img src="capas/milagre.png" alt="Milagre - Capa"></a>
+					<h4>Milagre</h4>
+				</div>
+		</section>
+		<section>
+			<h3>Parecidos com O Acidente</h3>
+			<div class="contos-slider">
+				<div class="continho">
+					<a href="saudades.html"><img src="capas/saudades.png" alt="Saudades - Capa"></a>
+					<h4>Saudades</h4>
+				</div>
+				<div class="continho">
+					<a href="telhado.html"><img src="capas/telhado.png" alt="Telhado de Natal - Capa"></a>
+					<h4>Telhado de Natal</h4>
+				</div>
+				<div class="continho">
+					<a href="milagre.html"><img src="capas/milagre.png" alt="Milagre - Capa"></a>
+					<h4>Milagre</h4>
+				</div>
+				<div class="continho">
+					<a href="carta.html"><img src="capas/carta.png" alt="A Carta - Capa"></a>
+					<h4>A Carta</h4>
+				</div>
+				<div class="continho">
+					<a href="separacao.html"><img src="capas/separação.png" alt="A Separação - Capa"></a>
+					<h4>A Separação</h4>
+				</div>
+		</section>
+
+		<a href="#nav"><img id="seta" src="../img/Seta.png" alt="Seta para o topo da página"></a>
+	</main>
+
+	<footer>
+		<div id="rodape">
+			<p>Contato: bianca.fac@gmail.com</p>
+
+			<div id="redes-sociais">
+				<a href="https://www.instagram.com" target="_blank"><img src="../img/ig.png" alt="Instagram"></a>
+				<a href="https://twitter.com/home" target="_blank"><img src="../img/twt.png" alt="Twitter"></a>
+				<a href="https://www.tiktok.com/pt-BR/" target="_blank"><img src="../img/ttk.png" alt="TikTok"></a>
+			</div>
+		</div>
+	</footer>
+</body>
+</html>

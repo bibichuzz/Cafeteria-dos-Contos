@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Seres Estranhos</title>
+	<link rel="stylesheet" href="../css/style.css">
+	<link rel="icon" type="image/x-icon" href="../img/favicon.ico">
+
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Henny+Penny&family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+
+<!--        Menu Responsivo -->
+<script src="https://kit.fontawesome.com/3a591bff9c.js" crossorigin="anonymous"></script>
+<!-- Função Menu Responsivo - Teste -->
+<script>		function myFunction() {
+	document.getElementsByClassName("menu")[0].classList.toggle("responsive");}
+</script>
+
+</head>
+<body>
+	<header>
+		<nav id="nav">
+			<a href="../index.html"><img width="300px" src="../img/LogoPNG.png" alt="Logo Cafeteria dos Contos"></a>
+			<ul class="menu">
+				<!--                    Linha adicionada para o menu responsivo -->
+				<li class="icon"><a href="javascript:void(0);" onclick="myFunction()">&#9776;</a></li>
+				<li><a href="../index.html">Home</a></li>
+				<li class="conto-nav"><a href="../contos.html">Contos</a>
+					<ul class="dropdown">
+						<div>
+							<li><a href="../suspense.html">Suspense</a></li>
+							<li><a href="../terror.html">Terror</a></li>
+							<li><a href="../lgbt.html">LGBTQIA+</a></li>
+							<li><a href="../romance.html">Romance</a></li>
+						</div>
+						<div>
+							<li><a href="../fantasia.html">Fantasia</a></li>
+							<li><a href="../ficcao.html">Ficção</a></li>
+							<li><a href="../humor.html">Humor</a></li>
+							<li><a href="../drama.html">Drama</a></li>
+						</div>
+					</ul>
+				</li>
+				<li class="sobre-nav"><a href="../sobre.html">Sobre</a>
+					<ul class="dropdown">
+						<div>
+							<li><a href="../sobre.html">Quem somos</a></li>
+							<li><a href="../acessibilidade.html">Acessibilidade</a></li>
+							<li><a href="../contato.html">Contato</a></li>
+						</div>
+					</ul>
+				</li>
+				<li><a href="../newsletter.html">Newsletter</a></li>
+				<li><a href="../login.html">Login</a></li>
+			</ul>
+		</nav>
+	</header>
+
+	<main class="textos">
+		<ul class="breadcrumb">
+			<li class="bc-home"><a href="../contos.html">Contos</a></li>
+			<li class="bc-img-li"><img class="bc-img" src="../img/bc-seta.png" alt="breadcrumb"></li>
+			<li><a href="../fantasia.html">Fantasia</a></li>
+			<li class="bc-img-li"><img class="bc-img" src="../img/bc-seta.png" alt="breadcrumb"></li>
+			<li class="bc-ultimo">Seres Estranhos</li>
+
+		</ul>
+
+		<section class="textos">
+		<h1>Seres Estranhos</h1>
+		<h2>Bia Carvalho</h2>
+
+		<audio id="music" preload="true">
+			<source src="audios/nao-disponivel.m4a">
+		  </audio>
+		  <div id="audioplayer">
+			<button id="pButton" class="play"></button>
+			<div id="timeline">
+			  <div id="playhead"></div>
+			</div>
+		  </div>
+		  
+		  <script>
+			var music = document.getElementById('music'); // id for audio element
+		var duration = music.duration; // Duration of audio clip, calculated here for embedding purposes
+		var pButton = document.getElementById('pButton'); // play button
+		var playhead = document.getElementById('playhead'); // playhead
+		var timeline = document.getElementById('timeline'); // timeline
+		
+		// timeline width adjusted for playhead
+		var timelineWidth = timeline.offsetWidth - playhead.offsetWidth;
+		
+		// play button event listenter
+		pButton.addEventListener("click", play);
+		
+		// timeupdate event listener
+		music.addEventListener("timeupdate", timeUpdate, false);
+		
+		// makes timeline clickable
+		timeline.addEventListener("click", function(event) {
+			moveplayhead(event);
+			music.currentTime = duration * clickPercent(event);
+		}, false);
+		
+		// returns click as decimal (.77) of the total timelineWidth
+		function clickPercent(event) {
+			return (event.clientX - getPosition(timeline)) / timelineWidth;
+		}
+		
+		// makes playhead draggable
+		playhead.addEventListener('mousedown', mouseDown, false);
+		window.addEventListener('mouseup', mouseUp, false);
+		
+		// Boolean value so that audio position is updated only when the playhead is released
+		var onplayhead = false;
+		
+		// mouseDown EventListener
+		function mouseDown() {
+			onplayhead = true;
+			window.addEventListener('mousemove', moveplayhead, true);
+			music.removeEventListener('timeupdate', timeUpdate, false);
+		}
+		
+		// mouseUp EventListener
+		// getting input from all mouse clicks
+		function mouseUp(event) {
+			if (onplayhead == true) {
+				moveplayhead(event);
+				window.removeEventListener('mousemove', moveplayhead, true);
+				// change current time
+				music.currentTime = duration * clickPercent(event);
+				music.addEventListener('timeupdate', timeUpdate, false);
+			}
+			onplayhead = false;
+		}
+		// mousemove EventListener
+		// Moves playhead as user drags
+		function moveplayhead(event) {
+			var newMargLeft = event.clientX - getPosition(timeline);
+		
+			if (newMargLeft >= 0 && newMargLeft <= timelineWidth) {
+				playhead.style.marginLeft = newMargLeft + "px";
+			}
+			if (newMargLeft < 0) {
+				playhead.style.marginLeft = "0px";
+			}
+			if (newMargLeft > timelineWidth) {
+				playhead.style.marginLeft = timelineWidth + "px";
+			}
+		}
+		
+		// timeUpdate
+		// Synchronizes playhead position with current point in audio
+		function timeUpdate() {
+			var playPercent = timelineWidth * (music.currentTime / duration);
+			playhead.style.marginLeft = playPercent + "px";
+			if (music.currentTime == duration) {
+				pButton.className = "";
+				pButton.className = "play";
+			}
+		}
+		
+		//Play and Pause
+		function play() {
+			// start music
+			if (music.paused) {
+				music.play();
+				// remove play, add pause
+				pButton.className = "";
+				pButton.className = "pause";
+			} else { // pause music
+				music.pause();
+				// remove pause, add play
+				pButton.className = "";
+				pButton.className = "play";
+			}
+		}
+		
+		// Gets audio file duration
+		music.addEventListener("canplaythrough", function() {
+			duration = music.duration;
+		}, false);
+		
+		// getPosition
+		// Returns elements left position relative to top-left of viewport
+		function getPosition(el) {
+			return el.getBoundingClientRect().left;
+		}
+		</script>
+		  
+		  <p>Seis horas da tarde. Parece cedo, mas depois de uma semana repleta de trabalho, parecia uma eternidade para chegar lá. Tudo o que eu mais queria era que meu expediente na joalheria acabasse, desejando descansar o final de semana inteiro. Eu apresentava tanta sonolência que poderia dormir por dois dias seguidos.</p>
+		  <p>Mas eu tinha um compromisso marcado com Cora. Não podia deixá-la na mão. Diferente de certas sereias, sou leal a tudo o que me confiam.</p>
+		  <p>Quando a loja fechou, nunca nadei tão rápido. Minha cauda balançava fortemente, me levando em direção ao meu lar, o qual eu dividia com minhas primas. Era pequeno, mas era onde eu me sentia em casa.</p>
+		  <p>O apartamento estava silencioso, graças à viagem das meninas para Marejana, que ficava a duas horas, pegando atalhos de correnteza, de nossa cidade, Atlântida. Atlântida não era uma cidade muito grande, mas a maior parte da população marinha vivia nela, considerada o centro de nossa civilização. Tudo acontecia na capital: encontros políticos, festivais, comércio importado... Era o lugar ideal para quem procurava uma vida diferente e agitada.</p>
+		  <p>No meu quarto, apanhei as joias jogadas na cama e o sutiã pendurado no cabide ao lado da porta. Estava sem tempo para me arrumar adequadamente, então enfiei o colar no meu pescoço e saí dos aposentos, pronta para me encontrar com Cora.</p>
+		  <p>A rua estava movimentada, mas não do jeito em que eu estava acostumada. Sereias apressadas nadavam na minha frente com caras assustadas e muitas crianças gritavam histericamente, seus pais tentando contê-las sem sucesso.</p>
+		  <p>Ao longe, uma sombra chamou minha atenção. Ignorei a movimentação da cidade e foquei meu olhar no pequeno vulto que se aproximava vagarosamente de Atlântida. Na verdade, eram vários vultos. Milhares.</p>
+		  <p>Um grupo de curiosos se agrupava mais perto dos objetos não-identificados, tentando entender o que se passava e, principalmente, o que eram aquelas peças que flutuavam na água. Como elas pararam aqui? De onde vieram? Quando chegaram?</p>
+		  <p>Ao observar de um ponto mais próximo, eu vi rostos de sereias. Eram estátuas? Refugiados? Mas essas sereias tinham duas caudas. Estranhamente, suas caudas não possuíam escamas, eram lisas e com formatos incomuns.</p>
+		  <p>Então eu compreendi. Era um ser desconhecido. Um ser estranho. Um ser que nenhuma sereia jamais havia visto. Mal sabia eu que esse seria o ser que destruiria a minha vida e a de todos os meus semelhantes em pedaços.</p>
+		  <p>Posteriormente, eu aprendi o nome desses seres. Humanos. Seres humanos desprezíveis que, se eu pudesse, arrancaria a cabeça de cada um deles. Monstros que acabaram com o meu mundo e que provavelmente estão acabando com o deles também. Não me surpreenderia se a humanidade acabasse repentinamente. Eles não merecem viver. Não depois do que fizeram. Não depois do que destruíram.</p>
+		  
+		</section>
+		
+		<section>
+			<p class="categoria">Categorias: <a href="../fantasia.html">Fantasia</a></p>
+		</section>
+
+		<section class="comentario">
+			<h2>Comentários</h2>
+			<form>
+				<textarea name="comentario" id="comentario-texto" placeholder="Faça um comentário..."></textarea>
+				<input type="image" id="seta-comentario" src="../img/seta-comentario.png">
+			</form>
+		</section>
+
+		<section>
+			<h3>Se você gosta de Fantasia, pode gostar de...</h3>
+			<div class="contos-slider">
+				<div class="continho">
+					<a href="nobre-bruxa.html"><img src="capas/nobre bruxa.png" alt="A Nobre Bruxa - Capa"></a>
+					<h4>A Nobre Bruxa</h4>
+				</div>
+				<div class="continho">
+					<a href="realeza.html"><img src="capas/segredos realeza.png" alt="Segredos da Realeza - Capa"></a>
+					<h4>Segredos da Realeza</h4>
+				</div>
+				<div class="continho">
+					<a href="entrevista.html"><img src="capas/entrevistada.png" alt="Entrevistada - Capa"></a>
+					<h4>Entrevistada</h4>
+				</div>
+				<div class="continho">
+					<a href="futuro-chegou.html"><img src="capas/futuro.png" alt="O Futuro Chegou - Capa"></a>
+					<h4>O Futuro Chegou</h4>
+				</div>
+				<div class="continho">
+					<a href="donzela.html"><img src="capas/donzela.png" alt="Ó, Donzela! - Capa"></a>
+					<h4>Ó, Donzela!</h4>
+				</div>
+		</section>
+		<section>
+			<h3>Mais textos de Bia Carvalho</h3>
+			<div class="contos-slider">
+				<div class="continho">
+					<a href="mãe.html"><img src="capas/mãe.png" alt="Mãe? - Capa"></a>
+					<h4>Mãe?</h4>
+				</div>
+				<div class="continho">
+					<a href="mensagem.html"><img src="capas/mensagem.png" alt="Mensagens - Capa"></a>
+					<h4>Mensagens</h4>
+				</div>
+				<div class="continho">
+					<a href="festa.html"><img src="capas/alcool.png" alt="Álcool - Capa"></a>
+					<h4>Álcool</h4>
+				</div>
+				<div class="continho">
+					<a href="de-manha.html"><img src="capas/de manhã.png" alt="De Manhã - Capa"></a>
+					<h4>De Manhã</h4>
+				</div>
+				<div class="continho">
+					<a href="chocolate.html"><img src="capas/chocolate.png" alt="Chocolate - Capa"></a>
+					<h4>Chocolate</h4>
+				</div>
+		</section>
+		<section>
+			<h3>Parecidos com Seres Estranhos</h3>
+			<div class="contos-slider">
+				<div class="continho">
+					<a href="bom dia.html"><img src="capas/bom dia.png" alt="Bom Dia! - Capa"></a>
+					<h4>Bom Dia!</h4>
+				</div>
+				<div class="continho">
+					<a href="acidente.html"><img src="capas/acidente.png" alt="O Acidente - Capa"></a>
+					<h4>O Acidente</h4>
+				</div>
+				<div class="continho">
+					<a href="donzela.html"><img src="capas/donzela.png" alt="Ó, Donzela! - Capa"></a>
+					<h4>Ó, Donzela!</h4>
+				</div>
+				<div class="continho">
+					<a href="fogueira.html"><img src="capas/fogueira.png" alt="Fogueira - Capa"></a>
+					<h4>Fogueira</h4>
+				</div>
+				<div class="continho">
+					<a href="futuro-chegou.html"><img src="capas/futuro.png" alt="O Futuro Chegou - Capa"></a>
+					<h4>O Futuro Chegou</h4>
+				</div>
+		</section>
+
+		<a href="#nav"><img id="seta" src="../img/Seta.png" alt="Seta para o topo da página"></a>
+	</main>
+
+	<footer>
+		<div id="rodape">
+			<p>Contato: bianca.fac@gmail.com</p>
+
+			<div id="redes-sociais">
+				<a href="https://www.instagram.com" target="_blank"><img src="../img/ig.png" alt="Instagram"></a>
+				<a href="https://twitter.com/home" target="_blank"><img src="../img/twt.png" alt="Twitter"></a>
+				<a href="https://www.tiktok.com/pt-BR/" target="_blank"><img src="../img/ttk.png" alt="TikTok"></a>
+			</div>
+		</div>
+	</footer>
+</body>
+</html>
